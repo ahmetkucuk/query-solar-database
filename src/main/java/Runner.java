@@ -1,4 +1,5 @@
 import models.Event;
+import utils.Constants;
 
 import java.sql.Connection;
 import java.sql.DriverManager;
@@ -19,10 +20,10 @@ public class Runner {
             Class.forName("org.postgresql.Driver");
 
             // the postgresql url
-            String url = "jdbc:postgresql://localhost/ahmetkucuk";
+            String url = "jdbc:postgresql://" + Constants.DB.DB_HOST + "/" + Constants.DB.DB_NAME;
 
             // get the postgresql database connection
-            connection = DriverManager.getConnection(url,"ahmetkucuk", "");
+            connection = DriverManager.getConnection(url,Constants.DB.DB_USERNAME, Constants.DB.DB_USER_PASSWORD);
 
             ResultSet r = connection.createStatement().executeQuery("SELECT * FROM pg_catalog.pg_tables");
             while(r.next()) {
