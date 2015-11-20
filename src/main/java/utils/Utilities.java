@@ -1,8 +1,14 @@
 package utils;
 
+import com.google.gson.JsonArray;
+import com.google.gson.JsonElement;
+import com.google.gson.JsonParser;
 import models.Event;
 
 import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.FileReader;
+import java.io.IOException;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.*;
@@ -21,6 +27,38 @@ public class Utilities {
         return f.exists() && !f.isDirectory();
     }
 
+    public static List<Event> convertFileToJSON(String fileName){
+
+        // Read from File to String
+        List<Event> eventList = new ArrayList<>();
+
+        try(FileReader fileReader = new FileReader(fileName)) {
+            JsonParser parser = new JsonParser();
+            JsonElement jsonElement = parser.parse(fileReader);
+            JsonArray eventsJson = jsonElement.getAsJsonObject().get("result").getAsJsonArray();
+            for(int i = 0; i < eventsJson.size(); i++) {
+                eventList.add(new Event(eventsJson.get(i).getAsJsonObject()));
+            }
+        } catch (FileNotFoundException e) {
+            e.printStackTrace();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
+
+        return eventList;
+    }
+
+    public static String generateInsertQueryForAR(Event event) {
+
+        List<String> values = new LinkedList<>();
+        for(String s : Constants.QUERY.AR_ATTRIBUTE_LIST) {
+            values.add(event.get(s));
+        }
+        return String.format(Constants.QUERY.INSERT_INTO_AR, String.join(",", values));
+
+    }
+
 
     public static Date getDateFromString(String dateString) throws ParseException{
 
@@ -34,24 +72,6 @@ public class Utilities {
         SimpleDateFormat formatter1 = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss'Z'");
         //SimpleDateFormat formatter2 = new SimpleDateFormat("HH:MM:SS");
         return formatter1.format(date);
-    }
-
-    public static List<Event> getEventByTime(String inputFile, String eventTime) throws ParseException {
-
-        List result = new ArrayList();
-        SimpleDateFormat dateFormatter = new SimpleDateFormat("dd/MM/yyyy HH:mm:ss");
-        Date date = dateFormatter.parse(eventTime);
-        System.out.println(date);
-        EventFileReader.init(inputFile);
-        Event event = null;
-        while((event = EventFileReader.getInstance().next()) != null) {
-            if(event.getStartDate().getTime() == date.getTime()) {
-                System.out.println("Time: " + event);
-                result.add(event);
-            }
-        }
-
-        return result;
     }
 
 

@@ -21,4 +21,9 @@ public class Constants {
         public static final String DB_USER_PASSWORD = "";
         public static final int DB_PORT = 0;
     }
+
+    public static class QUERY {
+        public static final String[] AR_ATTRIBUTE_LIST = new String[] {"event_starttime", "kb_archivid", "event_type"};
+        public static final String INSERT_INTO_AR = "INSERT INTO AR (" + String.join(",", AR_ATTRIBUTE_LIST) + ") VALUES (%s);";
+    }
 }
