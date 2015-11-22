@@ -5,10 +5,7 @@ import com.google.gson.JsonElement;
 import com.google.gson.JsonParser;
 import models.Event;
 
-import java.io.File;
-import java.io.FileNotFoundException;
-import java.io.FileReader;
-import java.io.IOException;
+import java.io.*;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.*;
@@ -26,6 +23,8 @@ public class Utilities {
         File f = new File(filePathString);
         return f.exists() && !f.isDirectory();
     }
+
+
 
     public static List<Event> convertFileToJSON(String fileName){
 
