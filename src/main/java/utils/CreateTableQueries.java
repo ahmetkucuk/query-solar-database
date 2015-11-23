@@ -10,6 +10,7 @@ import java.util.HashMap;
 import java.util.HashSet;
 import java.util.Map;
 import java.util.Set;
+import java.util.concurrent.SynchronousQueue;
 
 /**
  * Created by ahmetkucuk on 22/11/15.
@@ -19,6 +20,19 @@ public class CreateTableQueries {
     public static final String ATTRIBUTE_BASE = "/Users/ahmetkucuk/Documents/GEORGIA_STATE/COURSES/Database_Systems/Project/Data/";
     public static final String ATTRIBUTE_LIST = ATTRIBUTE_BASE + "Parameter_Types.txt";
     public static final String EVENT_ATTRIBUTE_LIST = ATTRIBUTE_BASE + "%sprivate.txt";
+
+    private static final Map<String, String> attributeByPOSTGREDataTypeMap = new HashMap<>();
+    private static final Map<String, String> specialAttributes = new HashMap<>();
+    static {
+        attributeByPOSTGREDataTypeMap.put("float", "float");
+        attributeByPOSTGREDataTypeMap.put("string", "text");
+        attributeByPOSTGREDataTypeMap.put("integer", "integer");
+        attributeByPOSTGREDataTypeMap.put("long", "bigint");
+        attributeByPOSTGREDataTypeMap.put("null", "text");
+
+        specialAttributes.put("event_starttime", "TIMESTAMP");
+        specialAttributes.put("event_endtime", "TIMESTAMP");
+    }
 
     public void createTables() {
 
@@ -30,19 +44,18 @@ public class CreateTableQueries {
     }
 
     public static String createTableQuery(String attributeList, String subAttributeList, EventType eventType) {
-        Map<String, String> attributeByPOSTGREDataTypeMap = new HashMap<>();
-        attributeByPOSTGREDataTypeMap.put("float", "numeric");
-        attributeByPOSTGREDataTypeMap.put("string", "text");
-        attributeByPOSTGREDataTypeMap.put("integer", "integer");
-        attributeByPOSTGREDataTypeMap.put("null", "text");
 
         Map<String, String> map = getAttributesMap(attributeList);
         Set<String> set = getPrivateAttrSet(subAttributeList);
 
         Map<String, String> arMap = new HashMap<>();
         for(String s: set) {
-            String valueDataType = map.get(s);
-            arMap.put(s, attributeByPOSTGREDataTypeMap.get(valueDataType + ""));
+            String valueDataType = specialAttributes.get(s);
+
+            if(valueDataType == null) {
+                valueDataType = attributeByPOSTGREDataTypeMap.get(map.get(valueDataType) + "");
+            }
+            arMap.put(s, valueDataType);
         }
         return createQueryUsingMap(arMap, eventType);
     }
