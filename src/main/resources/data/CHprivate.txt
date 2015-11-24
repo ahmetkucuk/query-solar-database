@@ -1,0 +1,8 @@
+hgc_skeletoncc
+hgs_skeletoncc
+hpc_skeletoncc
+hrc_skeletoncc
+skel_chaincode
+skel_nsteps
+skel_startc1
+skel_startc2

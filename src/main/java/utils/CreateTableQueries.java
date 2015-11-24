@@ -18,8 +18,8 @@ import java.util.concurrent.SynchronousQueue;
 public class CreateTableQueries {
 
     public static final String ATTRIBUTE_BASE = "/Users/ahmetkucuk/Documents/GEORGIA_STATE/COURSES/Database_Systems/Project/Data/";
-    public static final String ATTRIBUTE_LIST = ATTRIBUTE_BASE + "Parameter_Types.txt";
-    public static final String EVENT_ATTRIBUTE_LIST = ATTRIBUTE_BASE + "%sprivate.txt";
+    public static final String ATTRIBUTE_LIST =  "data/Parameter_Types.txt";
+    public static final String EVENT_ATTRIBUTE_LIST = "data/%sprivate.txt";
 
     private static final Map<String, String> attributeByPOSTGREDataTypeMap = new HashMap<>();
     private static final Map<String, String> specialAttributes = new HashMap<>();
@@ -37,7 +37,8 @@ public class CreateTableQueries {
     public void createTables() {
 
         for(EventType e: EventType.values()) {
-            String query = CreateTableQueries.createTableQuery(ATTRIBUTE_LIST, String.format(EVENT_ATTRIBUTE_LIST, e.toString()), e);
+            String actualFilePath = String.format(EVENT_ATTRIBUTE_LIST, e.toString());
+            String query = CreateTableQueries.createTableQuery(FileManager.getInstance().getPath(ATTRIBUTE_LIST), FileManager.getInstance().getPath(actualFilePath), e);
             boolean result = new DBConnection().executeCommand(query);
             System.out.println(query);
         }
@@ -80,6 +81,7 @@ public class CreateTableQueries {
         Map<String, String> map = new HashMap<>();
         try(BufferedReader reader = new BufferedReader(new FileReader(attrFilePath))) {
 
+            //Skip first line - header
             String line = reader.readLine();
 
             while((line = reader.readLine()) != null) {
