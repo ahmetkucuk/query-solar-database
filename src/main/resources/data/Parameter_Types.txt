@@ -236,3 +236,4 @@ AR_SumPosSignedFlux	float
 AR_SumNegSignedFlux	float
 AR_NeutralLength	float
 AR_PILCurvature	float
+concept	string

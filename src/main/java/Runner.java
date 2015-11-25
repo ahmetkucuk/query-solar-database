@@ -1,8 +1,7 @@
-import models.Event;
-import utils.CreateTableQueries;
+import core.CreateTableQueries;
+import core.DBConnection;
+import core.InsertTableQueries;
 import utils.FileManager;
-import utils.Utilities;
-import java.util.List;
 
 
 /**
@@ -16,15 +15,18 @@ public class Runner {
 
     public static void main(String[] args) {
 
-        System.out.println(FileManager.getInstance().getPath("data/ARprivate.txt"));
 //
 //        List<Event> eventList = Utilities.convertFileToJSON(JSON_FILE);
 //        for(Event e: eventList) {
 //            System.out.println(Utilities.generateInsertQueryForAR(e));
 //        }
 
-        new CreateTableQueries().createTables();
-
+//        new CreateTableQueries().createTables();
+//        DBConnection.getInstance().executeFromFile(FileManager.getInstance().getPath("data/spatial_ref_sys.sql"));
+        DBConnection.getInstance().executeFromFile(FileManager.getInstance().getPath("data/NewHekScript.sql"));
+//        new InsertTableQueries(JSON_FILE).getInsertGEQueries().stream().forEach(q -> System.out.println(q));
+        new InsertTableQueries(JSON_FILE).getInsertGEQueries().stream().forEach(q -> DBConnection.getInstance().executeCommand(q));
+//        new InsertTableQueries(JSON_FILE).getInsertGEQueries().stream().forEach(q -> DBConnection.getInstance().executeCommand(q));
     }
 
 

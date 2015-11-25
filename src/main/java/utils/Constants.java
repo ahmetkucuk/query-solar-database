@@ -5,6 +5,11 @@ package utils;
  */
 public class Constants {
 
+    public static class DATA {
+        public static final String EVENT_ATTRIBUTE_LIST_BASE = "data/%sprivate.txt";
+        public static final String ATTRIBUTE_LIST =  "data/Parameter_Types.txt";
+    }
+
     public static class FieldNames {
 
         public static final String START_DATE = "event_starttime";
@@ -16,14 +21,15 @@ public class Constants {
 
     public static class DB {
         public static final String DB_HOST = "localhost";
-        public static final String DB_NAME = "ahmetkucuk";
+        public static final String DB_NAME = "dbproject";
         public static final String DB_USERNAME = "ahmetkucuk";
         public static final String DB_USER_PASSWORD = "";
         public static final int DB_PORT = 0;
     }
 
     public static class QUERY {
-        public static final String[] AR_ATTRIBUTE_LIST = new String[] {"event_starttime", "kb_archivid", "event_type"};
-        public static final String INSERT_INTO_AR = "INSERT INTO AR (" + String.join(",", AR_ATTRIBUTE_LIST) + ") VALUES (%s);";
+
+        public static final String INSERT_INTO = "INSERT INTO %s (%s) VALUES (%s);";
+        public static final String GEOMETRY_FORM = "ST_GeomFromText('%s',4326)";
     }
 }

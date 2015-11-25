@@ -1,5 +1,7 @@
 package models;
 
+import utils.Constants;
+
 /**
  * Created by ahmetkucuk on 01/10/15.
  */
@@ -7,7 +9,7 @@ public enum EventType {
     GE, AR, CH, FL, SG;
 
     public static EventType fromString(String s) {
-        switch (s) {
+        switch (s.toUpperCase()) {
             case "GE":
                 return GE;
             case "AR":

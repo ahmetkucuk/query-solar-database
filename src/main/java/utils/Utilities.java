@@ -4,6 +4,7 @@ import com.google.gson.JsonArray;
 import com.google.gson.JsonElement;
 import com.google.gson.JsonParser;
 import models.Event;
+import models.EventType;
 
 import java.io.*;
 import java.text.ParseException;
@@ -18,6 +19,57 @@ public class Utilities {
     private static final String DELIMETER_COOR = ",";
     private static final String DELIMETER_POINT = " ";
 
+    public static String getFileContent(String filePath) {
+        String result = "";
+        try(BufferedReader reader = new BufferedReader(new FileReader(filePath))) {
+            String line = null;
+
+            while((line = reader.readLine()) != null) {
+                result = result + line;
+            }
+            return result;
+        }catch (Exception e) {
+            e.printStackTrace();
+        }
+        return null;
+    }
+
+
+    public static Map<String, String> getAttributesMap(String attrFilePath) {
+
+        Map<String, String> map = new HashMap<>();
+        try(BufferedReader reader = new BufferedReader(new FileReader(attrFilePath))) {
+
+            //Skip first line - header
+            String line = reader.readLine();
+
+            while((line = reader.readLine()) != null) {
+                String[] columns = line.split("\t");
+                map.put(columns[0].toLowerCase(), columns[1].toLowerCase());
+            }
+            return map;
+        }catch (Exception e) {
+            e.printStackTrace();
+        }
+        return map;
+    }
+
+    public static List<String> getPrivateAttrSet(String attrFilePath) {
+
+        List<String> set = new ArrayList<>();
+        try(BufferedReader reader = new BufferedReader(new FileReader(attrFilePath))) {
+
+            String line = null;
+
+            while((line = reader.readLine()) != null) {
+                set.add(line.toLowerCase());
+            }
+            return set;
+        }catch (Exception e) {
+            e.printStackTrace();
+        }
+        return set;
+    }
 
     public static boolean isFileExists(String filePathString) {
         File f = new File(filePathString);
@@ -30,7 +82,7 @@ public class Utilities {
 
         // Read from File to String
         List<Event> eventList = new ArrayList<>();
-
+        System.out.println(fileName);
         try(FileReader fileReader = new FileReader(fileName)) {
             JsonParser parser = new JsonParser();
             JsonElement jsonElement = parser.parse(fileReader);
@@ -48,16 +100,6 @@ public class Utilities {
         return eventList;
     }
 
-    public static String generateInsertQueryForAR(Event event) {
-
-        List<String> values = new LinkedList<>();
-        for(String s : Constants.QUERY.AR_ATTRIBUTE_LIST) {
-            values.add(event.get(s));
-        }
-        return String.format(Constants.QUERY.INSERT_INTO_AR, String.join(",", values));
-
-    }
-
 
     public static Date getDateFromString(String dateString) throws ParseException{
 
@@ -73,28 +115,8 @@ public class Utilities {
         return formatter1.format(date);
     }
 
-
-    static final Map<String, Integer> map = new HashMap<>();
-    static final Map<String, Integer> mapofPossibleInputs = new HashMap<>();
-
     public static boolean isNumeric(String str)
     {
         return str.matches("-?\\d+(\\.\\d+)?");  //match a number with optional '-' and decimal.
-    }
-
-    public static boolean hasRealMeasurementValue(String measurement) {
-        if(isNumeric(measurement)) return true;
-
-        if(map.size() == 0)  {
-
-            mapofPossibleInputs.put("AIA 171, AIA 193", 171);
-            mapofPossibleInputs.put("AIA 193", 193);
-            mapofPossibleInputs.put("131_THIN", 131);
-            mapofPossibleInputs.put("94_THIN", 94);
-            mapofPossibleInputs.put("131_THICK", 131);
-            mapofPossibleInputs.put("94_THICK", 94);
-
-        }
-        return mapofPossibleInputs.containsKey(measurement);
     }
 }

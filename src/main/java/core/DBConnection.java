@@ -1,6 +1,7 @@
 package core;
 
 import utils.Constants;
+import utils.Utilities;
 
 import java.sql.Connection;
 import java.sql.DriverManager;
@@ -12,10 +13,11 @@ import java.sql.SQLException;
  */
 public class DBConnection {
 
+    private static final DBConnection instance = new DBConnection();
 
     private static Connection connection;
 
-    public DBConnection() {
+    private DBConnection() {
         try
         {
             // the postgresql driver string
@@ -40,6 +42,10 @@ public class DBConnection {
         }
     }
 
+    public static DBConnection getInstance() {
+        return instance;
+    }
+
     public boolean executeCommand(String query) {
         try {
             return connection.createStatement().execute(query);
@@ -47,5 +53,13 @@ public class DBConnection {
             e.printStackTrace();
         }
         return false;
+    }
+
+    public boolean executeFromFile(String file) {
+
+        String query = Utilities.getFileContent(file);
+        return executeCommand(query);
+
+
     }
 }
