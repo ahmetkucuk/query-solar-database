@@ -23,6 +23,12 @@ public class Event {
 
     public String get(String attr) {
         if(!eventJson.has(attr)) return null;
+
+        //Cut primary key
+        if(attr.equalsIgnoreCase("kb_archivid")) {
+            String kbArchivId = eventJson.get(attr).getAsString();
+            return kbArchivId.substring(kbArchivId.lastIndexOf("/")+1);
+        }
         JsonElement jsonElement = eventJson.get(attr);
         return jsonElement != null && !jsonElement.isJsonNull() ? jsonElement.getAsString() : null;
     }

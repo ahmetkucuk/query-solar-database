@@ -77,8 +77,13 @@ public class Utilities {
     }
 
 
-
-    public static List<Event> convertFileToJSON(String fileName){
+    /**
+     *
+     * @param fileName
+     * @param limit number of event to be extracted from json file
+     * @return
+     */
+    public static List<Event> convertFileToJSON(String fileName, int limit){
 
         // Read from File to String
         List<Event> eventList = new ArrayList<>();
@@ -87,7 +92,7 @@ public class Utilities {
             JsonParser parser = new JsonParser();
             JsonElement jsonElement = parser.parse(fileReader);
             JsonArray eventsJson = jsonElement.getAsJsonObject().get("result").getAsJsonArray();
-            for(int i = 0; i < eventsJson.size(); i++) {
+            for(int i = 0; i < eventsJson.size() && i < limit; i++) {
                 eventList.add(new Event(eventsJson.get(i).getAsJsonObject()));
             }
         } catch (FileNotFoundException e) {

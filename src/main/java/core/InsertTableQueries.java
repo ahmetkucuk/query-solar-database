@@ -44,7 +44,7 @@ public class InsertTableQueries {
 
     public InsertTableQueries(String fileName) {
         initAttributeMap();
-        events = Utilities.convertFileToJSON(fileName);
+        events = Utilities.convertFileToJSON(fileName, 100);
         insertQueries.addAll(events.stream().map(event -> generateInsertQuery(event)).collect(Collectors.toList()));
         insertGEQueries.addAll(events.stream().map(event -> generateGEInsertQuery(event)).collect(Collectors.toList()));
     }
@@ -54,9 +54,6 @@ public class InsertTableQueries {
         List<String> values = new LinkedList<>();
         List<String> attributes = eventTypeByAttributeMap.get(event.getEventType());
         values.addAll(attributes.stream().map(attribute -> getActualPostgreMapping(event, attribute)).collect(Collectors.toList()));
-        for(String s: geometryAttribute) {
-            System.out.println(attributeDataTypeMap.get(s));
-        }
         return String.format(Constants.QUERY.INSERT_INTO, event.getEventType().toString(), String.join(",", attributes), String.join(",", values));
     }
 
@@ -71,7 +68,10 @@ public class InsertTableQueries {
     public String getActualPostgreMapping(Event event, String attribute) {
 
         if(geometryAttribute.contains(attribute.toLowerCase())) {
-            System.out.println("hpc_boundcc " + String.format(Constants.QUERY.GEOMETRY_FORM, event.get(attribute)));
+            String attributeValue = event.get(attribute);
+            if(attributeValue == null || attributeValue.isEmpty()) {
+                return null;
+            }
             return String.format(Constants.QUERY.GEOMETRY_FORM, event.get(attribute));
         }
 
