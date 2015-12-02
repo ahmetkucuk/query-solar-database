@@ -6,6 +6,8 @@ package utils;
 public class Constants {
 
     public static class DATA {
+
+        public static final int NUMBER_OF_DATA_FROM_EACH_FILE = 100;
         public static final String EVENT_ATTRIBUTE_LIST_BASE = "data/%sprivate.txt";
         public static final String ATTRIBUTE_LIST =  "data/Parameter_Types.txt";
     }

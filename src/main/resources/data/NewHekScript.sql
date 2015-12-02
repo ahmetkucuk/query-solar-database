@@ -1,12 +1,12 @@
-DROP TABLE IF EXISTS is_followed_by;
-DROP TABLE IF EXISTS forms;
-DROP TABLE IF EXISTS ar;
-DROP TABLE IF EXISTS ch;
-DROP TABLE IF EXISTS sg;
-DROP TABLE IF EXISTS fl;
-DROP TABLE IF EXISTS ge;
-DROP TABLE IF EXISTS trajectory;
-DROP TABLE IF EXISTS FUTURE_EVENT;
+DROP TABLE IF EXISTS is_followed_by CASCADE;
+DROP TABLE IF EXISTS forms CASCADE;
+DROP TABLE IF EXISTS ar CASCADE;
+DROP TABLE IF EXISTS ch CASCADE;
+DROP TABLE IF EXISTS sg CASCADE;
+DROP TABLE IF EXISTS fl CASCADE;
+DROP TABLE IF EXISTS ge CASCADE;
+DROP TABLE IF EXISTS trajectory CASCADE;
+DROP TABLE IF EXISTS FUTURE_EVENT CASCADE;
 
 
 CREATE TABLE ge ( 
@@ -278,53 +278,18 @@ CONSTRAINT forms_pkey PRIMARY KEY (kb_archivid,trajectory_id)
 );
 
 Create TABLE future_event(
-  fe_id text PRIMARY KEY,
+  fe_id serial PRIMARY KEY,
   event_type text not null,
+  event_starttime TIMESTAMP,
+  event_endtime TIMESTAMP,
   probability numeric,
-  time_of_gen TIMESTAMP,
-  gs_thumburl text,
-  event_coordsys text, 
-  event_npixels text,
-  gs_imageurl text, 
-  sol_standard text,
-  noposition text,
-  active text,
-  intensmax text, 
-  area_uncert text, 
-  hpc_geom text,
-  chaincodetype text, 
-  intensmedian text, 
-  ar_noaaclass text,
-  event_clippedspatial text,
-  eventtype text, 
-  intensunit text, 
-  hpc_boundcc text, 
-  ar_penumbracls text, 
-  intensmean text, 
-  bound_ccstartc1 text,
-  area_atdiskcenter text,
-  event_description text, 
-  boundbox_c2ur text,
-  boundbox_c2ll text, 
-  ar_mcintoshcls text,
-  bound_ccstartc2 text,
-  event_maskurl text,
-  event_expires text,
-  event_probability text,
-  intensvar text, 
-  event_coordunit text,
-  hpc_y text, hpc_x text,
-  ar_numspots text,
-  rasterscan text, 
-  ar_noaanum text, 
-  area_atdiskcenteruncert text,
-  boundbox_c1ur text,
-  boundbox_c1ll text,
-  event_testflag text
+  time_of_gen TIMESTAMP
 );
 
+SELECT AddGeometryColumn('future_event', 'hpc_bbox',4326,'Polygon',2);
+
 Create table is_followed_by(
-  fe_id text REFERENCES future_event (fe_id),
+  fe_id int REFERENCES future_event (fe_id),
   trajectory_id text REFERENCES trajectory (trajectory_id),
   CONSTRAINT is_followed_by_pkey PRIMARY KEY (fe_id,trajectory_id)  
 );
