@@ -31,8 +31,9 @@ public class Runner {
         DBConnection.getInstance().executeFromFile(FileManager.getInstance().getPath("data/NewHekScript.sql"));
 
         for(String file : jsonFilesToInser) {
-            new InsertTableQueries(file).getInsertGEQueries().stream().forEach(q -> DBConnection.getInstance().executeCommand(q));
-            new InsertTableQueries(file).getInsertQueries().stream().forEach(q -> DBConnection.getInstance().executeCommand(q));
+            InsertTableQueries insertTableQueries = new InsertTableQueries(file);
+            insertTableQueries.getInsertGEQueries().stream().forEach(q -> DBConnection.getInstance().executeCommand(q));
+            insertTableQueries.getInsertQueries().stream().forEach(q -> DBConnection.getInstance().executeCommand(q));
         }
     }
 

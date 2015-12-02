@@ -44,7 +44,7 @@ public class InsertTableQueries {
 
     public InsertTableQueries(String fileName) {
         initAttributeMap();
-        events = Utilities.convertFileToJSON(fileName, 100);
+        events = Utilities.convertFileToJSON(fileName, 10000);
         insertQueries.addAll(events.stream().map(event -> generateInsertQuery(event)).collect(Collectors.toList()));
         insertGEQueries.addAll(events.stream().map(event -> generateGEInsertQuery(event)).collect(Collectors.toList()));
     }

@@ -142,10 +142,12 @@ SELECT AddGeometryColumn('ge', 'hrc_boundcc',4326,'Polygon',2);
 SELECT AddGeometryColumn('ge', 'bound_chaincode',4326,'Polygon',2);
 
 CREATE INDEX event_type_timestamp_index ON ge (event_starttime, event_type);
-CREATE INDEX hpc_coord_index ON ge USING GIST (hpc_coord);
+CREATE INDEX hpc_bbox_index ON ge USING GIST (hpc_bbox);
 
 ALTER TABLE ge ADD CONSTRAINT check_time CHECK (event_starttime < event_endtime);
 ALTER TABLE ge ADD CONSTRAINT check_duration CHECK (EXTRACT(day FROM (event_endtime - event_starttime))<=6);
+
+CREATE VIEW RECENT AS SELECT kb_archivid FROM ge WHERE event_starttime < (SELECT MAX(event_starttime) FROM ge)::date - '1 day'::interval;
 
 CREATE TABLE ar(
   kb_archivid text REFERENCES ge (kb_archivid),
