@@ -51,6 +51,7 @@ public class DBConnection {
             return connection.createStatement().execute(query);
         } catch (SQLException e) {
             e.printStackTrace();
+            System.out.println(query);
         }
         return false;
     }

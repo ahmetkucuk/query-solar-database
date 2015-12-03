@@ -71,7 +71,7 @@ CREATE TABLE ge (
   hpc_y float,
   hpc_x float,
   ref_url_0 text,
-  ar_numspots text,
+  ar_numspots integer,
   kb_archivdate TIMESTAMP, 
   kb_archivist text,
   intenstotal text,
@@ -79,7 +79,7 @@ CREATE TABLE ge (
   obs_includesnrt text,
   rasterscan text, 
   obs_wavelunit text, 
-  ar_noaanum text, 
+  ar_noaanum integer,
   area_atdiskcenteruncert text,
   boundbox_c1ur text,
   boundbox_c1ll text,
@@ -113,6 +113,7 @@ CREATE TABLE ge (
   ar_zurichcls text,
   bound_ccnsteps text,
   intenskurt text, 
+  refs text,
   event_clippedtemporal text,
   rasterscantype text,
   area_unit text, 
@@ -147,7 +148,7 @@ CREATE INDEX hpc_bbox_index ON ge USING GIST (hpc_bbox);
 ALTER TABLE ge ADD CONSTRAINT check_time CHECK (event_starttime < event_endtime);
 ALTER TABLE ge ADD CONSTRAINT check_duration CHECK (EXTRACT(day FROM (event_endtime - event_starttime))<=6);
 
-CREATE VIEW RECENT AS SELECT kb_archivid FROM ge WHERE event_starttime < (SELECT MAX(event_starttime) FROM ge)::date - '1 day'::interval;
+CREATE VIEW RECENT AS SELECT kb_archivid FROM ge WHERE event_starttime > (SELECT MAX(event_starttime) FROM ge)::TIMESTAMP - '1 day'::interval;
 
 CREATE TABLE ar(
   kb_archivid text REFERENCES ge (kb_archivid),
@@ -171,10 +172,8 @@ CREATE TABLE ar(
   ar_pilcurvature text,
   ar_spotareareprunit text,
   meanshearangle text,
-  ref_name_1 text,
   ar_spotarearawuncert text,
   meanenergydensityunit text,
-  ref_type_1 text,
   meangradienttotal text,
   ar_sumpossignedflux text,
   meanvertcurrentdensity text,
@@ -198,7 +197,6 @@ CREATE TABLE ar(
   highsheararea text,
   unsignedcurrenthelicity text,
   savncpp text,
-  ref_url_1 text,
   unsignedvertcurrent text,
   CONSTRAINT ar_pkey PRIMARY KEY (kb_archivid)
 );
@@ -226,11 +224,8 @@ CREATE TABLE sg
   sg_aspectratio text,
   sg_chirality text,
   sg_peakcontrast text,
-  ref_name_1 text,
-  ref_type_1 text,
   event_peaktime text,
   skel_curvature text,
-  ref_url_1 text,
   sg_shape text,
   sg_orientation text,
   CONSTRAINT sg_pkey PRIMARY KEY (kb_archivid)
@@ -254,16 +249,7 @@ CREATE TABLE fl(
   fl_halphaclass text,
   fl_peaktempunit text,
   fl_peakem text,
-  ref_name_3 text,
-  ref_name_2 text,
-  ref_type_3 text,
-  ref_name_1 text,
-  ref_type_2 text,
-  ref_type_1 text,
   fl_peaktemp text,
-  ref_url_2 text,
-  ref_url_3 text,
-  ref_url_1 text,
   CONSTRAINT fl_pkey PRIMARY KEY (kb_archivid)
 );
 

@@ -12,15 +12,6 @@ fl_peakflux
 fl_peakfluxunit
 fl_peaktemp
 fl_peaktempunit
-ref_name_1
-ref_name_2
-ref_name_3
-ref_type_1
-ref_type_2
-ref_type_3
-ref_url_1
-ref_url_2
-ref_url_3
 skel_chaincode
 skel_curvature
 skel_nsteps

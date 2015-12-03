@@ -35,9 +35,6 @@ meanphotoenergydensity
 meanshearangle
 meantwistalpha
 meanvertcurrentdensity
-ref_name_1
-ref_type_1
-ref_url_1
 savncpp
 sharp_noaa_ars
 totalenergydensityunit

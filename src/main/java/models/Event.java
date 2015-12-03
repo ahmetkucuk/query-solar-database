@@ -22,6 +22,7 @@ public class Event {
     }
 
     public String get(String attr) {
+
         if(!eventJson.has(attr)) return null;
 
         //Cut primary key
@@ -30,6 +31,9 @@ public class Event {
             return kbArchivId.substring(kbArchivId.lastIndexOf("/")+1);
         }
         JsonElement jsonElement = eventJson.get(attr);
+        if(jsonElement != null && jsonElement.isJsonArray()) {
+            return jsonElement.toString();
+        }
         return jsonElement != null && !jsonElement.isJsonNull() ? jsonElement.getAsString() : null;
     }
 

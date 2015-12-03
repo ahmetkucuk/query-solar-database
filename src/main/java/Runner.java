@@ -28,10 +28,13 @@ public class Runner {
 
 //        new CreateTableQueries().createTables();
 //        DBConnection.getInstance().executeFromFile(FileManager.getInstance().getPath("data/spatial_ref_sys.sql"));
+
+
         DBConnection.getInstance().executeFromFile(FileManager.getInstance().getPath("data/NewHekScript.sql"));
 
         for(String file : jsonFilesToInser) {
             InsertTableQueries insertTableQueries = new InsertTableQueries(file);
+//            System.out.println(insertTableQueries.getInsertQueries().get(0));
             insertTableQueries.getInsertGEQueries().stream().forEach(q -> DBConnection.getInstance().executeCommand(q));
             insertTableQueries.getInsertQueries().stream().forEach(q -> DBConnection.getInstance().executeCommand(q));
         }

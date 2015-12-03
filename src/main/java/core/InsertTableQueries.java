@@ -99,6 +99,8 @@ public class InsertTableQueries {
         }
     }
 
+    public List<Event> getEvents() { return events; }
+
     public List<String> getInsertQueries() {return insertQueries;}
     public List<String> getInsertGEQueries() {return insertGEQueries;}
 

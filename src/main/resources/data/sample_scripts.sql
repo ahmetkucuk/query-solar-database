@@ -11,3 +11,5 @@ g1.event_starttime < '2012-01-10 04:45:00'::timestamp;
 
 select count(*) from ge as g1, ge as g2
 where ST_intersects(g1.hpc_bbox, g2.hpc_bbox) AND g1.event_starttime < '2012-01-10 04:45:00'::timestamp;
+
+select event_type, ST_AsText(hpc_bbox) from ge LEFT JOIN ar ON ge.kb_archivid = ar.kb_archivid WHERE ge.kb_archivid = 'AR_SPoCA_20120201_190542_20120201T184913_7';

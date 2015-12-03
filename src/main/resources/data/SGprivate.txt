@@ -1,8 +1,5 @@
 kb_archivid
 event_peaktime
-ref_name_1
-ref_type_1
-ref_url_1
 sg_aspectratio
 sg_chirality
 sg_meancontrast

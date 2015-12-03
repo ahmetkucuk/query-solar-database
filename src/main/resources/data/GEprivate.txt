@@ -112,9 +112,7 @@ obs_title
 obs_wavelunit
 rasterscan
 rasterscantype
-ref_name_0
-ref_type_0
-ref_url_0
+refs
 refs_orig
 revision
 SOL_standard
