@@ -8,8 +8,8 @@ kb_archivist	string
 kb_archivurl	string
 event_coordsys	string
 event_coordunit	string
-event_endtime	string
-event_starttime	string
+event_endtime	TIMESTAMP
+event_starttime	TIMESTAMP
 event_expires	string
 event_coord1	float
 event_coord2	float

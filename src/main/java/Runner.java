@@ -66,18 +66,18 @@ public class Runner {
                 DBConnection.getInstance().executeCommand(insertQuery);
 
                 if(map.containsKey(kb)) {
-                    map.get(kb).add(pageNumber + " " + counter);
+                    map.get(kb).add(pageNumber + " " + counter + " " + e.get("revision"));
                     System.out.println("Same kb " + map.get(kb));
                 } else {
                     map.put(kb, new HashSet<>());
-                    map.get(kb).add(pageNumber + " " + counter);
+                    map.get(kb).add(pageNumber + " " + counter + " " + e.get("revision"));
                 }
                 counter++;
             }
             pageNumber++;
-        }
 
-        System.out.println(GlobalAttributeHolder.getInstance().getDbTablesByAttributes());
+            System.out.println(map.size());
+        }
     }
 
 

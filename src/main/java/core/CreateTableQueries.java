@@ -17,16 +17,12 @@ public class CreateTableQueries {
     public static final String ATTRIBUTE_BASE = "/Users/ahmetkucuk/Documents/GEORGIA_STATE/COURSES/Database_Systems/Project/Data/";
 
     private static final Map<String, String> attributeByPOSTGREDataTypeMap = new HashMap<>();
-    private static final Map<String, String> specialAttributes = new HashMap<>();
     static {
         attributeByPOSTGREDataTypeMap.put("float", "float");
         attributeByPOSTGREDataTypeMap.put("string", "text");
         attributeByPOSTGREDataTypeMap.put("integer", "integer");
         attributeByPOSTGREDataTypeMap.put("long", "bigint");
         attributeByPOSTGREDataTypeMap.put("null", "text");
-
-        specialAttributes.put("event_starttime", "TIMESTAMP");
-        specialAttributes.put("event_endtime", "TIMESTAMP");
     }
 
     public void createTables() {
@@ -46,12 +42,7 @@ public class CreateTableQueries {
 
         Map<String, String> eventMap = new HashMap<>();
         for(String s: set) {
-            String valueDataType = specialAttributes.get(s);
-
-            if(valueDataType == null) {
-                valueDataType = attributeByPOSTGREDataTypeMap.get(map.get(valueDataType) + "");
-            }
-            eventMap.put(s, valueDataType);
+            eventMap.put(s, attributeByPOSTGREDataTypeMap.get(map.get(s) + ""));
         }
         return createQueryUsingMap(eventMap, eventType);
     }

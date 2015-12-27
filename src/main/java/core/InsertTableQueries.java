@@ -49,6 +49,7 @@ public class InsertTableQueries {
         insertGEQueries.addAll(events.stream().map(event -> generateGEInsertQuery(event)).collect(Collectors.toList()));
     }
 
+
     public String generateInsertQuery(Event event) {
 
         List<String> values = new LinkedList<>();
