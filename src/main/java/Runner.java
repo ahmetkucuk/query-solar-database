@@ -18,7 +18,7 @@ public class Runner {
     public static final String FL_JSON_FILE = BASE_PATH + "FL/" + "FL_event_startdate=2012-01-01T00-00-00event_enddate=2013-12-30T23-00-59.json";
     public static final String SG_JSON_FILE = BASE_PATH + "SG/" + "sg_event_startdate=2012-01-01T00-00-00event_enddate=2012-12-30T23-00-59.json";
 
-    public static final String[] jsonFilesToInser = new String[]{AR_JSON_FILE, CH_JSON_FILE, FL_JSON_FILE, SG_JSON_FILE};
+    public static final String[] jsonFilesToInsert = new String[]{AR_JSON_FILE, CH_JSON_FILE, FL_JSON_FILE, SG_JSON_FILE};
 
     public static void main(String[] args) {
 

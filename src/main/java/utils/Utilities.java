@@ -71,6 +71,20 @@ public class Utilities {
         return set;
     }
 
+    public static Set<String> fileAsSet(String attrFilePath) {
+
+        Set<String> set = new HashSet<>();
+        try(BufferedReader reader = new BufferedReader(new FileReader(attrFilePath))) {
+            String line = null;
+            while((line = reader.readLine()) != null) {
+                set.add(line.toLowerCase());
+            }
+        }catch (Exception e) {
+            e.printStackTrace();
+        }
+        return set;
+    }
+
     public static boolean isFileExists(String filePathString) {
         File f = new File(filePathString);
         return f.exists() && !f.isDirectory();
