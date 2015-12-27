@@ -1,5 +1,6 @@
 package core;
 
+import com.sun.deploy.util.StringUtils;
 import models.EventType;
 import utils.Constants;
 import utils.FileManager;
@@ -23,31 +24,39 @@ public class CreateTableQueries {
         attributeByPOSTGREDataTypeMap.put("integer", "integer");
         attributeByPOSTGREDataTypeMap.put("long", "bigint");
         attributeByPOSTGREDataTypeMap.put("null", "text");
+        attributeByPOSTGREDataTypeMap.put("timestamp", "timestamp");
     }
 
     public void createTables() {
 
         for(EventType e: EventType.values()) {
-            String actualFilePath = String.format(Constants.DATA.EVENT_ATTRIBUTE_LIST_BASE, e.toString());
-            String query = createTableQuery(e);
-            boolean result = DBConnection.getInstance().executeCommand(query);
-            System.out.println(query);
+            for(String query:createTableQuery(e)) {
+                DBConnection.getInstance().executeCommand(query);
+            }
         }
     }
 
-    public String createTableQuery(EventType eventType) {
+    public List<String> createTableQuery(EventType eventType) {
 
         Map<String, String> map = GlobalAttributeHolder.getInstance().getAttributeDataTypeMap();
         Set<String> set = GlobalAttributeHolder.getInstance().getEventTypeByAttributes().get(eventType);
 
-        Map<String, String> eventMap = new HashMap<>();
+        Map<String, String> genericEventColumns = new HashMap<>();
+        Map<String, String> geometryColumns = new HashMap<>();
         for(String s: set) {
-            eventMap.put(s, attributeByPOSTGREDataTypeMap.get(map.get(s) + ""));
+            if(GlobalAttributeHolder.getInstance().getGeometryAttribute().contains(s)) {
+                geometryColumns.put(s, map.get(s) + "");
+            } else {
+                genericEventColumns.put(s, attributeByPOSTGREDataTypeMap.get(map.get(s) + ""));
+            }
         }
-        return createQueryUsingMap(eventMap, eventType);
+        String result = createActualStatement(genericEventColumns, eventType);
+        List<String> addStatements = createAddGeometryStatement(geometryColumns, eventType);
+        addStatements.add(0, result);
+        return addStatements;
     }
 
-    public String createQueryUsingMap(Map<String, String> map, EventType eventType) {
+    public String createActualStatement(Map<String, String> map, EventType eventType) {
         StringBuilder builder = new StringBuilder();
         builder.append("DROP TABLE IF EXISTS " + eventType.toString() + ";");
         builder.append("CREATE TABLE ");
@@ -59,6 +68,15 @@ public class CreateTableQueries {
         builder.append(" PRIMARY KEY (kb_archivid)");
         builder.append(" );");
         return builder.toString();
+    }
+
+    public List<String> createAddGeometryStatement(Map<String, String> map, EventType eventType) {
+
+        List<String> listOfAddGeometryColumns = new ArrayList<>();
+        for(String s: map.keySet()) {
+            listOfAddGeometryColumns.add(String.format(Constants.QUERY.ADD_GEOMETRY_COLUMN, eventType.toString().toLowerCase(), s, map.get(s)));
+        }
+        return listOfAddGeometryColumns;
     }
 
 }

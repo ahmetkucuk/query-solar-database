@@ -45,11 +45,12 @@ public class InsertQueryForEvent {
 
         if(!attributeDataTypeMap.containsKey(attribute)) {
             return "'" + event.get(attribute) + "'";
-        }
-
-        if(attributeDataTypeMap.containsKey(attribute) && attributeDataTypeMap.get(attribute).equalsIgnoreCase("string")) {
+        } else if(attributeDataTypeMap.get(attribute).equalsIgnoreCase("string")) {
+            return "'" + event.get(attribute) + "'";
+        } else if(attributeDataTypeMap.get(attribute).equalsIgnoreCase("timestamp")) {
             return "'" + event.get(attribute) + "'";
         }
+
         String attributeValue = event.get(attribute);
         if(attributeValue == null || event.get(attribute).length() == 0) return "0";
         return event.get(attribute);

@@ -33,5 +33,6 @@ public class Constants {
 
         public static final String INSERT_INTO = "INSERT INTO %s (%s) VALUES (%s);";
         public static final String GEOMETRY_FORM = "ST_GeomFromText('%s',4326)";
+        public static final String ADD_GEOMETRY_COLUMN = "SELECT AddGeometryColumn('%s', '%s',4326,'%s',2);";
     }
 }

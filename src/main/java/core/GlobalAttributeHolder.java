@@ -40,6 +40,11 @@ public class GlobalAttributeHolder {
         geometryAttribute.add("hpc_boundcc");
         geometryAttribute.add("hrc_boundcc");
         geometryAttribute.add("bound_chaincode");
+
+        geometryAttribute.add("hrc_skeletoncc");
+        geometryAttribute.add("hgc_skeletoncc");
+        geometryAttribute.add("hgs_skeletoncc");
+        geometryAttribute.add("hpc_skeletoncc");
     }
 
     private GlobalAttributeHolder(){}
@@ -51,12 +56,19 @@ public class GlobalAttributeHolder {
         instance.setAdditionalAttributes(Utilities.fileAsSet(FileManager.getInstance().getPath("data/newdesign/SpAttr_table")));
         instance.setDbTablesByAttributes(EventAttributeSeparator.getDbTablesByAttributesMap());
         instance.setAttributeDataTypeMap(Utilities.getAttributesMap(FileManager.getInstance().getPath("data/old-design/Parameter_Types.txt")));
+        instance.addAdditionalValues();
     }
 
     public static GlobalAttributeHolder getInstance() {
         if(instance == null)
             System.err.println("Not initialized");
         return instance;
+    }
+
+    private void addAdditionalValues() {
+        for(Set<String> s: eventTypeByAttributes.values()) {
+            s.addAll(additionalAttributes);
+        }
     }
 
     private void setEventTypeByAttributes(Map<EventType, Set<String>> m) {
