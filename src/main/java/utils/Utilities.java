@@ -48,7 +48,7 @@ public class Utilities {
                 map.put(columns[0].toLowerCase(), columns[1].toLowerCase());
             }
             return map;
-        }catch (Exception e) {
+        } catch (Exception e) {
             e.printStackTrace();
         }
         return map;

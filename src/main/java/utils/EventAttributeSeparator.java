@@ -34,7 +34,7 @@ public class EventAttributeSeparator {
                 Set<String> attributesSpecificToEvent = new HashSet<>();
                 for(int k = 1; k < all.length; k++) {
                     if(all[k][i].equalsIgnoreCase("opt") || all[k][i].equalsIgnoreCase("req")) {
-                        attributesSpecificToEvent.add(all[k][0]);
+                        attributesSpecificToEvent.add(all[k][0].toLowerCase());
                     }
                 }
                 eventTypeByAttributes.put(EventType.fromString(all[0][i]), attributesSpecificToEvent);

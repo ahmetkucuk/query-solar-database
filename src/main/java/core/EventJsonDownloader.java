@@ -4,7 +4,6 @@ import com.google.gson.JsonArray;
 import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
-import models.Event;
 
 import java.io.BufferedReader;
 import java.io.IOException;
@@ -20,16 +19,18 @@ public class EventJsonDownloader {
     private String eventType;
     private String eventStartTime;
     private String eventEndTime;
-    private int page = 0;
+    private int resultLimit;
+    private int page = 1;
     private boolean isFinished = false;
 
     //Event Type, page, event start time, event end time
-    private static final String URL = "https://www.lmsal.com/hek/her?cosec=2&cmd=search&type=column&event_type=%s&event_region=all&event_coordsys=helioprojective&x1=-5000&x2=5000&y1=-5000&y2=5000&result_limit=200&page=%d&event_starttime=%s&event_endtime=%s";
+    private static final String URL = "https://www.lmsal.com/hek/her?cosec=2&cmd=search&type=column&event_type=%s&event_region=all&event_coordsys=helioprojective&x1=-5000&x2=5000&y1=-5000&y2=5000&result_limit=%d&page=%d&event_starttime=%s&event_endtime=%s";
 
-    public EventJsonDownloader(String eventType, String eventStartTime, String eventEndTime) {
+    public EventJsonDownloader(String eventType, String eventStartTime, String eventEndTime, int resultLimit) {
         this.eventType = eventType;
         this.eventStartTime = eventStartTime;
         this.eventEndTime = eventEndTime;
+        this.resultLimit = resultLimit;
     }
 
     public JsonArray next() {
@@ -46,7 +47,7 @@ public class EventJsonDownloader {
 
 
     private String getNextUrl() {
-        String result = String.format(URL, eventType, page, eventStartTime, eventEndTime);
+        String result = String.format(URL, eventType, resultLimit, page, eventStartTime, eventEndTime);
         page++;
         return result;
     }

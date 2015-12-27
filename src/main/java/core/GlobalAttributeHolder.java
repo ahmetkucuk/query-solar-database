@@ -6,7 +6,7 @@ import utils.EventAttributeSeparator;
 import utils.FileManager;
 import utils.Utilities;
 
-import java.util.List;
+import java.util.HashSet;
 import java.util.Map;
 import java.util.Set;
 
@@ -20,14 +20,37 @@ public class GlobalAttributeHolder {
     private Map<EventType, Set<String>> eventTypeByAttributes;
     private Map<DBTables, Set<String>> dbTablesByAttributes;
     private Set<String> additionalAttributes;
+    private Map<String, String> attributeDataTypeMap;
+
+    private static final Set<String> geometryAttribute = new HashSet<>();
+    static {
+        geometryAttribute.add("hgc_bbox");
+        geometryAttribute.add("hgc_coord");
+        geometryAttribute.add("hgs_bbox");
+        geometryAttribute.add("hgs_coord");
+        geometryAttribute.add("hpc_bbox");
+        geometryAttribute.add("hpc_coord");
+        geometryAttribute.add("hrc_bbox");
+        geometryAttribute.add("hrc_coord");
+
+        geometryAttribute.add("hgc_boundcc");
+
+        geometryAttribute.add("hgc_boundcc");
+        geometryAttribute.add("hgs_boundcc");
+        geometryAttribute.add("hpc_boundcc");
+        geometryAttribute.add("hrc_boundcc");
+        geometryAttribute.add("bound_chaincode");
+    }
 
     private GlobalAttributeHolder(){}
 
     public static void init() {
         instance = new GlobalAttributeHolder();
         instance.setEventTypeByAttributes(EventAttributeSeparator.getEventTypeByAttributesMap());
-        instance.setAdditionalAttributes(Utilities.fileAsSet(FileManager.getInstance().getPath("/data/newdesign/additional")));
+//        System.out.println(FileManager.getInstance().getPath("data/newdesign/SpAttr_table"));
+        instance.setAdditionalAttributes(Utilities.fileAsSet(FileManager.getInstance().getPath("data/newdesign/SpAttr_table")));
         instance.setDbTablesByAttributes(EventAttributeSeparator.getDbTablesByAttributesMap());
+        instance.setAttributeDataTypeMap(Utilities.getAttributesMap(FileManager.getInstance().getPath("data/old-design/Parameter_Types.txt")));
         instance.addAdditionalValues();
     }
 
@@ -49,9 +72,38 @@ public class GlobalAttributeHolder {
         this.dbTablesByAttributes = dbTablesByAttributes;
     }
 
+    private static void setInstance(GlobalAttributeHolder instance) {
+        GlobalAttributeHolder.instance = instance;
+    }
+
+    public Map<String, String> getAttributeDataTypeMap() {
+        return attributeDataTypeMap;
+    }
+
+    public void setAttributeDataTypeMap(Map<String, String> attributeDataTypeMap) {
+        this.attributeDataTypeMap = attributeDataTypeMap;
+    }
+
     private void addAdditionalValues() {
         for(Set<String> s: eventTypeByAttributes.values()) {
             s.addAll(additionalAttributes);
         }
+    }
+
+    public Map<EventType, Set<String>> getEventTypeByAttributes() {
+        return eventTypeByAttributes;
+    }
+
+    public Map<DBTables, Set<String>> getDbTablesByAttributes() {
+        return dbTablesByAttributes;
+    }
+
+    public Set<String> getAdditionalAttributes() {
+        return additionalAttributes;
+    }
+
+
+    public static Set<String> getGeometryAttribute() {
+        return geometryAttribute;
     }
 }

@@ -1,9 +1,14 @@
 import com.google.gson.JsonArray;
-import core.CreateTableQueries;
-import core.DBConnection;
-import core.EventJsonDownloader;
-import core.InsertTableQueries;
+import com.google.gson.JsonElement;
+import com.sun.deploy.util.StringUtils;
+import core.*;
+import models.Event;
+import models.EventType;
 import utils.FileManager;
+
+import java.util.*;
+import java.util.stream.Collectors;
+import java.util.stream.Stream;
 
 
 /**
@@ -41,11 +46,38 @@ public class Runner {
 //            insertTableQueries.getInsertQueries().stream().forEach(q -> DBConnection.getInstance().executeCommand(q));
 //        }
 
-        EventJsonDownloader eventJsonDownloader = new EventJsonDownloader("ch", "2012-12-01T00:00:00", "2012-12-03T23:00:59");
+        GlobalAttributeHolder.init();
+        new CreateTableQueries().createTables();
+
+//
+
+
+        EventJsonDownloader eventJsonDownloader = new EventJsonDownloader(StringUtils.join(Stream.of(EventType.values()).map(e -> e.toQualifiedString()).collect(Collectors.toList()), ","), "2012-12-01T00:00:00", "2012-12-03T23:00:59", 200);
         JsonArray array;
+        int pageNumber = 0;
+        Map<String, Set<String>> map = new HashMap<>();
         while((array = eventJsonDownloader.next()) != null) {
-            System.out.println(array.size());
+            int counter = 0;
+            for(JsonElement j: array) {
+
+                Event e = new Event(j.getAsJsonObject());
+                String kb = e.get("kb_archivid");
+                String insertQuery = new InsertQueryForEvent(e).getInsertQuery();
+                DBConnection.getInstance().executeCommand(insertQuery);
+
+                if(map.containsKey(kb)) {
+                    map.get(kb).add(pageNumber + " " + counter);
+                    System.out.println("Same kb " + map.get(kb));
+                } else {
+                    map.put(kb, new HashSet<>());
+                    map.get(kb).add(pageNumber + " " + counter);
+                }
+                counter++;
+            }
+            pageNumber++;
         }
+
+        System.out.println(GlobalAttributeHolder.getInstance().getDbTablesByAttributes());
     }
 
 

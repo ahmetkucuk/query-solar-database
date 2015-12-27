@@ -33,27 +33,27 @@ public class CreateTableQueries {
 
         for(EventType e: EventType.values()) {
             String actualFilePath = String.format(Constants.DATA.EVENT_ATTRIBUTE_LIST_BASE, e.toString());
-            String query = createTableQuery(FileManager.getInstance().getPath(Constants.DATA.ATTRIBUTE_LIST), FileManager.getInstance().getPath(actualFilePath), e);
+            String query = createTableQuery(e);
             boolean result = DBConnection.getInstance().executeCommand(query);
             System.out.println(query);
         }
     }
 
-    public String createTableQuery(String attributeList, String subAttributeList, EventType eventType) {
+    public String createTableQuery(EventType eventType) {
 
-        Map<String, String> map = Utilities.getAttributesMap(attributeList);
-        List<String> set = Utilities.getPrivateAttrSet(subAttributeList);
+        Map<String, String> map = GlobalAttributeHolder.getInstance().getAttributeDataTypeMap();
+        Set<String> set = GlobalAttributeHolder.getInstance().getEventTypeByAttributes().get(eventType);
 
-        Map<String, String> arMap = new HashMap<>();
+        Map<String, String> eventMap = new HashMap<>();
         for(String s: set) {
             String valueDataType = specialAttributes.get(s);
 
             if(valueDataType == null) {
                 valueDataType = attributeByPOSTGREDataTypeMap.get(map.get(valueDataType) + "");
             }
-            arMap.put(s, valueDataType);
+            eventMap.put(s, valueDataType);
         }
-        return createQueryUsingMap(arMap, eventType);
+        return createQueryUsingMap(eventMap, eventType);
     }
 
     public String createQueryUsingMap(Map<String, String> map, EventType eventType) {
@@ -62,11 +62,10 @@ public class CreateTableQueries {
         builder.append("CREATE TABLE ");
         builder.append(eventType.toString());
         builder.append(" ( ");
-        builder.append("kb_archiveid varchar(20),");
         for(Map.Entry<String, String> entry : map.entrySet()) {
             builder.append(entry.getKey() + " " + entry.getValue() + ", ");
         }
-        builder.append(" PRIMARY KEY (kb_archiveid)");
+        builder.append(" PRIMARY KEY (kb_archivid)");
         builder.append(" );");
         return builder.toString();
     }
