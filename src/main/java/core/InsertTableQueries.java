@@ -58,11 +58,12 @@ public class InsertTableQueries {
     }
 
     public String generateGEInsertQuery(Event event) {
+        return null;
 
-        List<String> values = new LinkedList<>();
-        List<String> attributes = eventTypeByAttributeMap.get(EventType.GE);
-        values.addAll(attributes.stream().map(attribute -> getActualPostgreMapping(event, attribute)).collect(Collectors.toList()));
-        return String.format(Constants.QUERY.INSERT_INTO, EventType.GE.toString(), String.join(",", attributes), String.join(",", values));
+//        List<String> values = new LinkedList<>();
+//        List<String> attributes = eventTypeByAttributeMap.get(EventType.GE);
+//        values.addAll(attributes.stream().map(attribute -> getActualPostgreMapping(event, attribute)).collect(Collectors.toList()));
+//        return String.format(Constants.QUERY.INSERT_INTO, EventType.GE.toString(), String.join(",", attributes), String.join(",", values));
     }
 
     public String getActualPostgreMapping(Event event, String attribute) {

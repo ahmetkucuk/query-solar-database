@@ -1,5 +1,7 @@
+import com.google.gson.JsonArray;
 import core.CreateTableQueries;
 import core.DBConnection;
+import core.EventJsonDownloader;
 import core.InsertTableQueries;
 import utils.FileManager;
 
@@ -30,13 +32,19 @@ public class Runner {
 //        DBConnection.getInstance().executeFromFile(FileManager.getInstance().getPath("data/spatial_ref_sys.sql"));
 
 
-        DBConnection.getInstance().executeFromFile(FileManager.getInstance().getPath("data/NewHekScript.sql"));
+//        DBConnection.getInstance().executeFromFile(FileManager.getInstance().getPath("data/NewHekScript.sql"));
 
-        for(String file : jsonFilesToInser) {
-            InsertTableQueries insertTableQueries = new InsertTableQueries(file);
+//        for(String file : jsonFilesToInser) {
+//            InsertTableQueries insertTableQueries = new InsertTableQueries(file);
 //            System.out.println(insertTableQueries.getInsertQueries().get(0));
-            insertTableQueries.getInsertGEQueries().stream().forEach(q -> DBConnection.getInstance().executeCommand(q));
-            insertTableQueries.getInsertQueries().stream().forEach(q -> DBConnection.getInstance().executeCommand(q));
+//            insertTableQueries.getInsertGEQueries().stream().forEach(q -> DBConnection.getInstance().executeCommand(q));
+//            insertTableQueries.getInsertQueries().stream().forEach(q -> DBConnection.getInstance().executeCommand(q));
+//        }
+
+        EventJsonDownloader eventJsonDownloader = new EventJsonDownloader("ch", "2012-12-01T00:00:00", "2012-12-03T23:00:59");
+        JsonArray array;
+        while((array = eventJsonDownloader.next()) != null) {
+            System.out.println(array.size());
         }
     }
 

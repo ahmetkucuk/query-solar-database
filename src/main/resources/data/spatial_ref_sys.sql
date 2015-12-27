@@ -4,7 +4,7 @@ CREATE EXTENSION PostGIS WITH SCHEMA postgis;
 GRANT ALL ON postgis.geometry_columns TO PUBLIC;
 GRANT ALL ON postgis.spatial_ref_sys TO PUBLIC;
 
-VACUUM ANALYZE ge hpc_bbox;
+VACUUM ANALYZE ge(hpc_bbox);
 
 CREATE TABLE public.spatial_ref_sys
 (
