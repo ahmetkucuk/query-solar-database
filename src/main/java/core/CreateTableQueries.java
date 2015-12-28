@@ -3,6 +3,7 @@ package core;
 import models.DBTable;
 import models.EventType;
 import utils.Constants;
+import utils.Constants.TRIGGER;
 
 import java.util.*;
 
@@ -32,13 +33,26 @@ public class CreateTableQueries {
         for(EventType e: EventType.values()) {
             for(String query:createTableQuery(e)) {
                 DBConnection.getInstance().executeCommand(query);
+                
             }
         }
 
+        for(String triggerStatement:createTriggerStatements()) {
+        	DBConnection.getInstance().executeCommand(triggerStatement);
+        }
         
     }
 
-    public List<String> createTableQuery(EventType eventType) {
+    private List<String> createTriggerStatements() {
+    	List<String> triggers = new ArrayList<String>();
+    	for(EventType et: EventType.values()){
+    		triggers.add( String.format(utils.Constants.TRIGGER.CREATE_ST_TABLE, et, et, et) );
+    		triggers.add( String.format(utils.Constants.TRIGGER.CREATE_TRIGGER, et, et, et, et, et, et, et) );
+    	}
+		return triggers;
+	}
+
+	public List<String> createTableQuery(EventType eventType) {
 
         Map<String, String> map = GlobalAttributeHolder.getInstance().getAttributeDataTypeMap();
         Set<String> set = GlobalAttributeHolder.getInstance().getEventTypeByAttributes().get(eventType);

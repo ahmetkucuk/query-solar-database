@@ -53,7 +53,7 @@ public class Runner {
 //
 
 
-        EventJsonDownloader eventJsonDownloader = new EventJsonDownloader(StringUtils.join(Stream.of(EventType.values()).map(e -> e.toQualifiedString()).collect(Collectors.toList()), ","), "2015-12-01T00:00:00", "2015-12-03T23:00:59", 100);
+        EventJsonDownloader eventJsonDownloader = new EventJsonDownloader(StringUtils.join(Stream.of(EventType.values()).map(e -> e.toQualifiedString()).collect(Collectors.toList()), ","), "2015-12-20T00:00:00", "2015-12-21T00:00:00", 100);
         JsonArray array;
         Set<String> insertedEvents = new HashSet<>();
         while((array = eventJsonDownloader.next()) != null) {
