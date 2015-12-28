@@ -2,7 +2,6 @@ package models;
 
 import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
-import com.sun.tools.javac.file.SymbolArchive;
 
 /**
  * Created by ahmetkucuk on 01/10/15.

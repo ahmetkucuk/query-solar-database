@@ -24,9 +24,9 @@ public class Constants {
     public static class DB {
         public static final String DB_HOST = "localhost";
         public static final String DB_NAME = "dbproject";
-        public static final String DB_USERNAME = "ahmetkucuk";
+        public static final String DB_USERNAME = "postgres";
         public static final String DB_USER_PASSWORD = "";
-        public static final int DB_PORT = 0;
+        public static final int DB_PORT = 5432;
     }
 
     public static class QUERY {
