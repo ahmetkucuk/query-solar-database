@@ -24,16 +24,21 @@ public class InsertQueryForEvent {
     private void generateInsertQueries() {
         insertQueries = new ArrayList<>();
 
-        List<String> values = new LinkedList<>();
-        Set<String> attributes = GlobalAttributeHolder.getInstance().getEventTypeByAttributes().get(event.getEventType());
-        values.addAll(attributes.stream().map(attribute -> getActualPostgreMapping(event, attribute)).collect(Collectors.toList()));
-        insertQueries.add(String.format(Constants.QUERY.INSERT_INTO, event.getEventType().toString(), String.join(",", attributes), String.join(",", values)));
-        for(DBTable dbTable:DBTable.values()) {
-            attributes = GlobalAttributeHolder.getInstance().getDbTableByAttributes().get(dbTable);
-            values.clear();
+        
+        for(DBTable dbTable:DBTable.values()) { //4 tables insert statements
+        	Set<String> attributes = GlobalAttributeHolder.getInstance().getDbTableByAttributes().get(dbTable);
+            List<String> values = new LinkedList<>();
             values.addAll(attributes.stream().map(attribute -> getActualPostgreMapping(event, attribute)).collect(Collectors.toList()));
             insertQueries.add(String.format(Constants.QUERY.INSERT_INTO, dbTable.toString(), String.join(",", attributes), String.join(",", values)));
         }
+        
+        //this is for actual insert to generic event tables
+        List<String> values = new LinkedList<>();
+        Set<String> attributes = GlobalAttributeHolder.getInstance().getEventTypeByAttributes().get(event.getEventType());
+        values.addAll(attributes.stream().map(attribute -> getActualPostgreMapping(event, attribute)).collect(Collectors.toList()));
+        
+        insertQueries.add(String.format(Constants.QUERY.INSERT_INTO, event.getEventType().toString(), String.join(",", attributes), String.join(",", values)));
+        
     }
 
     public String getActualPostgreMapping(Event event, String attribute) {

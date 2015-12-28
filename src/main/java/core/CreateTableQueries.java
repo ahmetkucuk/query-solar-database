@@ -23,17 +23,19 @@ public class CreateTableQueries {
 
     public void createTables() {
 
+    	for(DBTable t: DBTable.values()) {
+            for(String query:createTableQuery(t)) {
+                DBConnection.getInstance().executeCommand(query);
+            }
+        }
+    	
         for(EventType e: EventType.values()) {
             for(String query:createTableQuery(e)) {
                 DBConnection.getInstance().executeCommand(query);
             }
         }
 
-        for(DBTable t: DBTable.values()) {
-            for(String query:createTableQuery(t)) {
-                DBConnection.getInstance().executeCommand(query);
-            }
-        }
+        
     }
 
     public List<String> createTableQuery(EventType eventType) {
@@ -70,7 +72,8 @@ public class CreateTableQueries {
 
     private String createActualStatement(Map<String, String> map, String tableName, boolean isEvent) {
         StringBuilder builder = new StringBuilder();
-        builder.append("DROP TABLE " + tableName + " CASCADE;DROP TABLE IF EXISTS " + tableName + ";");
+        //DROP TABLE " + tableName + " CASCADE;
+        builder.append("DROP TABLE IF EXISTS " + tableName + " CASCADE;");
         builder.append("CREATE TABLE ");
         builder.append(tableName);
         builder.append(" ( ");
