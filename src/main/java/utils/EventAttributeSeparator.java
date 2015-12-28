@@ -1,6 +1,6 @@
 package utils;
 
-import models.DBTables;
+import models.DBTable;
 import models.EventType;
 
 import java.io.*;
@@ -49,9 +49,9 @@ public class EventAttributeSeparator {
         return null;
     }
 
-    public static Map<DBTables, Set<String>> getDbTablesByAttributesMap() {
-        Map<DBTables, Set<String>> result = new HashMap<>();
-        for(DBTables d: DBTables.values()) {
+    public static Map<DBTable, Set<String>> getDbTablesByAttributesMap() {
+        Map<DBTable, Set<String>> result = new HashMap<>();
+        for(DBTable d: DBTable.values()) {
             result.put(d, Utilities.fileAsSet(FileManager.getInstance().getPath("data/newdesign/" + d.toString())));
         }
         return result;

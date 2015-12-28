@@ -1,13 +1,9 @@
 package core;
 
-import com.sun.deploy.util.StringUtils;
+import models.DBTable;
 import models.EventType;
 import utils.Constants;
-import utils.FileManager;
-import utils.Utilities;
 
-import java.io.BufferedReader;
-import java.io.FileReader;
 import java.util.*;
 
 /**
@@ -34,6 +30,12 @@ public class CreateTableQueries {
                 DBConnection.getInstance().executeCommand(query);
             }
         }
+
+        for(DBTable t: DBTable.values()) {
+            for(String query:createTableQuery(t)) {
+                DBConnection.getInstance().executeCommand(query);
+            }
+        }
     }
 
     public List<String> createTableQuery(EventType eventType) {
@@ -41,6 +43,18 @@ public class CreateTableQueries {
         Map<String, String> map = GlobalAttributeHolder.getInstance().getAttributeDataTypeMap();
         Set<String> set = GlobalAttributeHolder.getInstance().getEventTypeByAttributes().get(eventType);
 
+        return generateAttributeDataTypeMap(map, set, eventType.toString(), true);
+    }
+
+    private List<String> createTableQuery(DBTable dbTable) {
+
+        Map<String, String> map = GlobalAttributeHolder.getInstance().getAttributeDataTypeMap();
+        Set<String> set = GlobalAttributeHolder.getInstance().getDbTableByAttributes().get(dbTable);
+
+        return generateAttributeDataTypeMap(map, set, dbTable.toString(), false);
+    }
+
+    private List<String> generateAttributeDataTypeMap(Map<String, String> map, Set<String> set, String tableName, boolean isEvent) {
         Map<String, String> genericEventColumns = new HashMap<>();
         Map<String, String> geometryColumns = new HashMap<>();
         for(String s: set) {
@@ -50,31 +64,39 @@ public class CreateTableQueries {
                 genericEventColumns.put(s, attributeByPOSTGREDataTypeMap.get(map.get(s) + ""));
             }
         }
-        String result = createActualStatement(genericEventColumns, eventType);
-        List<String> addStatements = createAddGeometryStatement(geometryColumns, eventType);
+        String result = createActualStatement(genericEventColumns, tableName, isEvent);
+        List<String> addStatements = createAddGeometryStatement(geometryColumns, tableName);
         addStatements.add(0, result);
         return addStatements;
     }
 
-    public String createActualStatement(Map<String, String> map, EventType eventType) {
+    private String createActualStatement(Map<String, String> map, String tableName, boolean isEvent) {
         StringBuilder builder = new StringBuilder();
-        builder.append("DROP TABLE IF EXISTS " + eventType.toString() + ";");
+        builder.append("DROP TABLE " + tableName + " CASCADE;DROP TABLE IF EXISTS " + tableName + ";");
         builder.append("CREATE TABLE ");
-        builder.append(eventType.toString());
+        builder.append(tableName);
         builder.append(" ( ");
         for(Map.Entry<String, String> entry : map.entrySet()) {
             builder.append(entry.getKey() + " " + entry.getValue() + ", ");
         }
-        builder.append(" PRIMARY KEY (kb_archivid)");
+        if(isEvent) {
+            builder.append(" PRIMARY KEY (kb_archivid),");
+            builder.append(" CONSTRAINT argen_fk FOREIGN KEY (kb_archivid) REFERENCES  argen (kb_archivid),");
+            builder.append(" CONSTRAINT frm_fk FOREIGN KEY (kb_archivid) REFERENCES  frm (kb_archivid),");
+            builder.append(" CONSTRAINT intens_fk FOREIGN KEY (kb_archivid) REFERENCES  intens (kb_archivid),");
+            builder.append(" CONSTRAINT obs_fk FOREIGN KEY (kb_archivid) REFERENCES  obs (kb_archivid)");
+        } else {
+            builder.append(" PRIMARY KEY (kb_archivid)");
+        }
         builder.append(" );");
         return builder.toString();
     }
 
-    public List<String> createAddGeometryStatement(Map<String, String> map, EventType eventType) {
+    public List<String> createAddGeometryStatement(Map<String, String> map, String tableName) {
 
         List<String> listOfAddGeometryColumns = new ArrayList<>();
         for(String s: map.keySet()) {
-            listOfAddGeometryColumns.add(String.format(Constants.QUERY.ADD_GEOMETRY_COLUMN, eventType.toString().toLowerCase(), s, map.get(s)));
+            listOfAddGeometryColumns.add(String.format(Constants.QUERY.ADD_GEOMETRY_COLUMN, tableName.toLowerCase(), s, map.get(s)));
         }
         return listOfAddGeometryColumns;
     }

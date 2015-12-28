@@ -1,6 +1,6 @@
 package core;
 
-import models.DBTables;
+import models.DBTable;
 import models.EventType;
 import utils.EventAttributeSeparator;
 import utils.FileManager;
@@ -18,7 +18,7 @@ public class GlobalAttributeHolder {
     private static GlobalAttributeHolder instance;
 
     private Map<EventType, Set<String>> eventTypeByAttributes;
-    private Map<DBTables, Set<String>> dbTablesByAttributes;
+    private Map<DBTable, Set<String>> dbTableByAttributes;
     private Set<String> additionalAttributes;
     private Map<String, String> attributeDataTypeMap;
 
@@ -52,10 +52,11 @@ public class GlobalAttributeHolder {
     public static void init() {
         instance = new GlobalAttributeHolder();
         instance.setEventTypeByAttributes(EventAttributeSeparator.getEventTypeByAttributesMap());
-//        System.out.println(FileManager.getInstance().getPath("data/newdesign/SpAttr_table"));
+
         instance.setAdditionalAttributes(Utilities.fileAsSet(FileManager.getInstance().getPath("data/newdesign/SpAttr_table")));
-        instance.setDbTablesByAttributes(EventAttributeSeparator.getDbTablesByAttributesMap());
         instance.setAttributeDataTypeMap(Utilities.getAttributesMap(FileManager.getInstance().getPath("data/old-design/Parameter_Types.txt")));
+
+        instance.setDbTableByAttributes(EventAttributeSeparator.getDbTablesByAttributesMap());
         instance.addAdditionalValues();
     }
 
@@ -79,8 +80,12 @@ public class GlobalAttributeHolder {
         this.additionalAttributes = additionalAttributes;
     }
 
-    private void setDbTablesByAttributes(Map<DBTables, Set<String>> dbTablesByAttributes) {
-        this.dbTablesByAttributes = dbTablesByAttributes;
+    public Map<DBTable, Set<String>> getDbTableByAttributes() {
+        return dbTableByAttributes;
+    }
+
+    private void setDbTableByAttributes(Map<DBTable, Set<String>> dbTableByAttributes) {
+        this.dbTableByAttributes = dbTableByAttributes;
     }
 
     private static void setInstance(GlobalAttributeHolder instance) {
@@ -97,10 +102,6 @@ public class GlobalAttributeHolder {
 
     public Map<EventType, Set<String>> getEventTypeByAttributes() {
         return eventTypeByAttributes;
-    }
-
-    public Map<DBTables, Set<String>> getDbTablesByAttributes() {
-        return dbTablesByAttributes;
     }
 
     public Set<String> getAdditionalAttributes() {

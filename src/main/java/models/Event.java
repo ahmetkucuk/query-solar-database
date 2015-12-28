@@ -26,10 +26,10 @@ public class Event {
         if(!eventJson.has(attr)) return null;
 
         //Cut primary key
-        if(attr.equalsIgnoreCase("kb_archivid")) {
-            String kbArchivId = eventJson.get(attr).getAsString();
-            return kbArchivId.substring(kbArchivId.lastIndexOf("/")+1);
-        }
+//        if(attr.equalsIgnoreCase("kb_archivid")) {
+//            String kbArchivId = eventJson.get(attr).getAsString();
+//            return kbArchivId.substring(kbArchivId.lastIndexOf("/")+1);
+//        }
         JsonElement jsonElement = eventJson.get(attr);
         if(jsonElement != null && jsonElement.isJsonArray()) {
             return jsonElement.toString();

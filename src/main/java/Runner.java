@@ -52,31 +52,20 @@ public class Runner {
 //
 
 
-        EventJsonDownloader eventJsonDownloader = new EventJsonDownloader(StringUtils.join(Stream.of(EventType.values()).map(e -> e.toQualifiedString()).collect(Collectors.toList()), ","), "2012-12-01T00:00:00", "2012-12-03T23:00:59", 200);
+        EventJsonDownloader eventJsonDownloader = new EventJsonDownloader(StringUtils.join(Stream.of(EventType.values()).map(e -> e.toQualifiedString()).collect(Collectors.toList()), ","), "2015-12-01T00:00:00", "2015-12-03T23:00:59", 100);
         JsonArray array;
-        int pageNumber = 0;
-        Map<String, Set<String>> map = new HashMap<>();
+        Set<String> insertedEvents = new HashSet<>();
         while((array = eventJsonDownloader.next()) != null) {
-            int counter = 0;
             for(JsonElement j: array) {
-
                 Event e = new Event(j.getAsJsonObject());
                 String kb = e.get("kb_archivid");
-                String insertQuery = new InsertQueryForEvent(e).getInsertQuery();
-                DBConnection.getInstance().executeCommand(insertQuery);
-
-                if(map.containsKey(kb)) {
-                    map.get(kb).add(pageNumber + " " + counter + " " + e.get("revision"));
-                    System.out.println("Same kb " + map.get(kb));
+                if(!insertedEvents.contains(kb)) {
+                    new InsertQueryForEvent(e).getInsertQueries().forEach(q -> DBConnection.getInstance().executeCommand(q));
                 } else {
-                    map.put(kb, new HashSet<>());
-                    map.get(kb).add(pageNumber + " " + counter + " " + e.get("revision"));
+                    System.out.println(kb);
                 }
-                counter++;
+                insertedEvents.add(kb);
             }
-            pageNumber++;
-
-            System.out.println(map.size());
         }
     }
 

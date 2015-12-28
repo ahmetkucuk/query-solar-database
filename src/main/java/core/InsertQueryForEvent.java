@@ -1,13 +1,11 @@
 package core;
 
 import com.google.gson.JsonObject;
+import models.DBTable;
 import models.Event;
 import utils.Constants;
 
-import java.util.LinkedList;
-import java.util.List;
-import java.util.Map;
-import java.util.Set;
+import java.util.*;
 import java.util.stream.Collectors;
 
 /**
@@ -16,19 +14,26 @@ import java.util.stream.Collectors;
 public class InsertQueryForEvent {
 
     private Event event;
-    private String insertQuery;
+    private List<String> insertQueries;
 
     public InsertQueryForEvent(Event e) {
         this.event = e;
-        generateInsertQuery();
+        generateInsertQueries();
     }
 
-    private void generateInsertQuery() {
+    private void generateInsertQueries() {
+        insertQueries = new ArrayList<>();
 
         List<String> values = new LinkedList<>();
         Set<String> attributes = GlobalAttributeHolder.getInstance().getEventTypeByAttributes().get(event.getEventType());
         values.addAll(attributes.stream().map(attribute -> getActualPostgreMapping(event, attribute)).collect(Collectors.toList()));
-        insertQuery = String.format(Constants.QUERY.INSERT_INTO, event.getEventType().toString(), String.join(",", attributes), String.join(",", values));
+        insertQueries.add(String.format(Constants.QUERY.INSERT_INTO, event.getEventType().toString(), String.join(",", attributes), String.join(",", values)));
+        for(DBTable dbTable:DBTable.values()) {
+            attributes = GlobalAttributeHolder.getInstance().getDbTableByAttributes().get(dbTable);
+            values.clear();
+            values.addAll(attributes.stream().map(attribute -> getActualPostgreMapping(event, attribute)).collect(Collectors.toList()));
+            insertQueries.add(String.format(Constants.QUERY.INSERT_INTO, dbTable.toString(), String.join(",", attributes), String.join(",", values)));
+        }
     }
 
     public String getActualPostgreMapping(Event event, String attribute) {
@@ -43,12 +48,9 @@ public class InsertQueryForEvent {
             return String.format(Constants.QUERY.GEOMETRY_FORM, event.get(attribute));
         }
 
-        if(!attributeDataTypeMap.containsKey(attribute)) {
-            return "'" + event.get(attribute) + "'";
-        } else if(attributeDataTypeMap.get(attribute).equalsIgnoreCase("string")) {
-            return "'" + event.get(attribute) + "'";
-        } else if(attributeDataTypeMap.get(attribute).equalsIgnoreCase("timestamp")) {
-            return "'" + event.get(attribute) + "'";
+
+        if(!attributeDataTypeMap.containsKey(attribute) || attributeDataTypeMap.get(attribute).equalsIgnoreCase("string") || attributeDataTypeMap.get(attribute).equalsIgnoreCase("timestamp")) {
+            return "'" + (event.get(attribute) != null ? event.get(attribute).replaceAll("'", " ") : "") + "'";
         }
 
         String attributeValue = event.get(attribute);
@@ -56,7 +58,7 @@ public class InsertQueryForEvent {
         return event.get(attribute);
     }
 
-    public String getInsertQuery() {
-        return insertQuery;
+    public List<String> getInsertQueries() {
+        return insertQueries;
     }
 }
