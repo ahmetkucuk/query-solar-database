@@ -21,14 +21,6 @@ public class Constants {
         public static final String EVENT_TYPE = "event_type";
     }
 
-    public static class DB {
-        public static final String DB_HOST = "localhost";
-        public static final String DB_NAME = "dbproject";
-        public static final String DB_USERNAME = "postgres";
-        public static final String DB_USER_PASSWORD = "lakers";
-        public static final int DB_PORT = 5432;
-    }
-
     public static class QUERY {
 
         public static final String INSERT_INTO = "INSERT INTO %s (%s) VALUES (%s);";

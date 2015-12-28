@@ -24,10 +24,10 @@ public class DBConnection {
             Class.forName("org.postgresql.Driver");
 
             // the postgresql url
-            String url = "jdbc:postgresql://" + Constants.DB.DB_HOST + "/" + Constants.DB.DB_NAME;
+            String url = "jdbc:postgresql://" + DBPrefs.DB_HOST + "/" + DBPrefs.DB_NAME;
 
             // get the postgresql database connection
-            connection = DriverManager.getConnection(url,Constants.DB.DB_USERNAME, Constants.DB.DB_USER_PASSWORD);
+            connection = DriverManager.getConnection(url,DBPrefs.DB_USERNAME, DBPrefs.DB_USER_PASSWORD);
 
         }
         catch (ClassNotFoundException e)

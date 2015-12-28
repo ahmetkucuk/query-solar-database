@@ -45,8 +45,6 @@ public class Utilities {
 
             while((line = reader.readLine()) != null) {
                 String[] columns = line.split("\t");
-                if(columns.length < 2)
-                    System.out.println(line);
                 map.put(columns[0].toLowerCase(), columns[1].toLowerCase());
             }
             return map;

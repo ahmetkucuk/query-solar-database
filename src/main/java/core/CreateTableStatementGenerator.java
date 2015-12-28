@@ -9,7 +9,7 @@ import java.util.*;
 /**
  * Created by ahmetkucuk on 22/11/15.
  */
-public class CreateTableQueries {
+public class CreateTableStatementGenerator {
 
     private static final Map<String, String> attributeByPOSTGREDataTypeMap = new HashMap<>();
     static {

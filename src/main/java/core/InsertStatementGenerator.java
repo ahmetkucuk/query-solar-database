@@ -11,12 +11,12 @@ import java.util.stream.Collectors;
 /**
  * Created by ahmetkucuk on 26/12/15.
  */
-public class InsertQueryForEvent {
+public class InsertStatementGenerator {
 
     private Event event;
     private List<String> insertQueries;
 
-    public InsertQueryForEvent(Event e) {
+    public InsertStatementGenerator(Event e) {
         this.event = e;
         generateInsertQueries();
     }
