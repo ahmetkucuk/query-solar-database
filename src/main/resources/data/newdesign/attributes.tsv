@@ -1,0 +1,197 @@
+Parameter	Type	AR	CE	CD	CH	CW	FI	FE	FA	FL	LP	OS	SS	EF	CJ	PG	OT	NR	SG	SP	CR	CC	ER	TO	HY	Description of attribute
+AbsNetCurrentHelicity	float	opt	---	---	---	---	---	---	---	---	---	---	---	---	---	---	---	---	---	---	---	---	---	---	---	Absolute value of the net current helicity
+AR_AxisLength	float	opt	---	---	---	---	---	---	---	---	---	---	---	---	---	---	---	---	---	---	---	---	---	---	---	Axis length (bipole separation distance)
+AR_LengthUnit	string	opt	---	---	---	---	---	---	---	---	---	---	---	---	---	---	---	---	---	---	---	---	---	---	---	Units for AR_AxisLength and AR_NeutralLength
+AR_NeutralLength	float	opt	---	---	---	---	---	---	---	---	---	---	---	---	---	---	---	---	---	---	---	---	---	---	---	The total length of polarity separation line segments within the AR
+AR_PILCurvature	float	opt	---	---	---	---	---	---	---	---	---	---	---	---	---	---	---	---	---	---	---	---	---	---	---	Dimensionless curvature of main PIL (PIL length / direct distance between endpoints)
+AR_SpotAreaRaw	float	opt	---	---	---	---	---	---	---	---	---	---	---	---	---	---	---	---	---	---	---	---	---	---	---	Area of spots in active region in plane of sky
+AR_SpotAreaRawUncert	float	opt	---	---	---	---	---	---	---	---	---	---	---	---	---	---	---	---	---	---	---	---	---	---	---	Uncertainty of AR_SpotAreaRaw
+AR_SpotAreaRawUnit	string	opt	---	---	---	---	---	---	---	---	---	---	---	---	---	---	---	---	---	---	---	---	---	---	---	Units of AR_SpotAreaRaw
+AR_SpotAreaRepr	float	opt	---	---	---	---	---	---	---	---	---	---	---	---	---	---	---	---	---	---	---	---	---	---	---	Reprojected area of spots in heliographic units
+AR_SpotAreaReprUncert	float	opt	---	---	---	---	---	---	---	---	---	---	---	---	---	---	---	---	---	---	---	---	---	---	---	Uncertainty Reprojected area of spots in heliographic units
+AR_SpotAreaReprUnit	string	opt	---	---	---	---	---	---	---	---	---	---	---	---	---	---	---	---	---	---	---	---	---	---	---	Units of AR_SpotAreaReprUnit (e.g. 'millihemispheres' or 'steradians')
+AR_SumNegSignedFlux	float	opt	---	---	---	---	---	---	---	---	---	---	---	---	---	---	---	---	---	---	---	---	---	---	---	Total negative signed flux (negative number)
+AR_SumPosSignedFlux	float	opt	---	---	---	---	---	---	---	---	---	---	---	---	---	---	---	---	---	---	---	---	---	---	---	Total positive signed flux
+Area_AtDiskCenter	float	opt	opt	opt	opt	opt	opt	opt	opt	opt	---	opt	opt	opt	opt	opt	opt	---	opt	opt	opt	opt	opt	opt	---	Area of event at disk center
+Area_AtDiskCenterUncert	float	opt	opt	opt	opt	opt	opt	opt	opt	opt	---	opt	opt	opt	opt	opt	opt	---	opt	opt	opt	opt	opt	opt	---	Uncertainty of area at disk center
+Area_Raw	float	opt	opt	opt	opt	opt	opt	opt	opt	opt	---	opt	opt	opt	opt	opt	opt	---	opt	opt	opt	opt	opt	opt	---	Area of event in sky plane
+Area_Uncert	float	opt	opt	opt	opt	opt	opt	opt	opt	opt	---	opt	opt	opt	opt	opt	opt	---	opt	opt	opt	opt	opt	opt	---	Uncertainty of area in sky plane
+Area_Unit	string	opt	opt	opt	opt	opt	opt	opt	opt	opt	---	opt	opt	opt	opt	opt	opt	---	opt	opt	opt	opt	opt	opt	---	Units of area in sky plane (e.g. 'arcsec2')
+Bound_CCNsteps	long	opt	opt	opt	opt	opt	opt	opt	opt	opt	---	opt	opt	opt	opt	opt	opt	opt	opt	opt	opt	opt	opt	opt	---	Number of steps in bounding chain code (useful for coronal hole boundaries)
+Bound_CCStartC1	float	opt	opt	opt	opt	opt	opt	opt	opt	opt	---	opt	opt	opt	opt	opt	opt	opt	opt	opt	opt	opt	opt	opt	---	Beginning Coord1 of chain code
+Bound_CCStartC2	float	opt	opt	opt	opt	opt	opt	opt	opt	opt	---	opt	opt	opt	opt	opt	opt	opt	opt	opt	opt	opt	opt	opt	---	Beginning Coord2 of chain code
+Bound_ChainCode	string	opt	opt	opt	opt	opt	opt	opt	opt	opt	---	opt	opt	opt	opt	opt	opt	opt	opt	opt	opt	opt	opt	opt	---	List of vertices for polygon (ordered list delimited by commas. e.g. 'x1, y1, x2, y2, x3, y3, x1, y1')
+BoundBox_C1LL	float	req	req	req	req	req	req	req	req	req	req	req	req	req	req	req	req	req	req	req	req	req	req	req	req	Coord1 of lower-left corner of bounding box
+BoundBox_C1UR	float	req	req	req	req	req	req	req	req	req	req	req	req	req	req	req	req	req	req	req	req	req	req	req	req	Coord1 of upper-right corner of bounding box
+BoundBox_C2LL	float	req	req	req	req	req	req	req	req	req	req	req	req	req	req	req	req	req	req	req	req	req	req	req	req	Coord2 of lower-left corner of bounding box
+BoundBox_C2UR	float	req	req	req	req	req	req	req	req	req	req	req	req	req	req	req	req	req	req	req	req	req	req	req	req	Coord2 of upper-right corner of bounding box
+CC_AxisUnit	string	---	---	---	---	---	---	---	---	---	---	---	---	---	---	---	---	---	---	---	---	opt	---	---	---	Unit of measure for major and minor axes. Typically Rsun
+CC_MajorAxis	float	---	---	---	---	---	---	---	---	---	---	---	---	---	---	---	---	---	---	---	---	opt	---	---	---	Length of major axis of elliptical fit to cavity
+CC_MinorAxis	float	---	---	---	---	---	---	---	---	---	---	---	---	---	---	---	---	---	---	---	---	opt	---	---	---	Length of minor axis of elliptical fit to cavity
+CC_TiltAngleMajorFromRadial	float	---	---	---	---	---	---	---	---	---	---	---	---	---	---	---	---	---	---	---	---	opt	---	---	---	Angle between major axis and local disk-projected radial vector, measured clockwise from radial vector.
+CC_TiltAngleUnit	string	---	---	---	---	---	---	---	---	---	---	---	---	---	---	---	---	---	---	---	---	opt	---	---	---	Unit of measure for CC_TiltAngleMaorFromRadial. Typicall deg.
+CD_Area	float	---	---	opt	---	---	---	---	---	---	---	---	---	---	---	---	---	---	---	---	---	---	---	---	---	Maximum area of dimming
+CD_AreaUncert	float	---	---	opt	---	---	---	---	---	---	---	---	---	---	---	---	---	---	---	---	---	---	---	---	---	Uncertainty of CD_Area
+CD_AreaUnit	string	---	---	opt	---	---	---	---	---	---	---	---	---	---	---	---	---	---	---	---	---	---	---	---	---	Unit for CD_Area ('millihemisphere' or 'steradians')'
+CD_Mass	float	---	---	opt	---	---	---	---	---	---	---	---	---	---	---	---	---	---	---	---	---	---	---	---	---	Mass estimate calculated for dimming event
+CD_MassUncert	float	---	---	opt	---	---	---	---	---	---	---	---	---	---	---	---	---	---	---	---	---	---	---	---	---	Uncertainty for CD_Mass
+CD_MassUnit	string	---	---	opt	---	---	---	---	---	---	---	---	---	---	---	---	---	---	---	---	---	---	---	---	---	Unit for CD_Mass
+CD_Volume	float	---	---	opt	---	---	---	---	---	---	---	---	---	---	---	---	---	---	---	---	---	---	---	---	---	Volume of dimming region
+CD_VolumeUncert	float	---	---	opt	---	---	---	---	---	---	---	---	---	---	---	---	---	---	---	---	---	---	---	---	---	Uncertainty of CD_Volume
+CD_VolumeUnit	string	---	---	opt	---	---	---	---	---	---	---	---	---	---	---	---	---	---	---	---	---	---	---	---	---	Units for CD_Volume (e.g. 'cm^3')
+ChainCodeType	string	opt	opt	opt	opt	opt	opt	opt	opt	opt	req	opt	opt	opt	opt	opt	opt	opt	opt	opt	opt	opt	opt	opt	---	Type of chain code (Use "ordered list")
+CME_Accel	float	---	opt	---	---	---	---	---	---	---	---	---	---	---	---	---	---	---	---	---	---	---	---	---	---	Acceleration of CME
+CME_AccelUncert	float	---	opt	---	---	---	---	---	---	---	---	---	---	---	---	---	---	---	---	---	---	---	---	---	---	Uncertainty of CME acceleration
+CME_AccelUnit	string	---	opt	---	---	---	---	---	---	---	---	---	---	---	---	---	---	---	---	---	---	---	---	---	---	Units for CME acceleration (e.g. 'km/s/s')
+CME_AngularWidth	float	---	req	---	---	---	---	---	---	---	---	---	---	---	---	---	---	---	---	---	---	---	---	---	---	Angular width of CME
+CME_AngularWidthUnit	string	---	req	---	---	---	---	---	---	---	---	---	---	---	---	---	---	---	---	---	---	---	---	---	---	Units for angular width of CME (e.g. 'deg')
+CME_Mass	float	---	opt	---	---	---	---	---	---	---	---	---	---	---	---	---	---	---	---	---	---	---	---	---	---	Mass contained in CME (e.g. '1e17')
+CME_MassUncert	float	---	opt	---	---	---	---	---	---	---	---	---	---	---	---	---	---	---	---	---	---	---	---	---	---	Uncertainty in mass contained in cme
+CME_MassUnit	string	---	opt	---	---	---	---	---	---	---	---	---	---	---	---	---	---	---	---	---	---	---	---	---	---	Units for CME mass (e.g. 'g')
+CME_RadialLinVel	float	---	req	---	---	---	---	---	---	---	---	---	---	---	---	---	---	---	---	---	---	---	---	---	---	Radial Linear fit radial velocity of CME
+CME_RadialLinVelMax	float	---	req	---	---	---	---	---	---	---	---	---	---	---	---	---	---	---	---	---	---	---	---	---	---	Maximum linear radial velocity of CME
+CME_RadialLinVelMin	float	---	req	---	---	---	---	---	---	---	---	---	---	---	---	---	---	---	---	---	---	---	---	---	---	Mininum linear radial velocity of CME
+CME_RadialLinVelStddev	float	---	req	---	---	---	---	---	---	---	---	---	---	---	---	---	---	---	---	---	---	---	---	---	---	Standard Deviation of radial velocity of CME
+CME_RadialLinVelUncert	float	---	req	---	---	---	---	---	---	---	---	---	---	---	---	---	---	---	---	---	---	---	---	---	---	Uncertainty in CME_RadialLinVel
+CME_RadialLinVelUnit	string	---	req	---	---	---	---	---	---	---	---	---	---	---	---	---	---	---	---	---	---	---	---	---	---	Units for Radial velocity of CME (e.g. 'km/s')
+CurrentDensityUnit	string	opt	---	---	---	---	---	---	---	---	---	---	---	---	---	---	---	---	---	---	---	---	---	---	---	Current density unit (e.g. 'mA/m^2')
+CurrentHelicityUnit	string	opt	---	---	---	---	---	---	---	---	---	---	---	---	---	---	---	---	---	---	---	---	---	---	---	Current helicity unit (e.g. '(G^2)/m')
+CurrentUnit	string	opt	---	---	---	---	---	---	---	---	---	---	---	---	---	---	---	---	---	---	---	---	---	---	---	Current unit (e.g. 'A')
+EF_AspectRatio	float	---	---	---	---	---	---	---	---	---	---	---	---	opt	---	---	---	---	---	---	---	---	---	---	---	(EF_PosEquivRadius+EF_NegEquivRadius)/(2*EF_AxisLength)
+EF_AxisLength	float	---	---	---	---	---	---	---	---	---	---	---	---	opt	---	---	---	---	---	---	---	---	---	---	---	Axis length of emerging flux pair at completion
+EF_AxisOrientation	float	---	---	---	---	---	---	---	---	---	---	---	---	opt	---	---	---	---	---	---	---	---	---	---	---	Axis orientation of emerging flux pair (CCW from parallels in Stonyhurst longitude
+EF_AxisOrientationUnit	string	---	---	---	---	---	---	---	---	---	---	---	---	opt	---	---	---	---	---	---	---	---	---	---	---	Axis oriention unit (deg)
+EF_FluxUnit	string	---	---	---	---	---	---	---	---	---	---	---	---	opt	---	---	---	---	---	---	---	---	---	---	---	Flux unit (e.g. 'Mx')
+EF_LengthUnit	string	---	---	---	---	---	---	---	---	---	---	---	---	opt	---	---	---	---	---	---	---	---	---	---	---	Units for EF_AxisLength
+EF_NegEquivRadius	float	---	---	---	---	---	---	---	---	---	---	---	---	opt	---	---	---	---	---	---	---	---	---	---	---	Equivalent radius (i.e. sqrt(area/pi) of negative polarity at completion
+EF_NegPeakFluxOnsetRate	float	---	---	---	---	---	---	---	---	---	---	---	---	opt	---	---	---	---	---	---	---	---	---	---	---	Emergence rate of negative polarity flux
+EF_OnsetRateUnit	string	---	---	---	---	---	---	---	---	---	---	---	---	opt	---	---	---	---	---	---	---	---	---	---	---	Emergence rate unit (e.g. 'Mx/s')
+EF_PosEquivRadius	float	---	---	---	---	---	---	---	---	---	---	---	---	opt	---	---	---	---	---	---	---	---	---	---	---	Equivalent radius (i.e. sqrt(area/pi) of positive polarity at completion
+EF_PosPeakFluxOnsetRate	float	---	---	---	---	---	---	---	---	---	---	---	---	opt	---	---	---	---	---	---	---	---	---	---	---	Emergence rate of positive polarity flux
+EF_ProximityRatio	float	---	---	---	---	---	---	---	---	---	---	---	---	opt	---	---	---	---	---	---	---	---	---	---	---	(EF_PosEquivRadius-EF_NegEquivRadius)/(2*EF_AxisLength)
+EF_SumNegSignedFlux	float	---	---	---	---	---	---	---	---	---	---	---	---	opt	---	---	---	---	---	---	---	---	---	---	---	Total negative signed flux at completion (negative number)
+EF_SumPosSignedFlux	float	---	---	---	---	---	---	---	---	---	---	---	---	opt	---	---	---	---	---	---	---	---	---	---	---	Total positive signed flux at completion
+Event_C1Error	float	req	req	req	req	req	req	req	req	req	req	req	req	req	req	req	req	req	req	req	req	req	req	req	req	Uncertainty in Coord1 of the mean location of the event.
+Event_C2Error	float	req	req	req	req	req	req	req	req	req	req	req	req	req	req	req	req	req	req	req	req	req	req	req	req	Uncertainty in Coord2 of the mean location of the event.
+Event_ClippedSpatial	string	opt	opt	opt	opt	opt	opt	opt	opt	opt	opt	opt	opt	opt	opt	opt	opt	opt	opt	opt	opt	opt	opt	opt	opt	Whether the spatial extent of the event is wholly contained within the data set ('T' or 'F').
+Event_ClippedTemporal	string	opt	opt	opt	opt	opt	opt	opt	opt	opt	opt	opt	opt	opt	opt	opt	opt	opt	opt	opt	opt	opt	opt	opt	opt	Whether the temporal duration of the event is wholly contained within the data set ('T' or 'F').
+Event_Coord1	float	req	req	req	req	req	req	req	req	req	req	req	req	req	req	req	req	req	req	req	req	req	req	req	req	Coordinate 1 of mean location of event
+Event_Coord2	float	req	req	req	req	req	req	req	req	req	req	req	req	req	req	req	req	req	req	req	req	req	req	req	req	Coordinate 2 of mean location of event
+Event_Coord3	float	opt	opt	opt	opt	opt	opt	opt	opt	opt	opt	opt	opt	opt	opt	opt	opt	opt	opt	opt	opt	opt	opt	opt	opt	Coordinate 3 of mean location of event (optional. Suitable for use with STEREO SECCHI events)
+Event_CoordSys	string	req	req	req	req	req	req	req	req	req	req	req	req	req	req	req	req	req	req	req	req	req	req	req	req	Coordinate system type (Choose between UTC-HGS-TOPO [Heliographics Stonyhurst]; UTC-HPR-TOPO [Helioprojective]; UTC-HGC-TOPO[Heliographic Carrington]; UTC-HCR-TOPO[Helio-centric radial])
+Event_CoordUnit	string	req	req	req	req	req	req	req	req	req	req	req	req	req	req	req	req	req	req	req	req	req	req	req	req	Units of coordinates (e.g. "deg, deg" for UTC-HGS-TOP0)
+Event_Description	string	opt	opt	opt	opt	opt	opt	opt	opt	opt	opt	opt	opt	opt	opt	opt	opt	opt	opt	opt	opt	opt	opt	opt	opt	Description of the event
+Event_EndTime	string	req	req	req	req	req	req	req	req	req	req	req	req	req	req	req	req	req	req	req	req	req	req	req	req	Time when event ends (e.g. 2004-02-14T02:00:01)
+Event_Expires	string	opt	opt	opt	opt	opt	opt	opt	opt	opt	opt	opt	opt	opt	opt	opt	opt	opt	opt	opt	opt	opt	opt	opt	opt	Useful for reporting events before they are complete (e.g. 2004-02-14T02:00:01)
+Event_Importance	float	opt	opt	opt	opt	opt	opt	opt	opt	opt	opt	opt	opt	opt	opt	opt	opt	opt	opt	opt	opt	opt	opt	opt	opt	Rating or importance of the event (between 0 and 1). Can be used by automated methods to denote a metric.
+Event_MapURL	string	opt	opt	opt	opt	opt	opt	opt	opt	opt	opt	opt	opt	opt	opt	opt	opt	opt	opt	opt	opt	opt	opt	opt	opt	URL to an image/intensity map
+Event_MaskURL	string	opt	opt	opt	opt	opt	opt	opt	opt	opt	opt	opt	opt	opt	opt	opt	opt	opt	opt	opt	opt	opt	opt	opt	opt	URL to files which contain masks (e.g. binary masks) of region of interest.
+Event_Npixels	long	opt	opt	opt	opt	opt	opt	opt	opt	opt	req	opt	opt	opt	opt	opt	opt	---	opt	opt	opt	opt	opt	opt	---	Number of pixels pertaining to event
+Event_PeakTime	string	---	---	opt	---	opt	opt	opt	opt	req	---	opt	opt	opt	opt	opt	opt	opt	opt	opt	opt	opt	opt	opt	---	Peak time of a flare (e.g. '2003-02-12T23:03:01')
+Event_PixelUnit	string	opt	opt	opt	opt	opt	opt	opt	opt	opt	req	opt	opt	opt	opt	opt	opt	---	opt	opt	opt	opt	opt	opt	---	Units of values given in pixels
+Event_Probability	float	opt	opt	opt	opt	opt	opt	opt	opt	opt	opt	opt	opt	opt	opt	opt	opt	opt	opt	opt	opt	opt	opt	opt	opt	Probability or Confidence Level that event occured (bet. 0 and 1)
+Event_StartTime	string	req	req	req	req	req	req	req	req	req	req	req	req	req	req	req	req	req	req	req	req	req	req	req	req	Time when event starts (e.g. 2004-02-14T02:00:01)
+Event_TestFlag	string	opt	opt	opt	opt	opt	opt	opt	opt	opt	opt	opt	opt	opt	opt	opt	opt	opt	opt	opt	opt	opt	opt	opt	opt	A boolean flag to indicate that the event is for testing purposes ('T' or 'F')
+Event_Type	string	req	req	req	req	req	req	req	req	req	req	req	req	req	req	req	req	req	req	req	req	req	req	req	req	Event Type (e.g. 'FL: Flare' or 'AR: ActiveRegion')
+FI_BarbsEndC1	string	---	---	---	---	---	opt	---	---	---	---	---	---	---	---	---	---	---	---	---	---	---	---	---	---	List of Coord 1 of ends of barbs (list delimited by commas for each numbered barb. e.g. 'x1, x2, x3')
+FI_BarbsEndC2	string	---	---	---	---	---	opt	---	---	---	---	---	---	---	---	---	---	---	---	---	---	---	---	---	---	List of Coord 2 of ends of barbs (list delimited by commas for each numbered barb. e.g. 'y1, y2, y3')
+FI_BarbsL	integer	---	---	---	---	---	opt	---	---	---	---	---	---	---	---	---	---	---	---	---	---	---	---	---	---	Total number of Left Bearing Barbs
+FI_BarbsR	integer	---	---	---	---	---	opt	---	---	---	---	---	---	---	---	---	---	---	---	---	---	---	---	---	---	Total number of Right Bearing Barbs
+FI_BarbsStartC1	string	---	---	---	---	---	opt	---	---	---	---	---	---	---	---	---	---	---	---	---	---	---	---	---	---	List of Coord 1 of beginnings (closest to spine) of barbs (list delimited by commas for each numbered barb. e.g. 'x1, x2, x3')
+FI_BarbsStartC2	string	---	---	---	---	---	opt	---	---	---	---	---	---	---	---	---	---	---	---	---	---	---	---	---	---	List of Coord 2 of beginnings (closest to spine) of barbs (list delimited by commas for each numbered barb. e.g. 'y1, y2, y3')
+FI_BarbsTot	integer	---	---	---	---	---	opt	---	---	---	---	---	---	---	---	---	---	---	---	---	---	---	---	---	---	Total number of filament barbs
+FI_Chirality	integer	---	---	---	---	---	opt	---	---	---	---	---	---	---	---	---	---	---	---	---	---	---	---	---	---	Chirality for filament (-1 for sinistral; +1 for dextral; 0 for ambiguous/uncertain)
+FI_Length	float	---	---	---	---	---	opt	---	---	---	---	---	---	---	---	---	---	---	---	---	---	---	---	---	---	Length of Filament spine
+FI_LengthUnit	string	---	---	---	---	---	opt	---	---	---	---	---	---	---	---	---	---	---	---	---	---	---	---	---	---	Unit for FI_Length
+FI_Tilt	float	---	---	---	---	---	opt	---	---	---	---	---	---	---	---	---	---	---	---	---	---	---	---	---	---	Mean tilt angle (in degrees) of the Filament spine (given as Skel_ChainCode) w.r. to solar equator
+FL_EFoldTime	float	---	---	---	---	---	---	---	---	opt	---	---	---	---	---	---	---	---	---	---	---	---	---	---	---	Flare e-folding time
+FL_EFoldTimeUnit	string	---	---	---	---	---	---	---	---	opt	---	---	---	---	---	---	---	---	---	---	---	---	---	---	---	Unit for FL_EFoldTime (s)
+FL_Fluence	float	---	---	---	---	---	---	---	---	opt	---	---	---	---	---	---	---	---	---	---	---	---	---	---	---	Fluence of flare
+FL_FluenceUnit	string	---	---	---	---	---	---	---	---	opt	---	---	---	---	---	---	---	---	---	---	---	---	---	---	---	Unit for FL_Fluence (e.g. erg/cm^2)
+FL_GOESCls	string	---	---	---	---	---	---	---	---	opt	---	---	---	---	---	---	---	---	---	---	---	---	---	---	---	GOES Flare class (e.g. 'X11')
+FL_HalphaClass	string	---	---	---	---	---	---	---	---	opt	---	---	---	---	---	---	---	---	---	---	---	---	---	---	---	H Alpha classification (used on some Yohkoh HXT)
+FL_PeakEM	float	---	---	---	---	---	---	---	---	opt	---	---	---	---	---	---	---	---	---	---	---	---	---	---	---	Emission measure at peak time
+FL_PeakEMUnit	string	---	---	---	---	---	---	---	---	opt	---	---	---	---	---	---	---	---	---	---	---	---	---	---	---	Unit for FL_PeakEM
+FL_PeakFlux	float	---	---	---	---	---	---	---	---	opt	---	---	---	---	---	---	---	---	---	---	---	---	---	---	---	Flux at peak time
+FL_PeakFluxUnit	string	---	---	---	---	---	---	---	---	opt	---	---	---	---	---	---	---	---	---	---	---	---	---	---	---	Peak flux unit (e.g. erg/cm^2/s)
+FL_PeakTemp	float	---	---	---	---	---	---	---	---	opt	---	---	---	---	---	---	---	---	---	---	---	---	---	---	---	Temperature at peak time
+FL_PeakTempUnit	string	---	---	---	---	---	---	---	---	opt	---	---	---	---	---	---	---	---	---	---	---	---	---	---	---	Unit for FL_PeakTemp (K)
+FreqMaxRange	float	---	---	---	---	opt	---	---	---	---	---	opt	---	---	---	---	---	---	---	---	---	---	---	---	---	Maximum of the frequency range of oscillation
+FreqMinRange	float	---	---	---	---	opt	---	---	---	---	---	opt	---	---	---	---	---	---	---	---	---	---	---	---	---	Minimum of the frequency range of oscillation
+FreqPeakPower	float	---	---	---	---	opt	---	---	---	---	---	opt	---	---	---	---	---	---	---	---	---	---	---	---	---	Frequency at which power spectrum peaks
+FreqUnit	string	---	---	---	---	opt	---	---	---	---	---	opt	---	---	---	---	---	---	---	---	---	---	---	---	---	Units of frequency (e.g. 'Hz')
+GradientUnit	string	opt	---	---	---	---	---	---	---	---	---	---	---	---	---	---	---	---	---	---	---	---	---	---	---	Gradient unit (e.g. 'G/m')
+GWILL	float	opt	---	---	---	---	---	---	---	---	---	---	---	---	---	---	---	---	---	---	---	---	---	---	---	Gradient-weighted inversion-line length (Mason & Hoeksema 2010)
+GWILLUnit	string	opt	---	---	---	---	---	---	---	---	---	---	---	---	---	---	---	---	---	---	---	---	---	---	---	GWILL (length) unit (e.g. 'Mm')
+HighShearArea	float	opt	---	---	---	---	---	---	---	---	---	---	---	---	---	---	---	---	---	---	---	---	---	---	---	Area with shear angle greater than 45 as a percent of total area
+HighShearAreaPercent	float	opt	---	---	---	---	---	---	---	---	---	---	---	---	---	---	---	---	---	---	---	---	---	---	---	Area with shear angle greater than 45 as a percent of total area
+HighShearAreaUnit	string	opt	---	---	---	---	---	---	---	---	---	---	---	---	---	---	---	---	---	---	---	---	---	---	---	Area unit (e.g. 'm^2')
+KB_ArchivDate	string	req	req	req	req	req	req	req	req	req	req	req	req	req	req	req	req	req	req	req	req	req	req	req	req	Date when VOEvent entry was imported into Knowledge Base
+KB_ArchivID	string	req	req	req	req	req	req	req	req	req	req	req	req	req	req	req	req	req	req	req	req	req	req	req	req	Unique internal ID of VOEvent entry
+KB_Archivist	string	req	req	req	req	req	req	req	req	req	req	req	req	req	req	req	req	req	req	req	req	req	req	req	req	Name of Archivist (internal. user should leave blank)
+KB_ArchivURL	string	req	req	req	req	req	req	req	req	req	req	req	req	req	req	req	req	req	req	req	req	req	req	req	req	URL of VOEvent entry (internal. user should leave blank)
+Log_R_Value	float	opt	---	---	---	---	---	---	---	---	---	---	---	---	---	---	---	---	---	---	---	---	---	---	---	Log (Unsigned Flux R) (prelog value in Gauss*MDI-pixels - Schrijver 2007)
+MagFluxUnit	string	opt	---	---	---	---	---	---	---	---	---	---	opt	opt	---	---	---	---	---	---	---	---	---	---	---	Magnetic Flux unit (e.g. 'Mx')
+MaxMagFieldStrength	float	opt	---	---	---	---	---	---	---	---	---	---	---	opt	---	opt	opt	---	---	---	---	---	---	---	---	Maximum magnetic field strength
+MaxMagFieldStrengthUnit	string	opt	---	---	---	---	---	---	---	---	---	---	---	opt	---	opt	opt	---	---	---	---	---	---	---	---	Units for maximum magnetic field strength (e.g. 'G' or 'Mx/cm2')
+MeanCurrentHelicity	float	opt	---	---	---	---	---	---	---	---	---	---	---	---	---	---	---	---	---	---	---	---	---	---	---	Mean current helicity
+MeanEnergyDensityUnit	string	opt	---	---	---	---	---	---	---	---	---	---	---	---	---	---	---	---	---	---	---	---	---	---	---	Energy Density unit (e.g. 'erg/(cm^3)')
+MeanGradientHorz	float	opt	---	---	---	---	---	---	---	---	---	---	---	---	---	---	---	---	---	---	---	---	---	---	---	Mean value of the horizontal field gradient
+MeanGradientTotal	float	opt	---	---	---	---	---	---	---	---	---	---	---	---	---	---	---	---	---	---	---	---	---	---	---	Mean value of the total field gradient
+MeanGradientVert	float	opt	---	---	---	---	---	---	---	---	---	---	---	---	---	---	---	---	---	---	---	---	---	---	---	Mean value of the vertical field gradient
+MeanInclinationGamma	float	opt	---	---	---	---	---	---	---	---	---	---	---	---	---	---	---	---	---	---	---	---	---	---	---	Mean inclination angle (gamma) (degrees)
+MeanPhotoEnergyDensity	float	opt	---	---	---	---	---	---	---	---	---	---	---	---	---	---	---	---	---	---	---	---	---	---	---	Mean photospheric excess magnetic energy density
+MeanShearAngle	float	opt	---	---	---	---	---	---	---	---	---	---	---	---	---	---	---	---	---	---	---	---	---	---	---	Mean shear angle for B_total (degrees)
+MeanTwistAlpha	float	opt	---	---	---	---	---	---	---	---	---	---	---	---	---	---	---	---	---	---	---	---	---	---	---	Mean twist parameter (alpha)
+MeanVertCurrentDensity	float	opt	---	---	---	---	---	---	---	---	---	---	---	---	---	---	---	---	---	---	---	---	---	---	---	Mean vertical current density
+OscillNPeriods	float	---	---	---	---	opt	---	---	---	---	---	opt	---	---	---	---	---	---	---	---	---	---	---	---	---	Number of periods detected in oscillation
+OscillNPeriodsUncert	float	---	---	---	---	opt	---	---	---	---	---	opt	---	---	---	---	---	---	---	---	---	---	---	---	---	Uncertainty of number of periods detected in oscillation
+Outflow_Length	float	---	---	---	---	---	---	---	---	---	---	---	---	---	opt	---	---	---	---	opt	---	---	---	---	---	Length of outflow (can be for CoronalJet or SpraySurge)
+Outflow_LengthUnit	string	---	---	---	---	---	---	---	---	---	---	---	---	---	opt	---	---	---	---	opt	---	---	---	---	---	Units for length of outflow (e.g. 'arcsec')
+Outflow_OpeningAngle	float	---	---	---	---	---	---	---	---	---	---	---	---	---	opt	---	---	---	---	opt	---	---	---	---	---	Opening angle of outflow (in degrees)
+Outflow_Speed	float	---	---	---	---	---	---	---	---	---	---	---	---	---	opt	---	---	---	---	opt	---	---	---	---	---	Outflow speed of outflow
+Outflow_SpeedUnit	string	---	---	---	---	---	---	---	---	---	---	---	---	---	opt	---	---	---	---	opt	---	---	---	---	---	Units for speed (e.g. 'km/s')
+Outflow_TransSpeed	float	---	---	---	---	---	---	---	---	---	---	---	---	---	opt	---	---	---	---	opt	---	---	---	---	---	Transverse speed relative to outflow direction
+Outflow_Width	float	---	---	---	---	---	---	---	---	---	---	---	---	---	opt	---	---	---	---	opt	---	---	---	---	---	Width of outflow
+Outflow_WidthUnit	string	---	---	---	---	---	---	---	---	---	---	---	---	---	opt	---	---	---	---	opt	---	---	---	---	---	Units for width of outflow (e.g. 'arcsec')
+PeakPower	float	---	---	---	---	opt	---	---	---	---	---	opt	---	---	---	---	---	---	---	---	---	---	---	---	---	Peak power of oscillation
+PeakPowerUnit	string	---	---	---	---	opt	---	---	---	---	---	opt	---	---	---	---	---	---	---	---	---	---	---	---	---	Units of peak power of oscillation
+RasterScan	string	opt	opt	opt	opt	opt	opt	opt	opt	opt	opt	opt	opt	opt	opt	opt	opt	opt	opt	opt	opt	opt	opt	opt	opt	Field for ascii string of raster scan
+RasterScanType	string	opt	opt	opt	opt	opt	opt	opt	opt	opt	opt	opt	opt	opt	opt	opt	opt	opt	opt	opt	opt	opt	opt	opt	opt	Type of raster scan (E.g. "EGSO_SFC" if you are using the EGSO Solar Feature Catalogue convection for the raster scan)
+SAVNCPP	float	opt	---	---	---	---	---	---	---	---	---	---	---	---	---	---	---	---	---	---	---	---	---	---	---	Sum of the Absolute Value of the Net Currents Per Polarity (SAVNCPP)
+SG_AspectRatio	float	---	---	---	---	---	---	---	---	---	---	---	---	---	---	---	---	---	opt	---	---	---	---	---	---	TBD
+SG_Chirality	integer	---	---	---	---	---	---	---	---	---	---	---	---	---	---	---	---	---	opt	---	---	---	---	---	---	Chirality of sigmoid (-1 for sinistral; +1 for dextral; 0 for ambiguous/uncertain)
+SG_MeanContrast	float	---	---	---	---	---	---	---	---	---	---	---	---	---	---	---	---	---	opt	---	---	---	---	---	---	TBD
+SG_Orientation	float	---	---	---	---	---	---	---	---	---	---	---	---	---	---	---	---	---	opt	---	---	---	---	---	---	Angular rotation (ccw in degrees) of the main axis of the sigmoid to the active region
+SG_PeakContrast	float	---	---	---	---	---	---	---	---	---	---	---	---	---	---	---	---	---	opt	---	---	---	---	---	---	TBD
+SG_Shape	string	---	---	---	---	---	---	---	---	---	---	---	---	---	---	---	---	---	opt	---	---	---	---	---	---	Shape of sigmoid
+SHARP_NOAA_ARS	string	opt	---	---	---	---	---	---	---	---	---	---	---	---	---	---	---	---	---	---	---	---	---	---	---	Comma separated list of NOAA_ARS within lat/lon bounding box. Can include ones without NOAA# at time of event.
+Skel_ChainCode	string	---	---	---	opt	---	opt	opt	opt	opt	req	---	---	---	opt	opt	opt	opt	opt	opt	opt	opt	opt	opt	---	Skeleton code. A skeleton code is like a chain code except it isn't closed. (ordered list delimited by commas. e.g. 'x1, y1, x2, y2, x3, y3')
+Skel_Curvature	float	---	---	---	---	---	opt	opt	opt	opt	req	---	---	---	opt	opt	opt	opt	opt	opt	opt	opt	opt	opt	---	Curvature of skeleton
+Skel_Nsteps	integer	---	---	---	opt	---	opt	opt	opt	opt	req	---	---	---	opt	opt	opt	opt	opt	opt	opt	opt	opt	opt	---	Number of steps in skeleton
+Skel_StartC1	float	---	---	---	opt	---	opt	opt	opt	opt	req	---	---	---	opt	opt	opt	opt	opt	opt	opt	opt	opt	opt	---	Beginning Coord 1 of skeleton
+Skel_StartC2	float	---	---	---	opt	---	opt	opt	opt	opt	req	---	---	---	opt	opt	opt	opt	opt	opt	opt	opt	opt	opt	---	Beginning Coord 2 of skeleton
+SS_SpinRate	float	---	---	---	---	---	---	---	---	---	---	---	opt	---	---	---	---	---	---	---	---	---	---	---	---	Spin/Rotation rate of sunspots
+SS_SpinRateUnit	string	---	---	---	---	---	---	---	---	---	---	---	opt	---	---	---	---	---	---	---	---	---	---	---	---	Unit Spin/Rotation rate of sunspots (e.g. Deg/day)
+TO_Shape	string	---	---	---	---	---	---	---	---	---	---	---	---	---	---	---	---	---	---	---	---	---	---	opt	---	Apparent shape of topoogical object. Example values can be X-point, cusp, dome, line.
+TotalEnergyDensityUnit	string	opt	---	---	---	---	---	---	---	---	---	---	---	---	---	---	---	---	---	---	---	---	---	---	---	Energy/length unit (e.g. 'erg/cm')
+TotalPhotoEnergy	float	opt	---	---	---	---	---	---	---	---	---	---	---	---	---	---	---	---	---	---	---	---	---	---	---	Total photospheric magnetic energy (TOTPOT in SHARP times pixel width)
+TotalPhotoEnergyDensity	float	opt	---	---	---	---	---	---	---	---	---	---	---	---	---	---	---	---	---	---	---	---	---	---	---	Total photospheric magnetic energy density (TOTPOT in SHARP)
+TotalPhotoEnergyUnit	string	opt	---	---	---	---	---	---	---	---	---	---	---	---	---	---	---	---	---	---	---	---	---	---	---	Energy unit (e.g. 'erg')
+TwistUnit	string	opt	---	---	---	---	---	---	---	---	---	---	---	---	---	---	---	---	---	---	---	---	---	---	---	Twist unit (e.g. '1/Mm')
+UnsignedCurrentHelicity	float	opt	---	---	---	---	---	---	---	---	---	---	---	---	---	---	---	---	---	---	---	---	---	---	---	Total unsigned current helicity
+UnsignedFlux	float	opt	---	---	---	---	---	---	---	---	---	---	opt	opt	---	---	---	---	---	---	---	---	---	---	---	Total unsigned flux in region
+UnsignedVertCurrent	float	opt	---	---	---	---	---	---	---	---	---	---	---	---	---	---	---	---	---	---	---	---	---	---	---	Total unsigned vertical current
+VelocMaxAmpl	float	---	---	---	---	opt	---	---	---	---	---	opt	---	---	---	---	---	---	---	---	---	---	---	---	---	Maximum amplitude of oscillation in velocity signal (e.g. doppler signal)
+VelocMaxPower	float	---	---	---	---	opt	---	---	---	---	---	opt	---	---	---	---	---	---	---	---	---	---	---	---	---	Maximum power of oscillation in velocity signal
+VelocMaxPowerUncert	float	---	---	---	---	opt	---	---	---	---	---	opt	---	---	---	---	---	---	---	---	---	---	---	---	---	Uncertainty in max power in velocity signal
+VelocMinAmpl	float	---	---	---	---	opt	---	---	---	---	---	opt	---	---	---	---	---	---	---	---	---	---	---	---	---	Minimum amplitude in oscillating velocity signal
+VelocUnit	string	---	---	---	---	opt	---	---	---	---	---	opt	---	---	---	---	---	---	---	---	---	---	---	---	---	Units for velocity (e.g. 'km/s')
+WaveDisplMaxAmpl	float	---	---	---	---	opt	---	---	---	---	---	opt	---	---	---	---	---	---	---	---	---	---	---	---	---	Maximum amplitude of oscillation in displacement signal
+WaveDisplMinAmpl	float	---	---	---	---	opt	---	---	---	---	---	opt	---	---	---	---	---	---	---	---	---	---	---	---	---	Minimum amplitude of oscillatoin in displacement signal
+WaveDisplUnit	string	---	---	---	---	opt	---	---	---	---	---	opt	---	---	---	---	---	---	---	---	---	---	---	---	---	Units for displacement amplitude (e.g. 'arcsec')
+WavelMaxPower	float	---	---	---	---	opt	---	---	---	---	---	opt	---	---	---	---	---	---	---	---	---	---	---	---	---	Wavelength at which spatial power spectrum peaks
+WavelMaxPowerUncert	float	---	---	---	---	opt	---	---	---	---	---	opt	---	---	---	---	---	---	---	---	---	---	---	---	---	Uncertainty of WavelMaxPower
+WavelMaxRange	float	---	---	---	---	opt	---	---	---	---	---	opt	---	---	---	---	---	---	---	---	---	---	---	---	---	Maximum wavelength of wavelength range for spatial oscillation
+WavelMinRange	float	---	---	---	---	opt	---	---	---	---	---	opt	---	---	---	---	---	---	---	---	---	---	---	---	---	Minimum wavelength of wavelength range for spatial oscillation
+WavelUnit	string	---	---	---	---	opt	---	---	---	---	---	opt	---	---	---	---	---	---	---	---	---	---	---	---	---	Units for spatial oscillation wavelength (e.g. 'km')

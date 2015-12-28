@@ -11,14 +11,12 @@ import java.util.*;
  */
 public class EventAttributeSeparator {
 
-    public static final String allEvents = "/Users/ahmetkucuk/Documents/Research/SolarDatabase/EventAttributes/attributes.tsv";
-
     public static void main(String[] args) {
     }
 
     public static Map<EventType, Set<String>> getEventTypeByAttributesMap() {
 
-        try(BufferedReader reader = new BufferedReader(new FileReader(allEvents))) {
+        try(BufferedReader reader = new BufferedReader(new FileReader(FileManager.getInstance().getPath("data/newdesign/attributes.tsv")))) {
 
             Map<EventType, Set<String>> eventTypeByAttributes = new TreeMap<>();
             String[][] all = new String[197][27];

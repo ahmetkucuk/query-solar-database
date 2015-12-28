@@ -11,8 +11,6 @@ import java.util.*;
  */
 public class CreateTableQueries {
 
-    public static final String ATTRIBUTE_BASE = "/Users/ahmetkucuk/Documents/GEORGIA_STATE/COURSES/Database_Systems/Project/Data/";
-
     private static final Map<String, String> attributeByPOSTGREDataTypeMap = new HashMap<>();
     static {
         attributeByPOSTGREDataTypeMap.put("float", "float");
