@@ -34,16 +34,26 @@ public class Constants {
     			+ "CREATE TABLE %s_spt(" +
     			"  kb_archivid text NOT NULL, " +
     			"  event_starttime timestamp without time zone, " +
+    			"  event_endtime timestamp without time zone, " +
     			"  hpc_bbox geometry(Polygon,4326), " +
+    			"  hpc_boundcc geometry(Polygon,4326), " +
+    			"  trajectory_id bigint," +
+    			"  interpolated boolean," +
+    			"  intrajectory boolean, " + 
     			" CONSTRAINT %s_spt_pkey PRIMARY KEY (kb_archivid)" +
-    			")";
+    			");" + "\n"
+    			+ "CREATE INDEX"
+    			+ " ON %s_spt USING btree ( tsrange(event_starttime, event_endtime, \'[]\') );\n"
+    			+ "CREATE INDEX %s_spt_hpc_bbox_idx"
+    			+ " ON %s_spt USING gist (hpc_bbox);"; 
+   
     			
     			
     	public static final String CREATE_TRIGGER = 
     			"CREATE OR REPLACE FUNCTION %s_ins_function() RETURNS trigger AS \' \n" +
     			"	BEGIN	\n" +
-				"	     INSERT INTO %s_spt(kb_archivid, event_starttime, hpc_bbox) \n" +
-				"		  VALUES (new.kb_archivid, new.event_starttime, new.hpc_bbox); \n" +
+				"	     INSERT INTO %s_spt(kb_archivid, event_starttime, event_endtime, hpc_bbox, hpc_boundcc, interpolated) \n" +
+				"		  VALUES (new.kb_archivid, new.event_starttime, new.event_endtime, new.hpc_bbox, new.hpc_boundcc, FALSE); \n" +
 				"			RETURN new; \n" +
 				"	END \n"  +
 				"\' LANGUAGE plpgsql; \n" +
