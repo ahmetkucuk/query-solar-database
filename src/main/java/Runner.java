@@ -1,6 +1,7 @@
 
 //import com.sun.deploy.util.StringUtils;
 import com.google.common.collect.Sets;
+
 import core.*;
 import models.DBTable;
 import services.SolarDatabaseAPI;
@@ -23,11 +24,13 @@ public class Runner {
     private static final String END_DATE = "2015-12-05T23:00:59";
 
     public static void main(String[] args) {
-
+        new DBPrefs();
+    	
         GlobalAttributeHolder.init();
         SolarDatabaseAPI api = new SolarDatabaseAPI();
         api.createDatabaseSchema();
         api.downloadAndInsertEvents(START_DATE, END_DATE);
+
     }
 
 
