@@ -27,4 +27,29 @@ public class Constants {
         public static final String GEOMETRY_FORM = "ST_GeomFromText('%s',4326)";
         public static final String ADD_GEOMETRY_COLUMN = "SELECT AddGeometryColumn('%s', '%s',4326,'%s',2);";
     }
+    
+    public static class TRIGGER {
+    	public static final String CREATE_ST_TABLE = 
+    			" DROP TABLE IF EXISTS %s_spt; \n"
+    			+ "CREATE TABLE %s_spt(" +
+    			"  kb_archivid text NOT NULL, " +
+    			"  event_starttime timestamp without time zone, " +
+    			"  hpc_bbox geometry(Polygon,4326), " +
+    			" CONSTRAINT %s_spt_pkey PRIMARY KEY (kb_archivid)" +
+    			")";
+    			
+    			
+    	public static final String CREATE_TRIGGER = 
+    			"CREATE OR REPLACE FUNCTION %s_ins_function() RETURNS trigger AS \' \n" +
+    			"	BEGIN	\n" +
+				"	     INSERT INTO %s_spt(kb_archivid, event_starttime, hpc_bbox) \n" +
+				"		  VALUES (new.kb_archivid, new.event_starttime, new.hpc_bbox); \n" +
+				"			RETURN new; \n" +
+				"	END \n"  +
+				"\' LANGUAGE plpgsql; \n" +
+				"DROP TRIGGER IF EXISTS %s_ins on %s; \n" +
+				" CREATE TRIGGER %s_ins AFTER INSERT -- OR DELETE OR UPDATE \n" +
+				"        ON %s FOR each ROW \n " +
+				"        EXECUTE PROCEDURE %s_ins_function(); \n";
+    }
 }
