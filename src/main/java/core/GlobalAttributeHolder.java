@@ -53,7 +53,7 @@ public class GlobalAttributeHolder {
         instance = new GlobalAttributeHolder();
         instance.setEventTypeByAttributes(EventAttributeSeparator.getEventTypeByAttributesMap());
 
-        instance.setAdditionalAttributes(Utilities.fileAsSet(FileManager.getInstance().getPath("data/newdesign/SpAttr_table")));
+        instance.setAdditionalAttributes(Utilities.fileAsSet(FileManager.getInstance().getPath("data/newdesign/additional_attributes")));
         instance.setAttributeDataTypeMap(Utilities.getAttributesMap(FileManager.getInstance().getPath("data/old-design/Parameter_Types.txt")));
 
         instance.setDbTableByAttributes(EventAttributeSeparator.getDbTablesByAttributesMap());
