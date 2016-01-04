@@ -1,0 +1,9 @@
+﻿DROP FUNCTION IF EXISTS test_spt(character varying);
+CREATE OR REPLACE FUNCTION test_spt(tname character varying)
+RETURNS TABLE(kb_archivid text) AS
+$BODY$
+BEGIN
+    RETURN QUERY EXECUTE 'SELECT kb_archivid from ' ||tname; --||  ' where ' ||cname ||' != ''AL''';
+END;
+$BODY$
+LANGUAGE plpgsql;
