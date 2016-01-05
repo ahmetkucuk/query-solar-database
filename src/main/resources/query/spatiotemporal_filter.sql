@@ -18,7 +18,8 @@ DECLARE
     temp_valid boolean;
     spat_valid boolean;
 BEGIN
---Usage example: -- select temporal_filter('ar_spt', 'Equals', 10, 10, 200, 200);
+--Usage example: -- select spatiotemporal_filter('ar_spt', 'GreaterThan', 'Intersects', '2015-12-01 21:36:23', '2015-12-03 01:36:23', 10, 10, 300, 300);
+
 --Allowed temporal predicates are following: 
 --'Equals', 'LessThan', 'GreaterThan', 'Contains', 'ContainedBy',
 --'Overlaps', 'Precedes', 'PrecededBy'
