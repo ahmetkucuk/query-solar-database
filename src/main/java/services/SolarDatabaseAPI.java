@@ -9,6 +9,8 @@ import core.InsertStatementGenerator;
 import models.Event;
 import models.EventType;
 import org.apache.commons.lang3.StringUtils;
+import utils.FileManager;
+import utils.Utilities;
 
 import java.util.HashSet;
 import java.util.Set;
@@ -44,5 +46,14 @@ public class SolarDatabaseAPI {
     public void createDatabaseSchema() {
 
         new CreateTableStatementGenerator().createTables();
+    }
+
+    public void addAdditionalFunctions() {
+
+        String[] listOfFunctions = new String[]{"query/temporal_filter.sql"};
+        for(String fileName : listOfFunctions) {
+            DBConnection.getInstance().executeFromFile(FileManager.getInstance().getPath(fileName));
+        }
+
     }
 }

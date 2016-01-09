@@ -29,6 +29,7 @@ public class Runner {
         GlobalAttributeHolder.init();
         SolarDatabaseAPI api = new SolarDatabaseAPI();
         api.createDatabaseSchema();
+//        api.addAdditionalFunctions();
         api.downloadAndInsertEvents(START_DATE, END_DATE);
 
     }
