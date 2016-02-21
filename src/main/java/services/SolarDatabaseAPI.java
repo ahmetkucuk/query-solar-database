@@ -22,12 +22,12 @@ import java.util.stream.Stream;
  */
 public class SolarDatabaseAPI {
 
-    private static final int pageNumber = 100;
+    private static final int numberOfElementInEachQuery = 200;
 
     public void downloadAndInsertEvents(String startDate, String endDate) {
 
-        String eventsToBeIncluded = StringUtils.join(Stream.of(EventType.values()).map(e -> e.toQualifiedString()).collect(Collectors.toList()), ",");
-        EventJsonDownloader eventJsonDownloader = new EventJsonDownloader(eventsToBeIncluded, startDate, endDate, pageNumber);
+        String eventsToBeIncluded = StringUtils.join(EventType.getARSGFLCH().stream().map(e -> e.toQualifiedString()).collect(Collectors.toList()), ",");
+        EventJsonDownloader eventJsonDownloader = new EventJsonDownloader(eventsToBeIncluded, startDate, endDate, numberOfElementInEachQuery);
 
         JsonArray array;
         Set<String> insertedEvents = new HashSet<>();

@@ -6,7 +6,7 @@ package core;
 public class DBPrefs {
 
     public static final String DB_HOST = "localhost";
-    public static final String DB_NAME = "dbproject";
+    public static final String DB_NAME = "image_urls";
     public static String DB_USERNAME = "ahmetkucuk";
     public static String DB_USER_PASSWORD = "";
     public static final int DB_PORT = 5432;

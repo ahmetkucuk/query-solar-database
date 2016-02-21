@@ -1,5 +1,9 @@
 package models;
 
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
+
 /**
  * Created by ahmetkucuk on 01/10/15.
  */
@@ -18,5 +22,9 @@ public enum EventType {
     public String toQualifiedString() {
         if(this == TOB) return "TO";
         return super.toString();
+    }
+
+    public static List<EventType> getARSGFLCH() {
+        return Arrays.asList(AR, SG, FL, CH);
     }
 }
