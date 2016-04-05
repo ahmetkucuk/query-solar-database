@@ -1,7 +1,11 @@
-import core.*;
-import models.ImageAttributes;
+import core.DBPrefs;
+import core.GlobalAttributeHolder;
 import services.SolarDatabaseAPI;
-import utils.ImageListParser;
+import utils.Utilities;
+
+import java.util.Date;
+import java.util.Timer;
+import java.util.TimerTask;
 
 
 /**
@@ -9,34 +13,51 @@ import utils.ImageListParser;
  */
 public class Runner {
 
-    private static final String START_DATE = "2012-01-01T00:00:00";
+    private static final String START_DATE = "2010-01-01T00:00:00";
     private static final String END_DATE = "2014-12-30T23:59:59";
+    private static final int DAILY_UPDATE_INTERVAL = 1000*60*60*24;
+    private static SolarDatabaseAPI api;
 
     public static void main(String[] args) {
 
-        new DBPrefs();
-        insertImageFileNamesToDatabase();
-
-    }
-
-    public static void insertImageFileNamesToDatabase (){
-        ImageListParser parser = new ImageListParser("/Users/ahmetkucuk/Documents/Developer/virtualmc/Final_Test/allImages.txt");
-        ImageAttributes imageAttributes;
-        while((imageAttributes = parser.next()) != null) {
-            DBConnection.getInstance().executeCommand(imageAttributes.getInsertQuery());
-            //System.out.println(imageAttributes.getInsertQuery());
-        }
-    }
-
-    public static void pullAndInsertDataFromHEK() {
 
         new DBPrefs();
 
         GlobalAttributeHolder.init();
-        SolarDatabaseAPI api = new SolarDatabaseAPI();
-        //api.createDatabaseSchema();
+        api = new SolarDatabaseAPI();
+        api.createDatabaseSchema();
+
+        Date date = Utilities.getToday2AM();
+        pullAndInsertOldDataFromHEK(date);
+        startWithFixedRate(date);
+
+//        new DBPrefs();
+//        System.out.println(ImageAttributes.getCreateTableQuery(SECONDARY_TABLENAME));
+//        System.out.println(ImageAttributes.getCreateTableQuery(PRIMARY_TABLENAME));
+//        retrieveClosestImageNames();
+        //insertImageFileNamesToDatabase("/Users/ahmetkucuk/Documents/Developer/virtualmc/Final_Test/primary.txt", PRIMARY_TABLENAME);
+
+    }
+
+    public static void startWithFixedRate(Date date) {
+
+        Timer timer = new Timer();
+        timer.scheduleAtFixedRate(new TimerTask() {
+            @Override
+            public void run() {
+                Date d = new Date(date.getTime());
+                d.setTime(date.getTime() + DAILY_UPDATE_INTERVAL);
+                api.downloadAndInsertEvents(Utilities.getStringFromDate(date), Utilities.getStringFromDate(d));
+            }
+        }, date, DAILY_UPDATE_INTERVAL);
+
+    }
+
+    public static void pullAndInsertOldDataFromHEK(Date until) {
+
+        //
 //        api.addAdditionalFunctions();
-        api.downloadAndInsertEvents(START_DATE, END_DATE);
+        api.downloadAndInsertEvents(START_DATE, Utilities.getStringFromDate(until));
         System.out.println("Finished Without Interruption");
 
     }

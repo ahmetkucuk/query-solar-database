@@ -7,7 +7,6 @@ import com.google.gson.JsonParser;
 import core.GlobalAttributeHolder;
 import models.DBTable;
 import models.Event;
-import models.EventType;
 
 import java.io.*;
 import java.text.ParseException;
@@ -21,6 +20,18 @@ public class Utilities {
 
     private static final String DELIMETER_COOR = ",";
     private static final String DELIMETER_POINT = " ";
+
+
+    public static Date getToday2AM() {
+
+        Calendar cal = Calendar.getInstance();
+        cal.set(Calendar.HOUR_OF_DAY, 2);
+        cal.set(Calendar.MINUTE, 0);
+        cal.set(Calendar.SECOND, 0);
+        Date date = cal.getTime();
+        return date;
+
+    }
 
     public static String getFileContent(String filePath) {
         String result = "";

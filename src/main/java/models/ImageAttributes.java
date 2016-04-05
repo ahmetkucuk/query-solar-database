@@ -7,8 +7,8 @@ import java.util.Date;
  */
 public class ImageAttributes {
 
-    private static final String INSERT_INTO_IMAGE_ARRTIBUTES = "INSERT INTO image_attributes (date, measurement, observatory, instrument, name) VALUES (%s);";
-    private static final String CREATE_TABLE = "DROP TABLE IF EXISTS image_attributes;CREATE TABLE image_attributes (date TIMESTAMP, measurement text, observatory text, instrument text, name text);";
+    private static final String INSERT_INTO_IMAGE_ARRTIBUTES = "INSERT INTO %s (date, measurement, observatory, instrument, name) VALUES (%s);";
+    private static final String CREATE_TABLE = "DROP TABLE IF EXISTS %s;CREATE TABLE %s (date TIMESTAMP, measurement text, observatory text, instrument text, name text PRIMARY KEY);";
     //select ('2012-07-06 09:51:07'::timestamp - date) as absolute from image_attributes WHERE measurement like '171' ORDER BY absolute DESC;
 
     //2012_06_04__09_41_43_84__SDO_AIA_AIA_193.jp2
@@ -17,21 +17,27 @@ public class ImageAttributes {
     private String observatory;
     private String instrument;
     private String completeName;
+    private String tableName;
 
-    public ImageAttributes(Date date, String measurement, String observatory, String instrument, String completeName) {
+    public ImageAttributes(Date date, String measurement, String observatory, String instrument, String completeName, String tableName) {
         this.date = date;
         this.measurement = measurement;
         this.observatory = observatory;
         this.instrument = instrument;
         this.completeName = completeName;
+        this.tableName = tableName;
     }
 
     public String getInsertQuery() {
-        return String.format(INSERT_INTO_IMAGE_ARRTIBUTES, ("'" + date + "', '" + measurement + "', '" + observatory + "', '" + instrument + "', '" + completeName + "'"));
+        return String.format(INSERT_INTO_IMAGE_ARRTIBUTES, tableName, ("'" + date + "', '" + measurement + "', '" + observatory + "', '" + instrument + "', '" + completeName + "'"));
     }
 
-    public static String getCreateTableQuery() {
-        return CREATE_TABLE;
+    public static String getCreateTableQuery(String tableName) {
+        return String.format(CREATE_TABLE, tableName, tableName);
+    }
+
+    public String getCreateTableQuery() {
+        return String.format(CREATE_TABLE, tableName, tableName);
     }
 
     @Override

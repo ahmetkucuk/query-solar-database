@@ -1,12 +1,8 @@
 package core;
 
-import utils.Constants;
 import utils.Utilities;
 
-import java.sql.Connection;
-import java.sql.DriverManager;
-import java.sql.ResultSet;
-import java.sql.SQLException;
+import java.sql.*;
 
 /**
  * Created by ahmetkucuk on 22/11/15.
@@ -54,6 +50,25 @@ public class DBConnection {
             System.out.println(query);
         }
         return false;
+    }
+
+    public String getFileName(String q) {
+        try {
+            return getName(q);
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return null;
+    }
+
+    private String getName(String query) throws SQLException {
+        Statement st = connection.createStatement();
+        ResultSet rs = st.executeQuery(query);
+        rs.next();
+        String result = rs.getString(1);
+        rs.close();
+        st.close();
+        return result;
     }
 
     public boolean executeFromFile(String file) {

@@ -13,12 +13,14 @@ import java.util.Date;
 public class ImageListParser {
 
     private BufferedReader reader;
+    private String imageType;
 
-    public ImageListParser(String inputFileName) {
-        init(inputFileName);
+    public ImageListParser(String inputFileName, String imageType) {
+        init(inputFileName, imageType);
     }
 
-    private void init(String fileName) {
+    private void init(String fileName, String imageType) {
+        this.imageType = imageType;
         FileInputStream fStream1;
         try {
             fStream1 = new FileInputStream(fileName);
@@ -43,7 +45,7 @@ public class ImageListParser {
             Date date = formatter.parse(line.substring(0, 23));
             String [] tokens = line.split("_");
 
-            return  new ImageAttributes(date, tokens[tokens.length-1], tokens[tokens.length-4], tokens[tokens.length-2], line);
+            return  new ImageAttributes(date, tokens[tokens.length-1], tokens[tokens.length-4], tokens[tokens.length-2], line, imageType);
 
 
 
