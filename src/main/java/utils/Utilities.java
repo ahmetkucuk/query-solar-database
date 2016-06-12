@@ -68,6 +68,25 @@ public class Utilities {
         return map;
     }
 
+    public static Map<String, String> getAttributesMap(InputStream attrFileInputStream) {
+
+        Map<String, String> map = new HashMap<>();
+        try(BufferedReader reader = new BufferedReader(new InputStreamReader(attrFileInputStream))) {
+
+            //Skip first line - header
+            String line = reader.readLine();
+
+            while((line = reader.readLine()) != null) {
+                String[] columns = line.split("\t");
+                map.put(columns[0], columns[1]);
+            }
+            return map;
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return map;
+    }
+
     public static List<String> getPrivateAttrSet(String attrFilePath) {
 
         List<String> set = new ArrayList<>();
@@ -99,6 +118,20 @@ public class Utilities {
         return set;
     }
 
+    public static Set<String> fileAsSet(InputStream attrFileInputStream) {
+
+        Set<String> set = new HashSet<>();
+        try(BufferedReader reader = new BufferedReader(new InputStreamReader(attrFileInputStream))) {
+            String line = null;
+            while((line = reader.readLine()) != null) {
+                set.add(line);
+            }
+        }catch (Exception e) {
+            e.printStackTrace();
+        }
+        return set;
+    }
+
     public static boolean isFileExists(String filePathString) {
         File f = new File(filePathString);
         return f.exists() && !f.isDirectory();
@@ -111,7 +144,7 @@ public class Utilities {
      */
     public static void findDifference(Set<String> jsonAttributes) {
 
-        try(BufferedReader reader = new BufferedReader(new FileReader(FileManager.getInstance().getPath("data/newdesign/attributes.tsv")))) {
+        try(BufferedReader reader = new BufferedReader(new InputStreamReader(FileManager.getInstance().getInputStream("data/newdesign/attributes.tsv")))) {
 
             Set<String> hekAttributes = new HashSet<>();
             String line = reader.readLine();
@@ -120,7 +153,7 @@ public class Utilities {
             }
             hekAttributes.addAll(GlobalAttributeHolder.getInstance().getAdditionalAttributes());
             for(DBTable db: DBTable.values())
-                hekAttributes.addAll(Utilities.fileAsSet(FileManager.getInstance().getPath("data/newdesign/" + db.toString())));
+                hekAttributes.addAll(Utilities.fileAsSet(FileManager.getInstance().getInputStream("data/newdesign/" + db.toString())));
             System.out.println("JSON: " + jsonAttributes);
             System.out.println("HEK: " + hekAttributes);
             System.out.println("HEK: " + Sets.difference(jsonAttributes, hekAttributes));

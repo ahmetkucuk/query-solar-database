@@ -18,7 +18,7 @@ public class Runner {
     private static final int DAILY_UPDATE_INTERVAL = 1000*60*60*24;
     private static SolarDatabaseAPI api;
 
-    public static void main(String[] args) {
+    public static void main(String[] args) throws Exception {
 
 
         new DBPrefs();
@@ -38,7 +38,6 @@ public class Runner {
         //insertImageFileNamesToDatabase("/Users/ahmetkucuk/Documents/Developer/virtualmc/Final_Test/primary.txt", PRIMARY_TABLENAME);
 
     }
-
     public static void startWithFixedRate(Date date) {
 
         Timer timer = new Timer();

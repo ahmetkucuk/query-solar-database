@@ -11,7 +11,8 @@
 		<dependency>
 			<groupId>org.postgresql</groupId>
 			<artifactId>postgresql</artifactId>
-			<version>9.4-1205-jdbc42</version>
+			<version>9.4.1208.jre7</version>
+
 		</dependency>
 		<dependency>
 			<groupId>com.google.code.gson</groupId>
@@ -29,19 +30,38 @@
 			<version>18.0</version>
 		</dependency>
 
-
 	</dependencies>
 
 	<build>
+		<resources>
+			<resource>
+				<directory>src/main/resources</directory>
+			</resource>
+		</resources>
 		<pluginManagement>
 			<plugins>
 				<plugin>
-					<artifactId>maven-compiler-plugin</artifactId>
-					<version>3.0</version>
+					<groupId>org.apache.maven.plugins</groupId>
+					<artifactId>maven-assembly-plugin</artifactId>
+					<version>2.2-beta-4</version>
 					<configuration>
-						<source>1.8</source>
-						<target>1.8</target>
+						<descriptorRefs>
+							<descriptorRef>jar-with-dependencies</descriptorRef>
+						</descriptorRefs>
+						<archive>
+							<manifest>
+								<mainClass>Runner</mainClass>
+							</manifest>
+						</archive>
 					</configuration>
+					<executions>
+						<execution>
+							<phase>package</phase>
+							<goals>
+								<goal>single</goal>
+							</goals>
+						</execution>
+					</executions>
 				</plugin>
 				<plugin>
 					<groupId>org.apache.maven.plugins</groupId>
@@ -49,9 +69,21 @@
 					<configuration>
 						<archive>
 							<manifest>
-								<mainClass>app.Runner</mainClass>
+								<mainClass>Runner</mainClass>
 							</manifest>
 						</archive>
+					</configuration>
+				</plugin>
+				<plugin>
+					<groupId>org.apache.maven.plugins</groupId>
+					<artifactId>maven-compiler-plugin</artifactId>
+					<version>3.2</version>
+					<configuration>
+						<fork>true</fork>
+						<meminitial>512m</meminitial>
+						<maxmem>4096m</maxmem>
+						<source>1.8</source>
+						<target>1.8</target>
 					</configuration>
 				</plugin>
 			</plugins>
