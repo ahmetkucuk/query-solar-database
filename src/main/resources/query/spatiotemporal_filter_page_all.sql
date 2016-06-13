@@ -25,7 +25,13 @@ DECLARE
     temp_valid boolean;
     spat_valid boolean;
 BEGIN
---Usage example: -- select spatiotemporal_filter_page('ar_spt', 'GreaterThan', 'Intersects', '2015-12-01 21:36:23', '2015-12-03 01:36:23', 10, 10, 300, 300, 'event_starttime', 100, 0);
+--Usage example: 
+--select * from spatiotemporal_filter_page_all( 
+--	ARRAY['ar_spt', 'ch_spt']::TEXT[], 'GreaterThan', 'Intersects', 
+--	'2014-12-01 21:36:23', '2014-12-02 01:36:23', 10, 10, 300, 300, 
+--	'event_starttime', 10, 20);
+--
+
 
 --Allowed temporal predicates are following: 
 --'Equals', 'LessThan', 'GreaterThan', 'Contains', 'ContainedBy',
