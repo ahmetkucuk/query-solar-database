@@ -4,6 +4,7 @@ import com.google.gson.JsonArray;
 import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
+import utils.StatusLogger;
 
 import java.io.BufferedReader;
 import java.io.IOException;
@@ -26,11 +27,12 @@ public class EventJsonDownloader {
     //Event Type, page, event start time, event end time
     private static final String URL = "https://www.lmsal.com/hek/her?cosec=2&cmd=search&type=column&event_type=%s&event_region=all&event_coordsys=helioprojective&x1=-5000&x2=5000&y1=-5000&y2=5000&result_limit=%d&page=%d&event_starttime=%s&event_endtime=%s";
 
-    public EventJsonDownloader(String eventType, String eventStartTime, String eventEndTime, int resultLimit) {
+    public EventJsonDownloader(String eventType, String eventStartTime, String eventEndTime, int resultLimit, int page) {
         this.eventType = eventType;
         this.eventStartTime = eventStartTime;
         this.eventEndTime = eventEndTime;
         this.resultLimit = resultLimit;
+        this.page = page;
     }
 
     public JsonArray next() {
@@ -40,6 +42,10 @@ public class EventJsonDownloader {
         System.out.println(url);
         String downloaded = downloadByUrl(url);
         if(downloaded == null) return new JsonArray();
+
+        StatusLogger.getInstance().writeDataFile(eventStartTime.replace(":", "_") + "__" + eventEndTime.replace(":", "_") + "__" + page, downloaded);
+        StatusLogger.getInstance().writeLatestDownloaded(eventStartTime + "SEP" + eventEndTime + "SEP" + page);
+        StatusLogger.getInstance().writeUrls(url);
 
         return getResultArray(downloaded);
 

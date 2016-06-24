@@ -3,7 +3,6 @@ package core;
 import models.DBTable;
 import models.EventType;
 import utils.Constants;
-import utils.Constants.TRIGGER;
 
 import java.util.*;
 
@@ -37,9 +36,14 @@ public class CreateTableStatementGenerator {
             }
         }
 
-        for(String triggerStatement:createTriggerStatements()) {
-        	DBConnection.getInstance().executeCommand(triggerStatement);
+        //After creation of tables are done, put index
+        for(EventType e: EventType.values()) {
+            DBConnection.getInstance().executeCommand(createIndexStatements(e.toString()));
         }
+
+//        for(String triggerStatement:createTriggerStatements()) {
+//        	DBConnection.getInstance().executeCommand(triggerStatement);
+//        }
         
     }
 
@@ -78,8 +82,14 @@ public class CreateTableStatementGenerator {
                 genericEventColumns.put(s, attributeByPOSTGREDataTypeMap.get(map.get(s) + ""));
             }
         }
+
+        //Query to create table
         String result = createActualStatement(genericEventColumns, tableName, isEvent);
+
+        //List of query to add spatial columns
         List<String> addStatements = createAddGeometryStatement(geometryColumns, tableName);
+
+        //execute create table first
         addStatements.add(0, result);
         return addStatements;
     }
@@ -104,7 +114,15 @@ public class CreateTableStatementGenerator {
             builder.append(" PRIMARY KEY (kb_archivid)");
         }
         builder.append(" );");
+        if(isEvent) {
+        }
         return builder.toString();
+    }
+
+    public String createIndexStatements(String tableName) {
+
+        String index = "CREATE INDEX ON %s USING btree ( tsrange(event_starttime, event_endtime, '[]') );CREATE INDEX %s_hpc_bbox_idx ON %s USING gist (hpc_bbox);";
+        return String.format(index, tableName, tableName, tableName);
     }
 
     public List<String> createAddGeometryStatement(Map<String, String> map, String tableName) {

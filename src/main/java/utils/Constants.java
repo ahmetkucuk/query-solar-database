@@ -5,6 +5,8 @@ package utils;
  */
 public class Constants {
 
+	public static final String SDO_RELEASE_DATE = "2010-01-01T00:00:00";
+
     public static class DATA {
 
         public static final int NUMBER_OF_DATA_FROM_EACH_FILE = 10000;

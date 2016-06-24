@@ -11,7 +11,7 @@ public class DBConnection {
 
     private static final DBConnection instance = new DBConnection();
 
-    private static Connection connection;
+    private Connection connection;
 
     private DBConnection() {
 
@@ -37,6 +37,11 @@ public class DBConnection {
 
     public static DBConnection getInstance() {
         return instance;
+    }
+
+
+    public Connection getConnection() {
+        return connection;
     }
 
     public boolean executeCommand(String query) {
@@ -72,7 +77,6 @@ public class DBConnection {
 
         String query = Utilities.getFileContent(file);
         return executeCommand(query);
-
 
     }
 }

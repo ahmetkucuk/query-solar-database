@@ -21,10 +21,10 @@ public class SolarDatabaseAPI {
 
     private static final int numberOfElementInEachQuery = 200;
 
-    public void downloadAndInsertEvents(String startDate, String endDate) {
+    public void downloadAndInsertEvents(String startDate, String endDate, int page) {
 
-        String eventsToBeIncluded = StringUtils.join(EventType.getARSGFLCH().stream().map(e -> e.toQualifiedString()).collect(Collectors.toList()), ",");
-        EventJsonDownloader eventJsonDownloader = new EventJsonDownloader(eventsToBeIncluded, startDate, endDate, numberOfElementInEachQuery);
+        String eventsToBeIncluded = StringUtils.join(EventType.getAsList().stream().map(e -> e.toQualifiedString()).collect(Collectors.toList()), ",");
+        EventJsonDownloader eventJsonDownloader = new EventJsonDownloader(eventsToBeIncluded, startDate, endDate, numberOfElementInEachQuery, page);
 
         JsonArray array;
         Set<String> insertedEvents = new HashSet<>();

@@ -1,6 +1,5 @@
 package models;
 
-import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
@@ -26,5 +25,9 @@ public enum EventType {
 
     public static List<EventType> getARSGFLCH() {
         return Arrays.asList(AR, SG, FL, CH);
+    }
+
+    public static List<EventType> getAsList() {
+        return Arrays.asList(AR, CE, CD, CH, CW, FI, FE, FA, FL, LP, OS, SS, EF, CJ, PG, OT, NR, SG, SP, CR, CC, ER, TOB, HY);
     }
 }
