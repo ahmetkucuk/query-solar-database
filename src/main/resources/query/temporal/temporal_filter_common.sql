@@ -7,7 +7,7 @@ CREATE OR REPLACE FUNCTION temporal_filter_common(tnames text[],
 				    order_by_col TEXT
 				    )
 RETURNS TABLE(kb_archivid TEXT, event_starttime TIMESTAMP, event_endtime TIMESTAMP, hpc_boundcc TEXT
-, hpc_coord TEXT, event_type TEXT, orderby TIMESTAMP ) AS
+, hpc_coord TEXT, event_type TEXT, event_coordunit TEXT, hpc_bbox TEXT, orderby TIMESTAMP ) AS
 $BODY$
 DECLARE
     tname TEXT;

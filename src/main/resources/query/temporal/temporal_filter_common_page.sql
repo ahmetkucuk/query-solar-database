@@ -1,5 +1,5 @@
 DROP FUNCTION IF EXISTS temporal_filter_common_page(text[],character varying,
-				timestamp, timestamp, character VARYING, real, real);
+				timestamp, timestamp, TEXT, real, real);
 CREATE OR REPLACE FUNCTION temporal_filter_common_page(tnames text[],
 				    t_pred character varying,
 				    tstart timestamp,
@@ -9,7 +9,7 @@ CREATE OR REPLACE FUNCTION temporal_filter_common_page(tnames text[],
 				    offset_count real
 				    )
 RETURNS TABLE(ID TEXT, StartTime TIMESTAMP , EndTime TIMESTAMP , CC TEXT
-, Coordinate TEXT, EventType TEXT) AS
+, Coordinate TEXT, EventType TEXT, CoordUnit TEXT, Bbox TEXT) AS
 $BODY$
 DECLARE
     t_query TEXT;
@@ -35,7 +35,7 @@ array_text = substring(array_text from 0 for char_length(array_text)) || ']::TEX
 
 
 RAISE NOTICE '%', tnames;
-t_query = 'select kb_archivid, event_starttime, event_endtime, ST_AsText(hpc_boundcc), ST_AsText(hpc_coord), event_type from temporal_filter_common( ' ;
+t_query = 'select kb_archivid, event_starttime, event_endtime, ST_AsText(hpc_boundcc), ST_AsText(hpc_coord), event_type, event_coordunit, ST_AsText(hpc_bbox) from temporal_filter_common( ' ;
 t_query = t_query || array_text ||', ' || quote_literal(t_pred) ||', ';
 t_query = t_query || quote_literal(tstart) || ', ' || quote_literal(tend);
 t_query = t_query || ', ' ||quote_literal(order_by_col)||') ORDER BY ' || order_by_col;

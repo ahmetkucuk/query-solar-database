@@ -7,7 +7,7 @@ CREATE OR REPLACE FUNCTION temporal_filter_common_order(tname character varying,
 				    order_by_col TEXT
 				    )
 RETURNS TABLE(kb_archivid TEXT, event_starttime TIMESTAMP, event_endtime TIMESTAMP, hpc_boundcc TEXT
-, hpc_coord TEXT, event_type TEXT, orderby TIMESTAMP ) AS
+, hpc_coord TEXT, event_type TEXT, event_coordunit TEXT, hpc_bbox TEXT, orderby TIMESTAMP ) AS
 $BODY$
 DECLARE
     t_query TEXT;
@@ -21,7 +21,7 @@ BEGIN
 --'Equals', 'LessThan', 'GreaterThan', 'Contains', 'ContainedBy',
 --'Overlaps', 'Precedes', 'PrecededBy'
 
-col_names = 'kb_archivid, event_starttime, event_endtime, ST_AsText(hpc_boundcc), ST_AsText(hpc_coord), event_type, ' || order_by_col || ' as orderby';
+col_names = 'kb_archivid, event_starttime, event_endtime, ST_AsText(hpc_boundcc), ST_AsText(hpc_coord), event_type, event_coordunit, ST_AsText(hpc_bbox), ' || order_by_col || ' as orderby';
 
 
 

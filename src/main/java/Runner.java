@@ -1,5 +1,6 @@
 import core.DBPrefs;
 import core.GlobalAttributeHolder;
+import org.apache.commons.lang3.time.DateUtils;
 import services.SolarDatabaseAPI;
 import utils.StatusLogger;
 import utils.Utilities;
@@ -15,53 +16,54 @@ import java.util.TimerTask;
 public class Runner {
 
     private static String START_DATE = "2010-01-01T00:00:00";
-    private static String END_DATE = "2014-12-30T23:59:59";
+    private static String END_DATE = "2010-02-01T00:00:00";
     private static final int DAILY_UPDATE_INTERVAL = 1000*60*60*24;
     private static SolarDatabaseAPI api;
 
-    //scp target/query-solar-database-1.0-SNAPSHOT.jar ahmet@dmlab.cs.gsu.edu:/home/ahmet/workspace/solardb-pull
-    //nohup /home/ahmet/tools/jdk1.8.0_73/bin/java -jar query-solar-database-1.0-SNAPSHOT-jar-with-dependencies.jar "/home/ahmet/workspace/solardb-pull/json-files/" "1" >> output.txt 2>&1
+    //scp target/query-solar-database-1.0-SNAPSHOT-jar-with-dependencies.jar ahmet@dmlab.cs.gsu.edu:/home/ahmet/workspace/solardb-pull
+    //nohup /home/ahmet/tools/jdk1.8.0_73/bin/java -jar query-solar-database-1.0-SNAPSHOT-jar-with-dependencies.jar "/home/ahmet/workspace/solardb-pull/json-files/" "2" >> output_periodic.txt 2>&1
     //mvn clean compile assembly:single
+
+    ///home/ahmet/tools/jdk1.8.0_73/bin/java -jar query-solar-database-1.0-SNAPSHOT-jar-with-dependencies.jar "/home/ahmet/workspace/solardb-pull/json-files/" "1" "2016-07-07T02:00:00" "2016-07-13T02:00:00"
     static String[] arg = new String[] {"/Users/ahmetkucuk/Documents/SolarDB", "1", START_DATE, END_DATE};
     public static void main(String[] args) throws Exception {
 
+
         if(args.length < 2) {
-            System.err.println("Arguments are missing. Location, Should Continue(0 or 1), Start Date, End Date");
-            return;
-        } else if (args[1].equalsIgnoreCase("0") && args.length < 4) {
+            System.out.println(Utilities.getToday2AM());
+            System.out.println(Utilities.getYesterday2AM());
             System.err.println("Arguments are missing. Location, Should Continue(0 or 1), Start Date, End Date");
             return;
         }
 
-        StatusLogger.init(args[0]);
-        int page = 1;
-        if(args[1].equalsIgnoreCase("0")){
-            START_DATE = args[2];
-            END_DATE = args[3];
-        } else {
-            //Start from previous chunk because last one might not be written completely
-            page = StatusLogger.getInstance().getLatestDownloadedPage() - 1;
-            if(page < 0) {
-                page = 1;
-                END_DATE = Utilities.getStringFromDate(Utilities.getToday2AM());
-            } else {
-                START_DATE = StatusLogger.getInstance().getLatestDownloadedStartTime();
-                END_DATE = StatusLogger.getInstance().getLatestDownloadedEndTime();
-            }
-        }
-        System.out.println("Started With: ");
-        System.out.println("Start Date: " + START_DATE);
-        System.out.println("End Date: " + END_DATE);
 
 
         new DBPrefs();
 
         GlobalAttributeHolder.init();
         api = new SolarDatabaseAPI();
-        api.createDatabaseSchema();
 
-        pullAndInsertOldDataFromHEK(START_DATE, END_DATE, page);
-        startWithFixedRate(Utilities.getToday2AM());
+
+        StatusLogger.init(args[0]);
+        int page = 1;
+        if(args[1].equalsIgnoreCase("0")){
+            api.createDatabaseSchema();
+
+            Date sDate = Utilities.getDateFromString(START_DATE);
+            Date eDate = Utilities.getDateFromString(END_DATE);
+            for(int i = 0; i < 79; i++) {
+                sDate = DateUtils.addMonths(sDate, 1);
+                eDate = DateUtils.addMonths(eDate, 1);
+
+                pullAndInsertOldDataFromHEK(Utilities.getStringFromDate(sDate), Utilities.getStringFromDate(eDate), page);
+            }
+        } else if(args[1].equalsIgnoreCase("1")) {
+            //Start from previous chunk because last one might not be written completely
+            pullAndInsertOldDataFromHEK(args[2], args[3], page);
+        } else {
+            startWithFixedRate(Utilities.getYesterday2AM());
+        }
+
 
 //        new DBPrefs();
 //        System.out.println(ImageAttributes.getCreateTableQuery(SECONDARY_TABLENAME));
@@ -75,11 +77,12 @@ public class Runner {
         timer.scheduleAtFixedRate(new TimerTask() {
             @Override
             public void run() {
-                Date d = new Date(date.getTime());
-                d.setTime(date.getTime() + DAILY_UPDATE_INTERVAL);
+                Date d = DateUtils.addDays(date, 1);
                 api.downloadAndInsertEvents(Utilities.getStringFromDate(date), Utilities.getStringFromDate(d), 1);
+                System.out.println("Pull and Insert start: " + Utilities.getStringFromDate(date) + " End Date: " + Utilities.getStringFromDate(d));
+                date.setTime(d.getTime());
             }
-        }, date, DAILY_UPDATE_INTERVAL);
+        }, Utilities.getToday2AM(), DAILY_UPDATE_INTERVAL);
 
     }
 
@@ -87,6 +90,7 @@ public class Runner {
 
         //
 //        api.addAdditionalFunctions();
+        System.out.println("Pull and Insert start: " + startDate + " End Date: " + endDate);
         api.downloadAndInsertEvents(startDate, endDate, page);
         System.out.println("Finished Without Interruption");
 

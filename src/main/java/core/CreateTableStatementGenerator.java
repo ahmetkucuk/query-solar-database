@@ -97,8 +97,8 @@ public class CreateTableStatementGenerator {
     private String createActualStatement(Map<String, String> map, String tableName, boolean isEvent) {
         StringBuilder builder = new StringBuilder();
         //DROP TABLE " + tableName + " CASCADE;
-        builder.append("DROP TABLE IF EXISTS " + tableName + " CASCADE;");
-        builder.append("CREATE TABLE ");
+        //builder.append("DROP TABLE IF EXISTS " + tableName + " CASCADE;");
+        builder.append("CREATE TABLE IF NOT EXISTS ");
         builder.append(tableName);
         builder.append(" ( ");
         for(Map.Entry<String, String> entry : map.entrySet()) {

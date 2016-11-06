@@ -7,6 +7,7 @@ import com.google.gson.JsonParser;
 import core.GlobalAttributeHolder;
 import models.DBTable;
 import models.Event;
+import org.apache.commons.lang3.time.DateUtils;
 
 import java.io.*;
 import java.text.ParseException;
@@ -29,6 +30,17 @@ public class Utilities {
         cal.set(Calendar.MINUTE, 0);
         cal.set(Calendar.SECOND, 0);
         Date date = cal.getTime();
+        return date;
+    }
+
+    public static Date getYesterday2AM() {
+
+        Calendar cal = Calendar.getInstance();
+        cal.set(Calendar.HOUR_OF_DAY, 2);
+        cal.set(Calendar.MINUTE, 0);
+        cal.set(Calendar.SECOND, 0);
+        Date date = cal.getTime();
+        date = DateUtils.addDays(date, -1);
         return date;
 
     }

@@ -5,7 +5,7 @@ package core;
  */
 public class DBPrefs {
 
-    public static final String DB_HOST = "postgres";
+    public static final String DB_HOST = "postgres-exposed";
     public static final String DB_NAME = "solardb";
     public static String DB_USERNAME = "postgres";
     public static String DB_USER_PASSWORD = "r3mot3p8sswo4d";
