@@ -39,13 +39,12 @@ public class EventJsonDownloader {
         if(isFinished) return null;
 
         String url = getNextUrl();
-        System.out.println(url);
         String downloaded = downloadByUrl(url);
         if(downloaded == null) return new JsonArray();
 
-        StatusLogger.getInstance().writeDataFile(eventStartTime.replace(":", "_") + "__" + eventEndTime.replace(":", "_") + "__" + page, downloaded);
+//        StatusLogger.getInstance().writeDataFile(eventStartTime.replace(":", "_") + "__" + eventEndTime.replace(":", "_") + "__" + page, downloaded);
         StatusLogger.getInstance().writeLatestDownloaded(eventStartTime + "SEP" + eventEndTime + "SEP" + page);
-        StatusLogger.getInstance().writeUrls(url);
+//        StatusLogger.getInstance().writeUrls(url);
 
         return getResultArray(downloaded);
 

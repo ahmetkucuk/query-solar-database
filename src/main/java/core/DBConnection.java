@@ -14,10 +14,12 @@ public class DBConnection {
     private Connection connection;
 
     private DBConnection() {
+        connect();
+    }
 
+    private void connect() {
         try
         {
-
             DriverManager.deregisterDriver(new org.postgresql.Driver());
             // the postgresql driver string
 
@@ -35,8 +37,17 @@ public class DBConnection {
         }
     }
 
-    public static DBConnection getInstance() {
-        return instance;
+    public void closeConnection() {
+        try {
+            if(this.connection != null) {
+                this.connection.close();
+                connection = null;
+            }
+        } catch (SQLException e) {}
+    }
+
+    public static DBConnection getNewConnection() {
+        return new DBConnection();
     }
 
 
@@ -48,8 +59,7 @@ public class DBConnection {
         try {
             return connection.createStatement().execute(query);
         } catch (SQLException e) {
-            e.printStackTrace();
-            System.out.println(query);
+            System.out.println("[DBConnection-executeCommand] SQL error: " + e.getErrorCode());
         }
         return false;
     }
@@ -58,7 +68,7 @@ public class DBConnection {
         try {
             return getName(q);
         } catch (SQLException e) {
-            e.printStackTrace();
+            System.out.println("[DBConnection-getFileName] SQL error: " + e.getErrorCode());
         }
         return null;
     }

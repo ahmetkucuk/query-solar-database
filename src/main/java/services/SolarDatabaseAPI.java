@@ -2,7 +2,7 @@ package services;
 
 import com.google.gson.JsonArray;
 import com.google.gson.JsonElement;
-import core.CreateTableStatementGenerator;
+import core.TableCreator;
 import core.DBConnection;
 import core.EventJsonDownloader;
 import core.InsertStatementGenerator;
@@ -28,21 +28,23 @@ public class SolarDatabaseAPI {
 
         JsonArray array;
         Set<String> insertedEvents = new HashSet<>();
+        DBConnection connection = DBConnection.getNewConnection();
         while ((array = eventJsonDownloader.next()) != null) {
             for (JsonElement j : array) {
                 Event e = new Event(j.getAsJsonObject());
                 String kb = e.get("kb_archivid");
                 if (!insertedEvents.contains(kb)) {
-                    new InsertStatementGenerator(e).getInsertQueries().forEach(q -> DBConnection.getInstance().executeCommand(q));
+                    new InsertStatementGenerator(e).getInsertQueries().forEach(q -> connection.executeCommand(q));
                     insertedEvents.add(kb);
                 }
             }
         }
+        connection.closeConnection();
     }
 
     public void createDatabaseSchema() {
 
-        new CreateTableStatementGenerator().createTables();
+        new TableCreator().createTables();
     }
 
 //    public void addAdditionalFunctions() {

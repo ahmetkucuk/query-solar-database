@@ -23,7 +23,10 @@ public class ImageUrlHandler {
 
 
     public static String sendDBQuery(Date date, String measurement, String tableName) {
-        return DBConnection.getInstance().getFileName(String.format(NEAREST_IMAGE_TIME, tableName, measurement, date, date));
+        DBConnection connection = DBConnection.getNewConnection();
+        String result = connection.getFileName(String.format(NEAREST_IMAGE_TIME, tableName, measurement, date, date));
+        connection.closeConnection();
+        return result;
     }
 
     public static void retrieveClosestImageNames() {
@@ -82,9 +85,11 @@ public class ImageUrlHandler {
     public static void insertImageFileNamesToDatabase (String imageFileName, String imageType){
         ImageListParser parser = new ImageListParser(imageFileName, imageType);
         ImageAttributes imageAttributes;
+        DBConnection connection = DBConnection.getNewConnection();
         while((imageAttributes = parser.next()) != null) {
-            DBConnection.getInstance().executeCommand(imageAttributes.getInsertQuery());
+            connection.executeCommand(imageAttributes.getInsertQuery());
             //System.out.println(imageAttributes.getInsertQuery());
         }
+        connection.closeConnection();
     }
 }

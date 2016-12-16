@@ -63,15 +63,13 @@ public class StatusLogger {
         try (BufferedReader reader = new BufferedReader(new FileReader(new File(location, LATEST_DOWNLOADED)))) {
             String line = reader.readLine();
             if(line == null) {
-                throw new Exception("Latest Downloaded file cannot be found at " + location + LATEST_DOWNLOADED);
+                throw new IOException("Latest Downloaded file cannot be found at " + location + LATEST_DOWNLOADED);
             }
             return line.split("SEP")[index];
         } catch (FileNotFoundException e) {
             e.printStackTrace();
             return "-1000";
         } catch (IOException e) {
-            e.printStackTrace();
-        } catch (Exception e) {
             e.printStackTrace();
         }
 

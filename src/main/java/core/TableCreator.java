@@ -9,7 +9,7 @@ import java.util.*;
 /**
  * Created by ahmetkucuk on 22/11/15.
  */
-public class CreateTableStatementGenerator {
+public class TableCreator {
 
     private static final Map<String, String> attributeByPOSTGREDataTypeMap = new HashMap<>();
     static {
@@ -23,28 +23,30 @@ public class CreateTableStatementGenerator {
 
     public void createTables() {
 
+        DBConnection connection = DBConnection.getNewConnection();
     	for(DBTable t: DBTable.values()) {
             for(String query:createTableQuery(t)) {
-                DBConnection.getInstance().executeCommand(query);
+                connection.executeCommand(query);
             }
         }
     	
         for(EventType e: EventType.values()) {
             for(String query:createTableQuery(e)) {
-                DBConnection.getInstance().executeCommand(query);
+                connection.executeCommand(query);
                 
             }
         }
 
         //After creation of tables are done, put index
         for(EventType e: EventType.values()) {
-            DBConnection.getInstance().executeCommand(createIndexStatements(e.toString()));
+            connection.executeCommand(createIndexStatements(e.toString()));
         }
 
 //        for(String triggerStatement:createTriggerStatements()) {
 //        	DBConnection.getInstance().executeCommand(triggerStatement);
 //        }
-        
+        connection.closeConnection();
+
     }
 
     private List<String> createTriggerStatements() {
