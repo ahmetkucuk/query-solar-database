@@ -18,10 +18,10 @@ public class QuerySolarDB {
     private static final int DAILY_UPDATE_INTERVAL = 1000*60*60*24;
 
     //scp target/query-solar-database-1.0-SNAPSHOT-jar-with-dependencies.jar ahmet@dmlab.cs.gsu.edu:/home/ahmet/workspace/solardb-pull
-    //nohup /home/ahmet/tools/jdk1.8.0_73/bin/java -jar query-solar-database-1.0-SNAPSHOT-jar-with-dependencies.jar "/home/ahmet/workspace/solardb-pull/json-files/" "2" >> output_periodic.txt 2>&1
+    //nohup /home/ahmet/tools/jdk1.8.0_73/bin/java -jar query-solar-database-1.0-SNAPSHOT-jar-with-dependencies.jar "/home/ahmet/workspace/solardb-pull/json-files/" "month" "2016-07-07T02:00:00" "2016-07-13T02:00:00" > output_flares.txt 2>&1
     //mvn clean compile assembly:single
 
-    ///home/ahmet/tools/jdk1.8.0_73/bin/java -jar query-solar-database-1.0-SNAPSHOT-jar-with-dependencies.jar "/home/ahmet/workspace/solardb-pull/json-files/" "month" "2016-07-07T02:00:00" "2016-07-13T02:00:00" "createSchema"
+    ///home/ahmet/tools/jdk1.8.0_73/bin/java -jar query-solar-database-1.0-SNAPSHOT-jar-with-dependencies.jar "/home/ahmet/workspace/solardb-pull/json-files/" "month" "2016-07-07T02:00:00" "2016-07-13T02:00:00" "not"
     //static String[] arg = new String[] {"/Users/ahmetkucuk/Documents/SolarDB", "1", START_DATE, END_DATE};
     public static void main(String[] args) throws Exception {
 
@@ -36,8 +36,8 @@ public class QuerySolarDB {
         String outputDirectory = args[0];
         String mode = args[1];
         String startDate = args[2];
-        String endDate = args[2];
-        boolean shouldCreateSchema = args[3].equalsIgnoreCase("createSchema");
+        String endDate = args[3];
+        boolean shouldCreateSchema = args[4].equalsIgnoreCase("createSchema");
 
         System.out.println("Loading global attributes from resource files.");
         GlobalAttributeHolder.init();
