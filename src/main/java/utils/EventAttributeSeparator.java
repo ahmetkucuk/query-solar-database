@@ -11,9 +11,6 @@ import java.util.*;
  */
 public class EventAttributeSeparator {
 
-    public static void main(String[] args) {
-    }
-
     public static Map<EventType, Set<String>> getEventTypeByAttributesMap() {
 
         try(BufferedReader reader = new BufferedReader(new InputStreamReader(FileManager.getInstance().getInputStream("/data/newdesign/attributes.tsv")))) {

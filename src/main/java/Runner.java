@@ -49,14 +49,16 @@ public class Runner {
         if(args[1].equalsIgnoreCase("0")){
             api.createDatabaseSchema();
 
-            Date sDate = Utilities.getDateFromString(START_DATE);
-            Date eDate = Utilities.getDateFromString(END_DATE);
-            for(int i = 0; i < 79; i++) {
-                sDate = DateUtils.addMonths(sDate, 1);
-                eDate = DateUtils.addMonths(eDate, 1);
+            Date qStart = Utilities.getDateFromString(START_DATE);
+            Date qEnd;
 
-                pullAndInsertOldDataFromHEK(Utilities.getStringFromDate(sDate), Utilities.getStringFromDate(eDate), page);
+            Date eDate = Utilities.getDateFromString(END_DATE);
+            while(qStart.getTime() < eDate.getTime()){
+                qEnd = DateUtils.addMonths(qStart, 1);
+                pullAndInsertOldDataFromHEK(Utilities.getStringFromDate(qStart), Utilities.getStringFromDate(qStart), page);
+                qStart = qEnd;
             }
+            System.out.println("Finished Without Interruption");
         } else if(args[1].equalsIgnoreCase("1")) {
             //Start from previous chunk because last one might not be written completely
             pullAndInsertOldDataFromHEK(args[2], args[3], page);
@@ -79,7 +81,7 @@ public class Runner {
             public void run() {
                 Date d = DateUtils.addDays(date, 1);
                 api.downloadAndInsertEvents(Utilities.getStringFromDate(date), Utilities.getStringFromDate(d), 1);
-                System.out.println("Pull and Insert start: " + Utilities.getStringFromDate(date) + " End Date: " + Utilities.getStringFromDate(d));
+                System.out.println("Fixed -> Start: " + Utilities.getStringFromDate(date) + " End: " + Utilities.getStringFromDate(d));
                 date.setTime(d.getTime());
             }
         }, Utilities.getToday2AM(), DAILY_UPDATE_INTERVAL);
@@ -90,9 +92,9 @@ public class Runner {
 
         //
 //        api.addAdditionalFunctions();
-        System.out.println("Pull and Insert start: " + startDate + " End Date: " + endDate);
+        System.out.println("Old -> Start: " + startDate + " End: " + endDate);
         api.downloadAndInsertEvents(startDate, endDate, page);
-        System.out.println("Finished Without Interruption");
+
 
     }
 }
