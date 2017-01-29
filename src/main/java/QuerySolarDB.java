@@ -80,7 +80,7 @@ public class QuerySolarDB {
             @Override
             public void run() {
                 Date d = DateUtils.addDays(date, 1);
-                api.downloadAndInsertEvents(Utilities.getStringFromDate(date), Utilities.getStringFromDate(d), 1);
+                api.pullEvents(Utilities.getStringFromDate(date), Utilities.getStringFromDate(d), 1);
                 System.out.println("Fixed -> Start: " + Utilities.getStringFromDate(date) + " End: " + Utilities.getStringFromDate(d));
                 date.setTime(d.getTime());
             }
@@ -104,7 +104,7 @@ public class QuerySolarDB {
 
 //        api.addAdditionalFunctions();
         System.out.println("Old -> Start: " + startDate + " End: " + endDate);
-        api.downloadAndInsertEvents(startDate, endDate, page);
+        api.pullEvents(startDate, endDate, page);
 
     }
 }

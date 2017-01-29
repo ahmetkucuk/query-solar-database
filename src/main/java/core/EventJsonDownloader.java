@@ -10,12 +10,13 @@ import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.net.MalformedURLException;
+import java.net.SocketException;
 import java.net.URL;
 
 /**
  * Created by ahmetkucuk on 20/12/15.
  */
-public class EventJsonDownloader {
+public class EventJsonDownloader implements Comparable<EventJsonDownloader>{
 
     private String eventType;
     private String eventStartTime;
@@ -35,7 +36,7 @@ public class EventJsonDownloader {
         this.page = page;
     }
 
-    public JsonArray next() {
+    public JsonArray next() throws Exception{
         if(isFinished) return null;
 
         String url = getNextUrl();
@@ -57,7 +58,7 @@ public class EventJsonDownloader {
         return result;
     }
 
-    private String downloadByUrl(String url) {
+    private String downloadByUrl(String url) throws IOException {
 
         try (BufferedReader reader = new BufferedReader(new InputStreamReader(new URL(url).openStream()))) {
             StringBuilder sb = new StringBuilder();
@@ -70,9 +71,7 @@ public class EventJsonDownloader {
             }
             return sb.toString();
         } catch (MalformedURLException e) {
-            e.printStackTrace();
-        } catch (IOException e) {
-            e.printStackTrace();
+            System.out.println("[EventJsonDownloader-downloadByUrl] MalformedURLException");
         }
         return null;
     }
@@ -83,5 +82,14 @@ public class EventJsonDownloader {
         JsonObject jsonObject = jsonElement.getAsJsonObject();
         isFinished = !jsonObject.get("overmax").getAsBoolean();
         return jsonObject.get("result").getAsJsonArray();
+    }
+
+    public void reset() {
+        page = 0;
+    }
+
+    @Override
+    public int compareTo(EventJsonDownloader o) {
+        return eventStartTime.compareTo(o.eventStartTime);
     }
 }

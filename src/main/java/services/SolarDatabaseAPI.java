@@ -10,8 +10,7 @@ import models.Event;
 import models.EventType;
 import org.apache.commons.lang3.StringUtils;
 
-import java.util.HashSet;
-import java.util.Set;
+import java.util.*;
 import java.util.stream.Collectors;
 
 /**
@@ -20,12 +19,39 @@ import java.util.stream.Collectors;
 public class SolarDatabaseAPI {
 
     private static final int numberOfElementInEachQuery = 200;
+    private final Queue<EventJsonDownloader> downloadQueue = new PriorityQueue<>();
 
-    public void downloadAndInsertEvents(String startDate, String endDate, int page) {
+    public void pullEvents(String startDate, String endDate, int page) {
 
         String eventsToBeIncluded = StringUtils.join(EventType.getAsList().stream().map(e -> e.toQualifiedString()).collect(Collectors.toList()), ",");
         EventJsonDownloader eventJsonDownloader = new EventJsonDownloader(eventsToBeIncluded, startDate, endDate, numberOfElementInEachQuery, page);
 
+        downloadQueue();
+        try {
+            downloadAndInsert(eventJsonDownloader);
+        } catch (Exception e) {
+            System.out.println("Couldn't download. Adding Queue. Start: " + startDate + " End: " + endDate);
+            eventJsonDownloader.reset();
+            downloadQueue.add(eventJsonDownloader);
+        }
+    }
+
+    private void downloadQueue() {
+
+        EventJsonDownloader downloader = null;
+        while ((downloader = downloadQueue.peek()) != null) {
+            try {
+                downloadAndInsert(downloader);
+            } catch (Exception e) {
+                System.out.println("Couldn't download again.");
+                downloader.reset();
+                break;
+            }
+            downloadQueue.poll();
+        }
+    }
+
+    private void downloadAndInsert(EventJsonDownloader eventJsonDownloader) throws Exception {
         JsonArray array;
         Set<String> insertedEvents = new HashSet<>();
         DBConnection connection = DBConnection.getNewConnection();

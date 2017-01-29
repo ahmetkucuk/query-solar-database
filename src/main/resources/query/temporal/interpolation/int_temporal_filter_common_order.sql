@@ -1,13 +1,12 @@
-DROP FUNCTION IF EXISTS temporal_filter_common_order(character varying, character varying,
-				timestamp, timestamp, text);
-CREATE OR REPLACE FUNCTION temporal_filter_common_order(tname character varying,
+DROP FUNCTION IF EXISTS int_temporal_filter_common_order(character varying,character varying,timestamp without time zone,timestamp without time zone);
+
+CREATE OR REPLACE FUNCTION int_temporal_filter_common_order(tname character varying,
 				    t_pred character varying,
 				    tstart timestamp,
-				    tend timestamp,
-				    order_by_col TEXT
+				    tend timestamp
 				    )
-RETURNS TABLE(kb_archivid TEXT, event_starttime TIMESTAMP, event_endtime TIMESTAMP, hpc_boundcc TEXT
-, hpc_coord TEXT, event_type TEXT, event_coordunit TEXT, hpc_bbox TEXT, orderby TIMESTAMP ) AS
+RETURNS TABLE(KBarchivID TEXT, startTime TIMESTAMP, endTime TIMESTAMP,
+TrackID NUMERIC, interpolated BOOLEAN, geom TEXT) AS
 $BODY$
 DECLARE
     t_query TEXT;
@@ -21,43 +20,45 @@ BEGIN
 --'Equals', 'LessThan', 'GreaterThan', 'Contains', 'ContainedBy',
 --'Overlaps', 'Precedes', 'PrecededBy'
 
-col_names = 'kb_archivid, event_starttime, event_endtime, ST_AsText(hpc_boundcc), ST_AsText(hpc_coord), event_type, event_coordunit, ST_AsText(hpc_bbox), ' || order_by_col || ' as orderby';
+col_names = 'kbarchivid, startTime, endTime, TrackID, interpolated, ST_asText(geom)';
 
 
+RAISE NOTICE 'Query start was : %', tstart;
+RAISE NOTICE 'Query start was : %', tend;
 
 t_query = 'SELECT ' || col_names || ' FROM ' || tname || ' ' || ' WHERE ';
 temp_valid = 1;
 CASE
 WHEN $2 = 'Equals' THEN
-    t_query = t_query || ' tsrange(event_starttime, event_endtime) = '||
+    t_query = t_query || ' tsrange(startTime, endTime) = '||
 	       'tsrange('''||tstart||''', '''||tend||''')';
 WHEN $2 = 'LessThan' THEN
 
-	t_query = t_query || '  tsrange(event_starttime, event_endtime) < '||
+	t_query = t_query || '  tsrange(startTime, endTime) < '||
 	       'tsrange('''||tstart||''', '''||tend||''')';
 WHEN $2 = 'GreaterThan' THEN
 
-	t_query = t_query || '  tsrange(event_starttime, event_endtime) > '||
+	t_query = t_query || '  tsrange(startTime, endTime) > '||
 	       'tsrange('''||tstart||''', '''||tend||''')';
 WHEN $2 = 'Contains' THEN
 
-	t_query = t_query || '  tsrange(event_starttime, event_endtime) @> '||
+	t_query = t_query || '  tsrange(startTime, endTime) @> '||
 	       'tsrange('''||tstart||''', '''||tend||''')';
 WHEN $2 = 'ContainedBy' THEN
 
-	t_query = t_query || '  tsrange(event_starttime, event_endtime) <@ '||
+	t_query = t_query || '  tsrange(startTime, endTime) <@ '||
 	       'tsrange('''||tstart||''', '''||tend||''')';
 WHEN $2 = 'Overlaps' THEN
 
-	t_query = t_query || '  tsrange(event_starttime, event_endtime) && '||
+	t_query = t_query || '  tsrange(startTime, endTime) && '||
 	       'tsrange('''||tstart||''', '''||tend||''')';
 WHEN $2 = 'Precedes' THEN
 
-	t_query = t_query || '  tsrange(event_starttime, event_endtime) << '||
+	t_query = t_query || '  tsrange(startTime, endTime) << '||
 	       'tsrange('''||tstart||''', '''||tend||''')';
 WHEN $2 = 'PrecededBy' THEN
 
-	t_query = t_query || '  tsrange(event_starttime, event_endtime) >> '||
+	t_query = t_query || '  tsrange(startTime, endTime) >> '||
 	       'tsrange('''||tstart||''', '''||tend||''')';
 ELSE
         temp_valid = 0;
