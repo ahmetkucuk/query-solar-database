@@ -1,0 +1,6 @@
+sg_shape
+sg_chirality
+sg_orientation
+sg_aspectratio
+sg_peakcontrast
+sg_meancontrast

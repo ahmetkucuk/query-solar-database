@@ -1,0 +1,12 @@
+fl_goescls
+fl_peakflux
+fl_peakfluxunit
+fl_peaktemp
+fl_peaktempunit
+fl_peakem
+fl_peakemunit
+fl_efoldtime
+fl_efoldtimeunit
+fl_fluence
+fl_fluenceunit
+fl_halphaclass

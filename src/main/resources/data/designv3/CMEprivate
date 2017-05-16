@@ -1,0 +1,14 @@
+cme_radiallinvel
+cme_radiallinveluncert
+cme_radiallinvelmin
+cme_radiallinvelmax
+cme_radiallinvelstddev
+cme_radiallinvelunit
+cme_angularwidth
+cme_angularwidthunit
+cme_accel
+cme_acceluncert
+cme_accelunit
+cme_mass
+cme_massuncert
+cme_massunit
