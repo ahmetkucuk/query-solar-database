@@ -13,7 +13,7 @@ public class EventAttributeSeparator {
 
     public static Map<EventType, Set<String>> getEventTypeByAttributesMap() {
 
-        try(BufferedReader reader = new BufferedReader(new InputStreamReader(FileManager.getInstance().getInputStream("/data/newdesign/attributes.tsv")))) {
+        try(BufferedReader reader = new BufferedReader(new InputStreamReader(FileManager.getInstance().getInputStream("/data/designv2/attributes.tsv")))) {
 
             Map<EventType, Set<String>> eventTypeByAttributes = new TreeMap<>();
             String[][] all = new String[197][27];
@@ -47,7 +47,7 @@ public class EventAttributeSeparator {
     public static Map<DBTable, Set<String>> getDbTablesByAttributesMap() {
         Map<DBTable, Set<String>> result = new HashMap<>();
         for(DBTable d: DBTable.values()) {
-            result.put(d, Utilities.fileAsSet(FileManager.getInstance().getInputStream("/data/newdesign/" + d.toString())));
+            result.put(d, Utilities.fileAsSet(FileManager.getInstance().getInputStream("/data/designv2/" + d.toString())));
         }
         return result;
     }

@@ -156,7 +156,7 @@ public class Utilities {
      */
     public static void findDifference(Set<String> jsonAttributes) {
 
-        try(BufferedReader reader = new BufferedReader(new InputStreamReader(FileManager.getInstance().getInputStream("data/newdesign/attributes.tsv")))) {
+        try(BufferedReader reader = new BufferedReader(new InputStreamReader(FileManager.getInstance().getInputStream("data/designv2/attributes.tsv")))) {
 
             Set<String> hekAttributes = new HashSet<>();
             String line = reader.readLine();
@@ -165,7 +165,7 @@ public class Utilities {
             }
             hekAttributes.addAll(GlobalAttributeHolder.getInstance().getAdditionalAttributes());
             for(DBTable db: DBTable.values())
-                hekAttributes.addAll(Utilities.fileAsSet(FileManager.getInstance().getInputStream("data/newdesign/" + db.toString())));
+                hekAttributes.addAll(Utilities.fileAsSet(FileManager.getInstance().getInputStream("data/designv2/" + db.toString())));
             System.out.println("JSON: " + jsonAttributes);
             System.out.println("HEK: " + hekAttributes);
             System.out.println("HEK: " + Sets.difference(jsonAttributes, hekAttributes));
