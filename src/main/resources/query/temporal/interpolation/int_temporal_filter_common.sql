@@ -5,7 +5,7 @@ CREATE OR REPLACE FUNCTION int_temporal_filter_common(tnames text[],
 				    tend timestamp
 				    )
 RETURNS TABLE(KBarchivID TEXT, startTime TIMESTAMP, endTime TIMESTAMP,
-TrackID NUMERIC, interpolated BOOLEAN, geom TEXT) AS
+TrackID NUMERIC, interpolated BOOLEAN, geom TEXT, event_type TEXT) AS
 $BODY$
 DECLARE
     tname TEXT;

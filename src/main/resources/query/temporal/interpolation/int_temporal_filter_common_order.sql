@@ -6,7 +6,7 @@ CREATE OR REPLACE FUNCTION int_temporal_filter_common_order(tname character vary
 				    tend timestamp
 				    )
 RETURNS TABLE(KBarchivID TEXT, startTime TIMESTAMP, endTime TIMESTAMP,
-TrackID NUMERIC, interpolated BOOLEAN, geom TEXT) AS
+TrackID NUMERIC, interpolated BOOLEAN, geom TEXT, event_type TEXT) AS
 $BODY$
 DECLARE
     t_query TEXT;
@@ -20,11 +20,8 @@ BEGIN
 --'Equals', 'LessThan', 'GreaterThan', 'Contains', 'ContainedBy',
 --'Overlaps', 'Precedes', 'PrecededBy'
 
-col_names = 'kbarchivid, startTime, endTime, TrackID, interpolated, ST_asText(geom)';
+col_names = 'kbarchivid, startTime, endTime, TrackID, interpolated, ST_asText(geom), type';
 
-
-RAISE NOTICE 'Query start was : %', tstart;
-RAISE NOTICE 'Query start was : %', tend;
 
 t_query = 'SELECT ' || col_names || ' FROM ' || tname || ' ' || ' WHERE ';
 temp_valid = 1;
