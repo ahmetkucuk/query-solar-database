@@ -22,8 +22,8 @@ public class QuerySolarDB {
     //mvn clean compile assembly:single
 
     ///home/ahmet/tools/jdk1.8.0_73/bin/java -jar query-solar-database-1.0-SNAPSHOT-jar-with-dependencies.jar "/home/ahmet/workspace/solardb-pull/json-files/" "month" "2016-07-07T02:00:00" "2016-07-13T02:00:00" "not"
-    static String[] args = new String[] {"/Users/ahmetkucuk/Documents/SolarDB", "all", "2016-07-10T02:00:00", "2016-07-13T02:00:00", "createSchema"};
-    public static void main(String[] arg) throws Exception {
+//    static String[] args = new String[] {"/Users/ahmetkucuk/Documents/SolarDB", "all", "2016-07-10T02:00:00", "2016-07-13T02:00:00", "createSchema"};
+    public static void main(String[] args) throws Exception {
 
 
         if(args.length < 3) {
