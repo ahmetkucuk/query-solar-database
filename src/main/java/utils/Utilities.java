@@ -4,7 +4,6 @@ import com.google.common.collect.Sets;
 import com.google.gson.JsonArray;
 import com.google.gson.JsonElement;
 import com.google.gson.JsonParser;
-import core.GlobalAttributeHolder;
 import models.DBTable;
 import models.Event;
 import org.apache.commons.lang3.time.DateUtils;
@@ -147,32 +146,6 @@ public class Utilities {
     public static boolean isFileExists(String filePathString) {
         File f = new File(filePathString);
         return f.exists() && !f.isDirectory();
-    }
-
-
-    /**
-     *
-     * @param jsonAttributes
-     */
-    public static void findDifference(Set<String> jsonAttributes) {
-
-        try(BufferedReader reader = new BufferedReader(new InputStreamReader(FileManager.getInstance().getInputStream("data/designv2/attributes.tsv")))) {
-
-            Set<String> hekAttributes = new HashSet<>();
-            String line = reader.readLine();
-            while((line = reader.readLine()) != null) {
-                hekAttributes.add(line.split("\t")[0]);
-            }
-            hekAttributes.addAll(GlobalAttributeHolder.getInstance().getAdditionalAttributes());
-            for(DBTable db: DBTable.values())
-                hekAttributes.addAll(Utilities.fileAsSet(FileManager.getInstance().getInputStream("data/designv2/" + db.toString())));
-            System.out.println("JSON: " + jsonAttributes);
-            System.out.println("HEK: " + hekAttributes);
-            System.out.println("HEK: " + Sets.difference(jsonAttributes, hekAttributes));
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-
     }
 
 

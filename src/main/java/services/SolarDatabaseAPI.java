@@ -19,7 +19,8 @@ import java.util.stream.Collectors;
 public class SolarDatabaseAPI {
 
     private static final int numberOfElementInEachQuery = 200;
-    private final Queue<EventJsonDownloader> downloadQueue = new PriorityQueue<>();
+    private Queue<EventJsonDownloader> downloadQueue = new PriorityQueue<>();
+
 
     public void pullEvents(String startDate, String endDate, int page) {
 
@@ -51,7 +52,7 @@ public class SolarDatabaseAPI {
         }
     }
 
-    private void downloadAndInsert(EventJsonDownloader eventJsonDownloader) throws Exception {
+    public void downloadAndInsert(EventJsonDownloader eventJsonDownloader) throws Exception {
         JsonArray array;
         Set<String> insertedEvents = new HashSet<>();
         DBConnection connection = DBConnection.getNewConnection();
@@ -70,7 +71,8 @@ public class SolarDatabaseAPI {
 
     public void createDatabaseSchema() {
 
-        new TableCreator().createTables();
+        DBConnection connection = DBConnection.getNewConnection();
+        new TableCreator(connection).createTables();
     }
 
 //    public void addAdditionalFunctions() {

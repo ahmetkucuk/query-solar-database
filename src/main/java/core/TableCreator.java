@@ -21,25 +21,25 @@ public class TableCreator {
         attributeByPOSTGREDataTypeMap.put("timestamp", "timestamp");
     }
 
+    DBConnection connection;
+
+    public TableCreator(DBConnection connection) {
+        this.connection = connection;
+    }
+
     public void createTables() {
 
-        DBConnection connection = DBConnection.getNewConnection();
-    	for(DBTable t: DBTable.values()) {
-            for(String query:createTableQuery(t)) {
-                connection.executeCommand(query);
-            }
-        }
     	
         for(EventType e: EventType.values()) {
             for(String query:createTableQuery(e)) {
                 connection.executeCommand(query);
-                
             }
         }
 
         //After creation of tables are done, put index
         for(EventType e: EventType.values()) {
-            connection.executeCommand(createIndexStatements(e.toString()));
+            String indexQuery = createIndexStatements(e.toString());
+            connection.executeCommand(indexQuery);
         }
 
 //        for(String triggerStatement:createTriggerStatements()) {
@@ -60,30 +60,23 @@ public class TableCreator {
 
 	public List<String> createTableQuery(EventType eventType) {
 
-        Map<String, String> map = GlobalAttributeHolder.getInstance().getAttributeDataTypeMap();
-        Set<String> set = GlobalAttributeHolder.getInstance().getEventTypeByAttributes().get(eventType);
+        Map<String, String> map = EventAttributeManager.getInstance().getAttributeDataTypeMap();
+        Set<String> set = EventAttributeManager.getInstance().getEventTypeByAttributes().get(eventType);
 
         return generateAttributeDataTypeMap(map, set, eventType.toString(), true);
     }
 
-    private List<String> createTableQuery(DBTable dbTable) {
-
-        Map<String, String> map = GlobalAttributeHolder.getInstance().getAttributeDataTypeMap();
-        Set<String> set = GlobalAttributeHolder.getInstance().getDbTableByAttributes().get(dbTable);
-
-        return generateAttributeDataTypeMap(map, set, dbTable.toString(), false);
-    }
 
     private List<String> generateAttributeDataTypeMap(Map<String, String> map, Set<String> set, String tableName, boolean isEvent) {
         Map<String, String> genericEventColumns = new HashMap<>();
         Map<String, String> geometryColumns = new HashMap<>();
         for(String s: set) {
-            if(GlobalAttributeHolder.getInstance().getGeometryAttribute().contains(s)) {
-                geometryColumns.put(s, map.get(s) + "");
-            } else {
-                genericEventColumns.put(s, attributeByPOSTGREDataTypeMap.get(map.get(s) + ""));
-            }
+            genericEventColumns.put(s, attributeByPOSTGREDataTypeMap.get(map.get(s) + ""));
         }
+        for (String geom :EventAttributeManager.geometryAttributes) {
+            geometryColumns.put(geom, map.get(geom) + "");
+        }
+
 
         //Query to create table
         String result = createActualStatement(genericEventColumns, tableName, isEvent);
@@ -106,18 +99,9 @@ public class TableCreator {
         for(Map.Entry<String, String> entry : map.entrySet()) {
             builder.append(entry.getKey() + " " + entry.getValue() + ", ");
         }
-        if(isEvent) {
-            builder.append(" PRIMARY KEY (kb_archivid),");
-            builder.append(" CONSTRAINT argen_fk FOREIGN KEY (kb_archivid) REFERENCES  argen (kb_archivid),");
-            builder.append(" CONSTRAINT frm_fk FOREIGN KEY (kb_archivid) REFERENCES  frm (kb_archivid),");
-            builder.append(" CONSTRAINT intens_fk FOREIGN KEY (kb_archivid) REFERENCES  intens (kb_archivid),");
-            builder.append(" CONSTRAINT obs_fk FOREIGN KEY (kb_archivid) REFERENCES  obs (kb_archivid)");
-        } else {
-            builder.append(" PRIMARY KEY (kb_archivid)");
-        }
+        builder.append(" PRIMARY KEY (kb_archivid)");
         builder.append(" );");
-        if(isEvent) {
-        }
+
         return builder.toString();
     }
 

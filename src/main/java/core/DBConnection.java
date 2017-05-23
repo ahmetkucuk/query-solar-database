@@ -14,12 +14,13 @@ public class DBConnection {
     private Connection connection;
 
     private DBConnection() {
-        connect();
+
     }
 
-    private void connect() {
+    public void connect() {
         try
         {
+            System.out.println("Connecting to DB");
             DriverManager.deregisterDriver(new org.postgresql.Driver());
             // the postgresql driver string
 
@@ -47,7 +48,9 @@ public class DBConnection {
     }
 
     public static DBConnection getNewConnection() {
-        return new DBConnection();
+        DBConnection connection = new DBConnection();
+        connection.connect();
+        return connection;
     }
 
 

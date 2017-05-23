@@ -1,4 +1,5 @@
 
+import core.DBConnection;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.mockito.Mockito;
@@ -7,6 +8,7 @@ import org.powermock.modules.junit4.PowerMockRunner;
 import services.SolarDatabaseAPI;
 
 import java.text.ParseException;
+import java.util.PriorityQueue;
 
 import static org.powermock.api.mockito.PowerMockito.mockStatic;
 import static org.powermock.api.mockito.PowerMockito.verifyStatic;

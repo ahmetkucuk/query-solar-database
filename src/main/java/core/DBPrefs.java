@@ -6,9 +6,16 @@ package core;
 public class DBPrefs {
 
     public static final String DB_HOST = "postgres-exposed";
-    public static final String DB_NAME = "solardb";
+    public static final String DB_NAME = "isd";
     public static String DB_USERNAME = "postgres";
     public static String DB_USER_PASSWORD = "r3mot3p8sswo4d";
+
+
+//    public static final String DB_HOST = "localhost";
+//    public static final String DB_NAME = "isd";
+//    public static String DB_USERNAME = "ahmetkucuk";
+//    public static String DB_USER_PASSWORD = "";
+
     public static final int DB_PORT = 5432;
 
     public DBPrefs(){

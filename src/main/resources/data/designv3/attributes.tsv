@@ -1,0 +1,241 @@
+parameter	type	ar	ce	cd	ch	cw	fi	fe	fa	fl	lp	os	ss	ef	cj	pg	ot	nr	sg	sp	cr	cc	er	to	hy	bu	ee	pb	pt	description of attribute
+event_probability	float	opt	opt	opt	opt	opt	opt	opt	opt	opt	opt	opt	opt	opt	opt	opt	opt	opt	opt	opt	opt	opt	opt	opt	opt	opt	opt	opt	opt	probability or confidence level that event occured (bet. 0 and 1)
+event_importance	float	opt	opt	opt	opt	opt	opt	opt	opt	opt	opt	opt	opt	opt	opt	opt	opt	opt	opt	opt	opt	opt	opt	opt	opt	opt	opt	opt	opt	rating or importance of the event (between 0 and 1). can be used by automated methods to denote a metric.
+event_type	string	req	req	req	req	req	req	req	req	req	req	req	req	req	req	req	req	req	req	req	req	req	req	req	req	req	req	req	req	event type (e.g. 'fl: flare' or 'ar: activeregion')
+kb_archivdate	string	req	req	req	req	req	req	req	req	req	req	req	req	req	req	req	req	req	req	req	req	req	req	req	req	req	req	req	req	date when voevent entry was imported into knowledge base
+kb_archivid	string	req	req	req	req	req	req	req	req	req	req	req	req	req	req	req	req	req	req	req	req	req	req	req	req	req	req	req	req	unique internal id of voevent entry
+kb_archivist	string	req	req	req	req	req	req	req	req	req	req	req	req	req	req	req	req	req	req	req	req	req	req	req	req	req	req	req	req	name of archivist (internal. user should leave blank)
+kb_archivurl	string	req	req	req	req	req	req	req	req	req	req	req	req	req	req	req	req	req	req	req	req	req	req	req	req	req	req	req	req	url of voevent entry (internal. user should leave blank)
+event_coordsys	string	req	req	req	req	req	req	req	req	req	req	req	req	req	req	req	req	req	req	req	req	req	req	req	req	req	req	req	req	coordinate system type (choose between utc-hgs-topo [heliographics stonyhurst]; utc-hpr-topo [helioprojective]; utc-hgc-topo[heliographic carrington]; utc-hcr-topo[helio-centric radial])
+event_coordunit	string	req	req	req	req	req	req	req	req	req	req	req	req	req	req	req	req	req	req	req	req	req	req	req	req	req	req	req	req	units of coordinates (e.g. "deg, deg" for utc-hgs-top0)
+event_endtime	string	req	req	req	req	req	req	req	req	req	req	req	req	req	req	req	req	req	req	req	req	req	req	req	req	req	req	req	req	time when event ends (e.g. 2004-02-14t02:00:01)
+event_starttime	string	req	req	req	req	req	req	req	req	req	req	req	req	req	req	req	req	req	req	req	req	req	req	req	req	req	req	req	req	time when event starts (e.g. 2004-02-14t02:00:01)
+event_expires	string	opt	opt	opt	opt	opt	opt	opt	opt	opt	opt	opt	opt	opt	opt	opt	opt	opt	opt	opt	opt	opt	opt	opt	opt	opt	opt	opt	opt	useful for reporting events before they are complete (e.g. 2004-02-14t02:00:01)
+event_coord1	float	req	req	req	req	req	req	req	req	req	req	req	req	req	req	req	req	req	req	req	req	req	req	req	req	req	req	req	req	coordinate 1 of mean location of event
+event_coord2	float	req	req	req	req	req	req	req	req	req	req	req	req	req	req	req	req	req	req	req	req	req	req	req	req	req	req	req	req	coordinate 2 of mean location of event
+event_coord3	float	opt	opt	opt	opt	opt	opt	opt	opt	opt	opt	opt	opt	opt	opt	opt	opt	opt	opt	opt	opt	opt	opt	opt	opt	opt	opt	opt	opt	coordinate 3 of mean location of event (optional. suitable for use with stereo secchi events)
+event_mapurl	string	opt	opt	opt	opt	opt	opt	opt	opt	opt	opt	opt	opt	opt	opt	opt	opt	opt	opt	opt	opt	opt	opt	opt	opt	opt	opt	opt	opt	url to an image/intensity map
+event_maskurl	string	opt	opt	opt	opt	opt	opt	opt	opt	opt	opt	opt	opt	opt	opt	opt	opt	opt	opt	opt	opt	opt	opt	opt	opt	opt	opt	opt	opt	url to files which contain masks (e.g. binary masks) of region of interest.
+event_peaktime	string	---	---	opt	---	opt	opt	opt	opt	req	---	opt	opt	opt	opt	opt	opt	opt	opt	opt	opt	opt	opt	opt	---	opt	opt	opt	opt	peak time of a flare (e.g. '2003-02-12t23:03:01')
+event_c1error	float	req	req	req	req	req	req	req	req	req	req	req	req	req	req	req	req	req	req	req	req	req	req	req	req	req	req	req	req	uncertainty in coord1 of the mean location of the event.
+event_c2error	float	req	req	req	req	req	req	req	req	req	req	req	req	req	req	req	req	req	req	req	req	req	req	req	req	req	req	req	req	uncertainty in coord2 of the mean location of the event.
+event_clippedspatial	string	opt	opt	opt	opt	opt	opt	opt	opt	opt	opt	opt	opt	opt	opt	opt	opt	opt	opt	opt	opt	opt	opt	opt	opt	opt	opt	opt	opt	whether the spatial extent of the event is wholly contained within the data set ('t' or 'f').
+event_clippedtemporal	string	opt	opt	opt	opt	opt	opt	opt	opt	opt	opt	opt	opt	opt	opt	opt	opt	opt	opt	opt	opt	opt	opt	opt	opt	opt	opt	opt	opt	whether the temporal duration of the event is wholly contained within the data set ('t' or 'f').
+event_testflag	string	opt	opt	opt	opt	opt	opt	opt	opt	opt	opt	opt	opt	opt	opt	opt	opt	opt	opt	opt	opt	opt	opt	opt	opt	opt	opt	opt	opt	a boolean flag to indicate that the event is for testing purposes ('t' or 'f')
+event_description	string	opt	opt	opt	opt	opt	opt	opt	opt	opt	opt	opt	opt	opt	opt	opt	opt	opt	opt	opt	opt	opt	opt	opt	opt	opt	opt	opt	opt	description of the event
+frm_contact	string	req	req	req	req	req	req	req	req	req	req	req	req	req	req	req	req	req	req	req	req	req	req	req	req	req	req	req	req	contact information of feature recognition method (frm)
+frm_daterun	string	req	req	req	req	req	req	req	req	req	req	req	req	req	req	req	req	req	req	req	req	req	req	req	req	req	req	req	req	date when feature recognition method (frm) was run (e.g. 2004-02-15t02:00:01)
+frm_humanflag	string	req	req	req	req	req	req	req	req	req	req	req	req	req	req	req	req	req	req	req	req	req	req	req	req	req	req	req	req	whether a human identified the event ("t" or "f")
+frm_identifier	string	req	req	req	req	req	req	req	req	req	req	req	req	req	req	req	req	req	req	req	req	req	req	req	req	req	req	req	req	username for knowledge base
+frm_institute	string	req	req	req	req	req	req	req	req	req	req	req	req	req	req	req	req	req	req	req	req	req	req	req	req	req	req	req	req	institute where the feature recognition method (frm) orginates
+frm_name	string	req	req	req	req	req	req	req	req	req	req	req	req	req	req	req	req	req	req	req	req	req	req	req	req	req	req	req	req	name of feature recognition method (e.g. "mark cheung" or cactus")
+frm_paramset	string	req	req	req	req	req	req	req	req	req	req	req	req	req	req	req	req	req	req	req	req	req	req	req	req	req	req	req	req	values of parameters (e.g. "threshold=0.1")
+frm_versionnumber	float	opt	opt	opt	opt	opt	opt	opt	opt	opt	opt	opt	opt	opt	opt	opt	opt	opt	opt	opt	opt	opt	opt	opt	opt	opt	opt	opt	opt	version number of automated feature recognition method (put age if human. just kidding. in this case put 1.0)
+frm_url	string	req	req	req	req	req	req	req	req	req	req	req	req	req	req	req	req	req	req	req	req	req	req	req	req	req	req	req	req	url to webpage containing information about the feature recognition method
+frm_specificid	string	opt	opt	opt	opt	opt	opt	opt	opt	opt	opt	opt	opt	opt	opt	opt	opt	opt	opt	opt	opt	opt	opt	opt	opt	opt	opt	opt	opt	the specific id of this event/feature assigned by the feature recognition method
+obs_observatory	string	req	req	req	req	req	req	req	req	req	req	req	req	req	req	req	req	req	req	req	req	req	req	req	req	req	req	req	req	name of observatory (e.g. soho)
+obs_channelid	string	req	req	req	req	req	req	req	req	req	req	req	req	req	req	req	req	req	req	req	req	req	req	req	req	req	req	req	req	name of channel of the instrument (e.g. "g band")
+obs_instrument	string	req	req	req	req	req	req	req	req	req	req	req	req	req	req	req	req	req	req	req	req	req	req	req	req	req	req	req	req	name of instrument (e.g. "sot")
+obs_meanwavel	float	req	req	req	req	req	req	req	req	req	req	req	req	req	req	req	req	req	req	req	req	req	req	req	req	req	req	req	req	mean wavelength (preferably in angstroms)
+obs_wavelunit	string	req	req	req	req	req	req	req	req	req	req	req	req	req	req	req	req	req	req	req	req	req	req	req	req	req	req	req	req	unit of obs_meanwavel (preferably "angstroms")
+obs_title	string	opt	opt	opt	opt	opt	opt	opt	opt	opt	opt	opt	opt	opt	opt	opt	opt	opt	opt	opt	opt	opt	opt	opt	opt	opt	opt	opt	opt	observational title
+bound_ccnsteps	long	opt	opt	opt	opt	opt	opt	opt	opt	opt	---	opt	opt	opt	opt	opt	opt	opt	opt	opt	opt	opt	opt	opt	---	opt	opt	opt	opt	number of steps in bounding chain code (useful for coronal hole boundaries)
+bound_ccstartc1	float	opt	opt	opt	opt	opt	opt	opt	opt	opt	---	opt	opt	opt	opt	opt	opt	opt	opt	opt	opt	opt	opt	opt	---	opt	opt	opt	opt	beginning coord1 of chain code
+bound_ccstartc2	float	opt	opt	opt	opt	opt	opt	opt	opt	opt	---	opt	opt	opt	opt	opt	opt	opt	opt	opt	opt	opt	opt	opt	---	opt	opt	opt	opt	beginning coord2 of chain code
+boundbox_c1ll	float	req	req	req	req	req	req	req	req	req	req	req	req	req	req	req	req	req	req	req	req	req	req	req	req	req	req	req	req	coord1 of lower-left corner of bounding box
+boundbox_c2ll	float	req	req	req	req	req	req	req	req	req	req	req	req	req	req	req	req	req	req	req	req	req	req	req	req	req	req	req	req	coord2 of lower-left corner of bounding box
+boundbox_c1ur	float	req	req	req	req	req	req	req	req	req	req	req	req	req	req	req	req	req	req	req	req	req	req	req	req	req	req	req	req	coord1 of upper-right corner of bounding box
+boundbox_c2ur	float	req	req	req	req	req	req	req	req	req	req	req	req	req	req	req	req	req	req	req	req	req	req	req	req	req	req	req	req	coord2 of upper-right corner of bounding box
+chaincodetype	string	opt	opt	opt	opt	opt	opt	opt	opt	opt	req	opt	opt	opt	opt	opt	opt	opt	opt	opt	opt	opt	opt	opt	---	opt	opt	opt	opt	type of chain code (use "ordered list")
+rasterscan	string	opt	opt	opt	opt	opt	opt	opt	opt	opt	opt	opt	opt	opt	opt	opt	opt	opt	opt	opt	opt	opt	opt	opt	opt	opt	opt	opt	opt	field for ascii string of raster scan
+rasterscantype	string	opt	opt	opt	opt	opt	opt	opt	opt	opt	opt	opt	opt	opt	opt	opt	opt	opt	opt	opt	opt	opt	opt	opt	opt	opt	opt	opt	opt	type of raster scan (e.g. "egso_sfc" if you are using the egso solar feature catalogue convection for the raster scan)
+skel_chaincode	string	---	---	---	opt	---	opt	opt	opt	opt	req	---	---	---	opt	opt	opt	opt	opt	opt	opt	opt	opt	opt	---	---	---	---	---	skeleton code. a skeleton code is like a chain code except it isn't closed. (ordered list delimited by commas. e.g. 'x1, y1, x2, y2, x3, y3')
+skel_curvature	float	---	---	---	---	---	opt	opt	opt	opt	req	---	---	---	opt	opt	opt	opt	opt	opt	opt	opt	opt	opt	---	---	---	---	---	curvature of skeleton
+skel_nsteps	integer	---	---	---	opt	---	opt	opt	opt	opt	req	---	---	---	opt	opt	opt	opt	opt	opt	opt	opt	opt	opt	---	---	---	---	---	number of steps in skeleton
+skel_startc1	float	---	---	---	opt	---	opt	opt	opt	opt	req	---	---	---	opt	opt	opt	opt	opt	opt	opt	opt	opt	opt	---	---	---	---	---	beginning coord 1 of skeleton
+skel_startc2	float	---	---	---	opt	---	opt	opt	opt	opt	req	---	---	---	opt	opt	opt	opt	opt	opt	opt	opt	opt	opt	---	---	---	---	---	beginning coord 2 of skeleton
+ar_mcintoshcls	string	opt	opt	opt	opt	opt	opt	opt	opt	opt	opt	opt	opt	opt	opt	opt	opt	opt	opt	opt	opt	opt	opt	opt	opt	opt	opt	opt	opt	active region mcintosh class
+ar_mtwilsoncls	string	opt	opt	opt	opt	opt	opt	opt	opt	opt	opt	opt	opt	opt	opt	opt	opt	opt	opt	opt	opt	opt	opt	opt	opt	opt	opt	opt	opt	active region mt wilson class
+ar_zurichcls	string	opt	opt	opt	opt	opt	opt	opt	opt	opt	opt	opt	opt	opt	opt	opt	opt	opt	opt	opt	opt	opt	opt	opt	opt	opt	opt	opt	opt	active region zurich class
+ar_penumbracls	string	opt	opt	opt	opt	opt	opt	opt	opt	opt	opt	opt	opt	opt	opt	opt	opt	opt	opt	opt	opt	opt	opt	opt	opt	opt	opt	opt	opt	active region penumbra class
+ar_compactnesscls	string	opt	opt	opt	opt	opt	opt	opt	opt	opt	opt	opt	opt	opt	opt	opt	opt	opt	opt	opt	opt	opt	opt	opt	opt	opt	opt	opt	opt	active region compactness class
+ar_noaaclass	string	opt	opt	opt	opt	opt	opt	opt	opt	opt	opt	opt	opt	opt	opt	opt	opt	opt	opt	opt	opt	opt	opt	opt	opt	opt	opt	opt	opt	active regon noaa class
+ar_noaanum	long	opt	opt	opt	opt	opt	opt	opt	opt	opt	opt	opt	opt	opt	opt	opt	opt	opt	opt	opt	opt	opt	opt	opt	opt	opt	opt	opt	opt	noaa designated active region number (e.g. 10930)
+ar_numspots	integer	opt	opt	opt	opt	opt	opt	opt	opt	opt	opt	opt	opt	opt	opt	opt	opt	opt	opt	opt	opt	opt	opt	opt	opt	opt	opt	opt	opt	number of spots in active region
+ar_polarity	integer	opt	opt	opt	opt	opt	opt	opt	opt	opt	opt	opt	opt	opt	opt	opt	opt	opt	opt	opt	opt	opt	opt	opt	opt	opt	opt	opt	opt	polarity of active region ('1' or '-1' for positive and negative respectively)
+ar_spotarearaw	float	opt	---	---	---	---	---	---	---	---	---	---	---	---	---	---	---	---	---	---	---	---	---	---	---	---	---	---	---	area of spots in active region in plane of sky
+ar_spotarearawuncert	float	opt	---	---	---	---	---	---	---	---	---	---	---	---	---	---	---	---	---	---	---	---	---	---	---	---	---	---	---	uncertainty of ar_spotarearaw
+ar_spotarearawunit	string	opt	---	---	---	---	---	---	---	---	---	---	---	---	---	---	---	---	---	---	---	---	---	---	---	---	---	---	---	units of ar_spotarearaw
+ar_spotarearepr	float	opt	---	---	---	---	---	---	---	---	---	---	---	---	---	---	---	---	---	---	---	---	---	---	---	---	---	---	---	reprojected area of spots in heliographic units
+ar_spotarearepruncert	float	opt	---	---	---	---	---	---	---	---	---	---	---	---	---	---	---	---	---	---	---	---	---	---	---	---	---	---	---	uncertainty reprojected area of spots in heliographic units
+ar_spotareareprunit	string	opt	---	---	---	---	---	---	---	---	---	---	---	---	---	---	---	---	---	---	---	---	---	---	---	---	---	---	---	units of ar_spotareareprunit (e.g. 'millihemispheres' or 'steradians')
+sharp_noaa_ars	string	opt	---	---	---	---	---	---	---	---	---	---	---	---	---	---	---	---	---	---	---	---	---	---	---	---	---	---	---	comma separated list of noaa_ars within lat/lon bounding box. can include ones without noaa# at time of event.
+intensmin	float	opt	opt	opt	opt	opt	opt	opt	opt	opt	opt	opt	opt	opt	opt	opt	opt	opt	opt	opt	opt	opt	opt	opt	opt	opt	opt	opt	opt	minimum intensity of pixels
+intensmax	float	opt	opt	opt	opt	opt	opt	opt	opt	opt	opt	opt	opt	opt	opt	opt	opt	opt	opt	opt	opt	opt	opt	opt	opt	opt	opt	opt	opt	maximum intensity of pixels
+intensmean	float	opt	opt	opt	opt	opt	opt	opt	opt	opt	opt	opt	opt	opt	opt	opt	opt	opt	opt	opt	opt	opt	opt	opt	opt	opt	opt	opt	opt	mean intensity of pixels
+intensmedian	float	opt	opt	opt	opt	opt	opt	opt	opt	opt	opt	opt	opt	opt	opt	opt	opt	opt	opt	opt	opt	opt	opt	opt	opt	opt	opt	opt	opt	mdian intensity of pixels
+intensvar	float	opt	opt	opt	opt	opt	opt	opt	opt	opt	opt	opt	opt	opt	opt	opt	opt	opt	opt	opt	opt	opt	opt	opt	opt	opt	opt	opt	opt	variance of intensity of pixels
+intensskew	float	opt	opt	opt	opt	opt	opt	opt	opt	opt	opt	opt	opt	opt	opt	opt	opt	opt	opt	opt	opt	opt	opt	opt	opt	opt	opt	opt	opt	skewness of intensity of pixels
+intenskurt	float	opt	opt	opt	opt	opt	opt	opt	opt	opt	opt	opt	opt	opt	opt	opt	opt	opt	opt	opt	opt	opt	opt	opt	opt	opt	opt	opt	opt	kurtosis of intensity of pixels
+intenstotal	float	opt	opt	opt	opt	opt	opt	opt	opt	opt	opt	opt	opt	opt	opt	opt	opt	opt	opt	opt	opt	opt	opt	opt	opt	opt	opt	opt	opt	sum of intensities of pixels
+intensunit	string	opt	opt	opt	opt	opt	opt	opt	opt	opt	opt	opt	opt	opt	opt	opt	opt	opt	opt	opt	opt	opt	opt	opt	opt	opt	opt	opt	opt	units of intensity
+fl_goescls	string	---	---	---	---	---	---	---	---	opt	---	---	---	---	---	---	---	---	---	---	---	---	---	---	---	---	---	---	---	goes flare class (e.g. 'x11')
+cme_radiallinvel	float	---	req	---	---	---	---	---	---	---	---	---	---	---	---	---	---	---	---	---	---	---	---	---	---	---	---	---	---	radial linear fit radial velocity of cme
+cme_radiallinveluncert	float	---	req	---	---	---	---	---	---	---	---	---	---	---	---	---	---	---	---	---	---	---	---	---	---	---	---	---	---	uncertainty in cme_radiallinvel
+cme_radiallinvelmin	float	---	req	---	---	---	---	---	---	---	---	---	---	---	---	---	---	---	---	---	---	---	---	---	---	---	---	---	---	mininum linear radial velocity of cme
+cme_radiallinvelmax	float	---	req	---	---	---	---	---	---	---	---	---	---	---	---	---	---	---	---	---	---	---	---	---	---	---	---	---	---	maximum linear radial velocity of cme
+cme_radiallinvelstddev	float	---	req	---	---	---	---	---	---	---	---	---	---	---	---	---	---	---	---	---	---	---	---	---	---	---	---	---	---	standard deviation of radial velocity of cme
+cme_radiallinvelunit	string	---	req	---	---	---	---	---	---	---	---	---	---	---	---	---	---	---	---	---	---	---	---	---	---	---	---	---	---	units for radial velocity of cme (e.g. 'km/s')
+cme_angularwidth	float	---	req	---	---	---	---	---	---	---	---	---	---	---	---	---	---	---	---	---	---	---	---	---	---	---	---	---	---	angular width of cme
+cme_angularwidthunit	string	---	req	---	---	---	---	---	---	---	---	---	---	---	---	---	---	---	---	---	---	---	---	---	---	---	---	---	---	units for angular width of cme (e.g. 'deg')
+cme_accel	float	---	opt	---	---	---	---	---	---	---	---	---	---	---	---	---	---	---	---	---	---	---	---	---	---	---	---	---	---	acceleration of cme
+cme_acceluncert	float	---	opt	---	---	---	---	---	---	---	---	---	---	---	---	---	---	---	---	---	---	---	---	---	---	---	---	---	---	uncertainty of cme acceleration
+cme_accelunit	string	---	opt	---	---	---	---	---	---	---	---	---	---	---	---	---	---	---	---	---	---	---	---	---	---	---	---	---	---	units for cme acceleration (e.g. 'km/s/s')
+cme_mass	float	---	opt	---	---	---	---	---	---	---	---	---	---	---	---	---	---	---	---	---	---	---	---	---	---	---	---	---	---	mass contained in cme (e.g. '1e17')
+cme_massuncert	float	---	opt	---	---	---	---	---	---	---	---	---	---	---	---	---	---	---	---	---	---	---	---	---	---	---	---	---	---	uncertainty in mass contained in cme
+cme_massunit	string	---	opt	---	---	---	---	---	---	---	---	---	---	---	---	---	---	---	---	---	---	---	---	---	---	---	---	---	---	units for cme mass (e.g. 'g')
+area_atdiskcenter	float	opt	opt	opt	opt	opt	opt	opt	opt	opt	---	opt	opt	opt	opt	opt	opt	---	opt	opt	opt	opt	opt	opt	---	opt	opt	opt	opt	area of event at disk center
+area_atdiskcenteruncert	float	opt	opt	opt	opt	opt	opt	opt	opt	opt	---	opt	opt	opt	opt	opt	opt	---	opt	opt	opt	opt	opt	opt	---	opt	opt	opt	opt	uncertainty of area at disk center
+area_raw	float	opt	opt	opt	opt	opt	opt	opt	opt	opt	---	opt	opt	opt	opt	opt	opt	---	opt	opt	opt	opt	opt	opt	---	opt	opt	opt	opt	area of event in sky plane
+area_uncert	float	opt	opt	opt	opt	opt	opt	opt	opt	opt	---	opt	opt	opt	opt	opt	opt	---	opt	opt	opt	opt	opt	opt	---	opt	opt	opt	opt	uncertainty of area in sky plane
+area_unit	string	opt	opt	opt	opt	opt	opt	opt	opt	opt	---	opt	opt	opt	opt	opt	opt	---	opt	opt	opt	opt	opt	opt	---	opt	opt	opt	opt	units of area in sky plane (e.g. 'arcsec2')
+event_npixels	long	opt	opt	opt	opt	opt	opt	opt	opt	opt	req	opt	opt	opt	opt	opt	opt	---	opt	opt	opt	opt	opt	opt	---	opt	opt	opt	opt	number of pixels pertaining to event
+event_pixelunit	string	opt	opt	opt	opt	opt	opt	opt	opt	opt	req	opt	opt	opt	opt	opt	opt	---	opt	opt	opt	opt	opt	opt	---	opt	opt	opt	opt	units of values given in pixels
+freqmaxrange	float	---	---	---	---	opt	---	---	---	---	---	opt	---	---	---	---	---	---	---	---	---	---	---	---	---	---	---	---	---	maximum of the frequency range of oscillation
+freqminrange	float	---	---	---	---	opt	---	---	---	---	---	opt	---	---	---	---	---	---	---	---	---	---	---	---	---	---	---	---	---	minimum of the frequency range of oscillation
+freqpeakpower	float	---	---	---	---	opt	---	---	---	---	---	opt	---	---	---	---	---	---	---	---	---	---	---	---	---	---	---	---	---	frequency at which power spectrum peaks
+frequnit	string	---	---	---	---	opt	---	---	---	---	---	opt	---	---	---	---	---	---	---	---	---	---	---	---	---	---	---	---	---	units of frequency (e.g. 'hz')
+intensmaxampl	float	---	---	---	---	opt	---	---	---	---	---	opt	---	---	---	---	---	---	---	---	---	---	---	---	---	---	---	---	---	maximum amplitude of oscillation in intensity signal
+intensminampl	float	---	---	---	---	opt	---	---	---	---	---	opt	---	---	---	---	---	---	---	---	---	---	---	---	---	---	---	---	---	minimum amplitude of oscillation in intensity signal
+oscillnperiods	float	---	---	---	---	opt	---	---	---	---	---	opt	---	---	---	---	---	---	---	---	---	---	---	---	---	---	---	---	---	number of periods detected in oscillation
+oscillnperiodsuncert	float	---	---	---	---	opt	---	---	---	---	---	opt	---	---	---	---	---	---	---	---	---	---	---	---	---	---	---	---	---	uncertainty of number of periods detected in oscillation
+peakpower	float	---	---	---	---	opt	---	---	---	---	---	opt	---	---	---	---	---	---	---	---	---	---	---	---	---	---	---	---	---	peak power of oscillation
+peakpowerunit	string	---	---	---	---	opt	---	---	---	---	---	opt	---	---	---	---	---	---	---	---	---	---	---	---	---	---	---	---	---	units of peak power of oscillation
+velocmaxampl	float	---	---	---	---	opt	---	---	---	---	---	opt	---	---	---	---	---	---	---	---	---	---	---	---	---	---	---	---	---	maximum amplitude of oscillation in velocity signal (e.g. doppler signal)
+velocmaxpower	float	---	---	---	---	opt	---	---	---	---	---	opt	---	---	---	---	---	---	---	---	---	---	---	---	---	---	---	---	---	maximum power of oscillation in velocity signal
+velocmaxpoweruncert	float	---	---	---	---	opt	---	---	---	---	---	opt	---	---	---	---	---	---	---	---	---	---	---	---	---	---	---	---	---	uncertainty in max power in velocity signal
+velocminampl	float	---	---	---	---	opt	---	---	---	---	---	opt	---	---	---	---	---	---	---	---	---	---	---	---	---	---	---	---	---	minimum amplitude in oscillating velocity signal
+velocunit	string	---	---	---	---	opt	---	---	---	---	---	opt	---	---	---	---	---	---	---	---	---	---	---	---	---	---	---	---	---	units for velocity (e.g. 'km/s')
+wavedisplmaxampl	float	---	---	---	---	opt	---	---	---	---	---	opt	---	---	---	---	---	---	---	---	---	---	---	---	---	---	---	---	---	maximum amplitude of oscillation in displacement signal
+wavedisplminampl	float	---	---	---	---	opt	---	---	---	---	---	opt	---	---	---	---	---	---	---	---	---	---	---	---	---	---	---	---	---	minimum amplitude of oscillatoin in displacement signal
+wavedisplunit	string	---	---	---	---	opt	---	---	---	---	---	opt	---	---	---	---	---	---	---	---	---	---	---	---	---	---	---	---	---	units for displacement amplitude (e.g. 'arcsec')
+wavelmaxpower	float	---	---	---	---	opt	---	---	---	---	---	opt	---	---	---	---	---	---	---	---	---	---	---	---	---	---	---	---	---	wavelength at which spatial power spectrum peaks
+wavelmaxpoweruncert	float	---	---	---	---	opt	---	---	---	---	---	opt	---	---	---	---	---	---	---	---	---	---	---	---	---	---	---	---	---	uncertainty of wavelmaxpower
+wavelmaxrange	float	---	---	---	---	opt	---	---	---	---	---	opt	---	---	---	---	---	---	---	---	---	---	---	---	---	---	---	---	---	maximum wavelength of wavelength range for spatial oscillation
+wavelminrange	float	---	---	---	---	opt	---	---	---	---	---	opt	---	---	---	---	---	---	---	---	---	---	---	---	---	---	---	---	---	minimum wavelength of wavelength range for spatial oscillation
+wavelunit	string	---	---	---	---	opt	---	---	---	---	---	opt	---	---	---	---	---	---	---	---	---	---	---	---	---	---	---	---	---	units for spatial oscillation wavelength (e.g. 'km')
+ef_pospeakfluxonsetrate	float	---	---	---	---	---	---	---	---	---	---	---	---	opt	---	---	---	---	---	---	---	---	---	---	---	---	---	---	---	emergence rate of positive polarity flux
+ef_negpeakfluxonsetrate	float	---	---	---	---	---	---	---	---	---	---	---	---	opt	---	---	---	---	---	---	---	---	---	---	---	---	---	---	---	emergence rate of negative polarity flux
+ef_onsetrateunit	string	---	---	---	---	---	---	---	---	---	---	---	---	opt	---	---	---	---	---	---	---	---	---	---	---	---	---	---	---	emergence rate unit (e.g. 'mx/s')
+ef_sumpossignedflux	float	---	---	---	---	---	---	---	---	---	---	---	---	opt	---	---	---	---	---	---	---	---	---	---	---	---	---	---	---	total positive signed flux at completion
+ef_sumnegsignedflux	float	---	---	---	---	---	---	---	---	---	---	---	---	opt	---	---	---	---	---	---	---	---	---	---	---	---	---	---	---	total negative signed flux at completion (negative number)
+ef_fluxunit	string	---	---	---	---	---	---	---	---	---	---	---	---	opt	---	---	---	---	---	---	---	---	---	---	---	---	---	---	---	flux unit (e.g. 'mx')
+ef_axisorientation	float	---	---	---	---	---	---	---	---	---	---	---	---	opt	---	---	---	---	---	---	---	---	---	---	---	---	---	---	---	axis orientation of emerging flux pair (ccw from parallels in stonyhurst longitude
+ef_axisorientationunit	string	---	---	---	---	---	---	---	---	---	---	---	---	opt	---	---	---	---	---	---	---	---	---	---	---	---	---	---	---	axis oriention unit (deg)
+ef_axislength	float	---	---	---	---	---	---	---	---	---	---	---	---	opt	---	---	---	---	---	---	---	---	---	---	---	---	---	---	---	axis length of emerging flux pair at completion
+ef_posequivradius	float	---	---	---	---	---	---	---	---	---	---	---	---	opt	---	---	---	---	---	---	---	---	---	---	---	---	---	---	---	equivalent radius (i.e. sqrt(area/pi) of positive polarity at completion
+ef_negequivradius	float	---	---	---	---	---	---	---	---	---	---	---	---	opt	---	---	---	---	---	---	---	---	---	---	---	---	---	---	---	equivalent radius (i.e. sqrt(area/pi) of negative polarity at completion
+ef_lengthunit	string	---	---	---	---	---	---	---	---	---	---	---	---	opt	---	---	---	---	---	---	---	---	---	---	---	---	---	---	---	units for ef_axislength
+ef_aspectratio	float	---	---	---	---	---	---	---	---	---	---	---	---	opt	---	---	---	---	---	---	---	---	---	---	---	---	---	---	---	(ef_posequivradius+ef_negequivradius)/(2*ef_axislength)
+ef_proximityratio	float	---	---	---	---	---	---	---	---	---	---	---	---	opt	---	---	---	---	---	---	---	---	---	---	---	---	---	---	---	(ef_posequivradius-ef_negequivradius)/(2*ef_axislength)
+maxmagfieldstrength	float	opt	---	---	---	---	---	---	---	---	---	---	---	opt	---	opt	opt	---	---	---	---	---	---	---	---	---	---	---	---	maximum magnetic field strength
+maxmagfieldstrengthunit	string	opt	---	---	---	---	---	---	---	---	---	---	---	opt	---	opt	opt	---	---	---	---	---	---	---	---	---	---	---	---	units for maximum magnetic field strength (e.g. 'g' or 'mx/cm2')
+outflow_length	float	---	---	---	---	---	---	opt	opt	---	---	---	---	---	opt	---	---	---	---	opt	---	---	opt	---	---	---	---	---	---	length of outflow (can be for coronaljet or spraysurge)
+outflow_lengthunit	string	---	---	---	---	---	---	opt	opt	---	---	---	---	---	opt	---	---	---	---	opt	---	---	opt	---	---	---	---	---	---	units for length of outflow (e.g. 'arcsec')
+outflow_width	float	---	---	---	---	---	---	opt	opt	---	---	---	---	---	opt	---	---	---	---	opt	---	---	opt	---	---	---	---	---	---	width of outflow
+outflow_widthunit	string	---	---	---	---	---	---	opt	opt	---	---	---	---	---	opt	---	---	---	---	opt	---	---	opt	---	---	---	---	---	---	units for width of outflow (e.g. 'arcsec')
+outflow_speed	float	---	---	---	---	---	---	opt	opt	---	---	---	---	---	opt	---	---	---	---	opt	---	---	opt	---	---	---	---	---	---	outflow speed of outflow
+outflow_transspeed	float	---	---	---	---	---	---	opt	opt	---	---	---	---	---	opt	---	---	---	---	opt	---	---	opt	---	---	---	---	---	---	transverse speed relative to outflow direction
+outflow_speedunit	string	---	---	---	---	---	---	opt	opt	---	---	---	---	---	opt	---	---	---	---	opt	---	---	opt	---	---	---	---	---	---	units for speed (e.g. 'km/s')
+outflow_openingangle	float	---	---	---	---	---	---	opt	opt	---	---	---	---	---	opt	---	---	---	---	opt	---	---	opt	---	---	---	---	---	---	opening angle of outflow (in degrees)
+obs_dataprepurl	string	opt	opt	opt	opt	opt	opt	opt	opt	opt	opt	opt	opt	opt	opt	opt	opt	opt	opt	opt	opt	opt	opt	opt	opt	opt	opt	opt	opt	url pointing to information about how data was reduced
+fl_peakflux	float	---	---	---	---	---	---	---	---	opt	---	---	---	---	---	---	---	---	---	---	---	---	---	---	---	---	---	---	---	flux at peak time
+fl_peakfluxunit	string	---	---	---	---	---	---	---	---	opt	---	---	---	---	---	---	---	---	---	---	---	---	---	---	---	---	---	---	---	peak flux unit (e.g. erg/cm^2/s)
+fl_peaktemp	float	---	---	---	---	---	---	---	---	opt	---	---	---	---	---	---	---	---	---	---	---	---	---	---	---	---	---	---	---	temperature at peak time
+fl_peaktempunit	string	---	---	---	---	---	---	---	---	opt	---	---	---	---	---	---	---	---	---	---	---	---	---	---	---	---	---	---	---	unit for fl_peaktemp (k)
+fl_peakem	float	---	---	---	---	---	---	---	---	opt	---	---	---	---	---	---	---	---	---	---	---	---	---	---	---	---	---	---	---	emission measure at peak time
+fl_peakemunit	string	---	---	---	---	---	---	---	---	opt	---	---	---	---	---	---	---	---	---	---	---	---	---	---	---	---	---	---	---	unit for fl_peakem
+fl_efoldtime	float	---	---	---	---	---	---	---	---	opt	---	---	---	---	---	---	---	---	---	---	---	---	---	---	---	---	---	---	---	flare e-folding time
+fl_efoldtimeunit	string	---	---	---	---	---	---	---	---	opt	---	---	---	---	---	---	---	---	---	---	---	---	---	---	---	---	---	---	---	unit for fl_efoldtime (s)
+fl_fluence	float	---	---	---	---	---	---	---	---	opt	---	---	---	---	---	---	---	---	---	---	---	---	---	---	---	---	---	---	---	fluence of flare
+fl_fluenceunit	string	---	---	---	---	---	---	---	---	opt	---	---	---	---	---	---	---	---	---	---	---	---	---	---	---	---	---	---	---	unit for fl_fluence (e.g. erg/cm^2)
+fl_halphaclass	string	---	---	---	---	---	---	---	---	opt	---	---	---	---	---	---	---	---	---	---	---	---	---	---	---	---	---	---	---	h alpha classification (used on some yohkoh hxt)
+cd_area	float	---	---	opt	---	---	---	---	---	---	---	---	---	---	---	---	---	---	---	---	---	---	---	---	---	---	---	---	---	maximum area of dimming
+cd_areauncert	float	---	---	opt	---	---	---	---	---	---	---	---	---	---	---	---	---	---	---	---	---	---	---	---	---	---	---	---	---	uncertainty of cd_area
+cd_areaunit	string	---	---	opt	---	---	---	---	---	---	---	---	---	---	---	---	---	---	---	---	---	---	---	---	---	---	---	---	---	unit for cd_area ('millihemisphere' or 'steradians')'
+cd_volume	float	---	---	opt	---	---	---	---	---	---	---	---	---	---	---	---	---	---	---	---	---	---	---	---	---	---	---	---	---	volume of dimming region
+cd_volumeuncert	float	---	---	opt	---	---	---	---	---	---	---	---	---	---	---	---	---	---	---	---	---	---	---	---	---	---	---	---	---	uncertainty of cd_volume
+cd_volumeunit	string	---	---	opt	---	---	---	---	---	---	---	---	---	---	---	---	---	---	---	---	---	---	---	---	---	---	---	---	---	units for cd_volume (e.g. 'cm^3')
+cd_mass	float	---	---	opt	---	---	---	---	---	---	---	---	---	---	---	---	---	---	---	---	---	---	---	---	---	---	---	---	---	mass estimate calculated for dimming event
+cd_massuncert	float	---	---	opt	---	---	---	---	---	---	---	---	---	---	---	---	---	---	---	---	---	---	---	---	---	---	---	---	---	uncertainty for cd_mass
+cd_massunit	string	---	---	opt	---	---	---	---	---	---	---	---	---	---	---	---	---	---	---	---	---	---	---	---	---	---	---	---	---	unit for cd_mass
+fi_length	float	---	---	---	---	---	opt	---	---	---	---	---	---	---	---	---	---	---	---	---	---	---	---	---	---	---	---	---	---	length of filament spine
+fi_lengthunit	string	---	---	---	---	---	opt	---	---	---	---	---	---	---	---	---	---	---	---	---	---	---	---	---	---	---	---	---	---	unit for fi_length
+fi_tilt	float	---	---	---	---	---	opt	---	---	---	---	---	---	---	---	---	---	---	---	---	---	---	---	---	---	---	---	---	---	mean tilt angle (in degrees) of the filament spine (given as skel_chaincode) w.r. to solar equator
+fi_barbstot	integer	---	---	---	---	---	opt	---	---	---	---	---	---	---	---	---	---	---	---	---	---	---	---	---	---	---	---	---	---	total number of filament barbs
+fi_barbsr	integer	---	---	---	---	---	opt	---	---	---	---	---	---	---	---	---	---	---	---	---	---	---	---	---	---	---	---	---	---	total number of right bearing barbs
+fi_barbsl	integer	---	---	---	---	---	opt	---	---	---	---	---	---	---	---	---	---	---	---	---	---	---	---	---	---	---	---	---	---	total number of left bearing barbs
+fi_chirality	integer	---	---	---	---	---	opt	---	---	---	---	---	---	---	---	---	---	---	---	---	---	---	---	---	---	---	---	---	---	chirality for filament (-1 for sinistral; +1 for dextral; 0 for ambiguous/uncertain)
+fi_barbsstartc1	string	---	---	---	---	---	opt	---	---	---	---	---	---	---	---	---	---	---	---	---	---	---	---	---	---	---	---	---	---	list of coord 1 of beginnings (closest to spine) of barbs (list delimited by commas for each numbered barb. e.g. 'x1, x2, x3')
+fi_barbsstartc2	string	---	---	---	---	---	opt	---	---	---	---	---	---	---	---	---	---	---	---	---	---	---	---	---	---	---	---	---	---	list of coord 2 of beginnings (closest to spine) of barbs (list delimited by commas for each numbered barb. e.g. 'y1, y2, y3')
+fi_barbsendc1	string	---	---	---	---	---	opt	---	---	---	---	---	---	---	---	---	---	---	---	---	---	---	---	---	---	---	---	---	---	list of coord 1 of ends of barbs (list delimited by commas for each numbered barb. e.g. 'x1, x2, x3')
+fi_barbsendc2	string	---	---	---	---	---	opt	---	---	---	---	---	---	---	---	---	---	---	---	---	---	---	---	---	---	---	---	---	---	list of coord 2 of ends of barbs (list delimited by commas for each numbered barb. e.g. 'y1, y2, y3')
+sg_shape	string	---	---	---	---	---	---	---	---	---	---	---	---	---	---	---	---	---	opt	---	---	---	---	---	---	---	---	---	---	shape of sigmoid
+sg_chirality	integer	---	---	---	---	---	---	---	---	---	---	---	---	---	---	---	---	---	opt	---	---	---	---	---	---	---	---	---	---	chirality of sigmoid (-1 for sinistral; +1 for dextral; 0 for ambiguous/uncertain)
+sg_orientation	float	---	---	---	---	---	---	---	---	---	---	---	---	---	---	---	---	---	opt	---	---	---	---	---	---	---	---	---	---	angular rotation (ccw in degrees) of the main axis of the sigmoid to the active region
+sg_aspectratio	float	---	---	---	---	---	---	---	---	---	---	---	---	---	---	---	---	---	opt	---	---	---	---	---	---	---	---	---	---	tbd
+sg_peakcontrast	float	---	---	---	---	---	---	---	---	---	---	---	---	---	---	---	---	---	opt	---	---	---	---	---	---	---	---	---	---	tbd
+sg_meancontrast	float	---	---	---	---	---	---	---	---	---	---	---	---	---	---	---	---	---	opt	---	---	---	---	---	---	---	---	---	---	tbd
+obs_firstprocessingdate	string	opt	opt	opt	opt	opt	opt	opt	opt	opt	opt	opt	opt	opt	opt	opt	opt	opt	opt	opt	opt	opt	opt	opt	opt	opt	opt	opt	opt	earliest date of all images considered part of the event
+obs_lastprocessingdate	string	opt	opt	opt	opt	opt	opt	opt	opt	opt	opt	opt	opt	opt	opt	opt	opt	opt	opt	opt	opt	opt	opt	opt	opt	opt	opt	opt	opt	latest date of all images considered part of the event
+obs_levelnum	float	opt	opt	opt	opt	opt	opt	opt	opt	opt	opt	opt	opt	opt	opt	opt	opt	opt	opt	opt	opt	opt	opt	opt	opt	opt	opt	opt	opt	level of data (e.g. 1.5) = lvl_num
+obs_includesnrt	string	opt	opt	opt	opt	opt	opt	opt	opt	opt	opt	opt	opt	opt	opt	opt	opt	opt	opt	opt	opt	opt	opt	opt	opt	opt	opt	opt	opt	"t" if any image in the event has the nrt flag (bit 30 in quality), "f" otherwise
+ss_spinrate	float	---	---	---	---	---	---	---	---	---	---	---	opt	---	---	---	---	---	---	---	---	---	---	---	---	---	---	---	---	spin/rotation rate of sunspots
+ss_spinrateunit	string	---	---	---	---	---	---	---	---	---	---	---	opt	---	---	---	---	---	---	---	---	---	---	---	---	---	---	---	---	unit spin/rotation rate of sunspots (e.g. deg/day)
+cc_majoraxis	float	---	---	---	---	---	---	---	---	---	---	---	---	---	---	---	---	---	---	---	---	opt	---	---	---	---	---	---	---	length of major axis of elliptical fit to cavity
+cc_minoraxis	float	---	---	---	---	---	---	---	---	---	---	---	---	---	---	---	---	---	---	---	---	opt	---	---	---	---	---	---	---	length of minor axis of elliptical fit to cavity
+cc_axisunit	string	---	---	---	---	---	---	---	---	---	---	---	---	---	---	---	---	---	---	---	---	opt	---	---	---	---	---	---	---	unit of measure for major and minor axes. typically rsun
+cc_tiltanglemajorfromradial	float	---	---	---	---	---	---	---	---	---	---	---	---	---	---	---	---	---	---	---	---	opt	---	---	---	---	---	---	---	angle between major axis and local disk-projected radial vector, measured clockwise from radial vector.
+cc_tiltangleunit	string	---	---	---	---	---	---	---	---	---	---	---	---	---	---	---	---	---	---	---	---	opt	---	---	---	---	---	---	---	unit of measure for cc_tiltanglemaorfromradial. typicall deg.
+to_shape	string	---	---	---	---	---	---	---	---	---	---	---	---	---	---	---	---	---	---	---	---	---	---	opt	---	---	---	---	---	apparent shape of topoogical object. example values can be x-point, cusp, dome, line.
+unsignedflux	float	opt	---	---	---	---	---	---	---	---	---	---	opt	opt	---	---	---	---	---	---	---	---	---	---	---	---	---	---	---	total unsigned flux in region
+magfluxunit	string	opt	---	---	---	---	---	---	---	---	---	---	opt	opt	---	---	---	---	---	---	---	---	---	---	---	---	---	---	---	magnetic flux unit (e.g. 'mx')
+meaninclinationgamma	float	opt	---	---	---	---	---	---	---	---	---	---	---	---	---	---	---	---	---	---	---	---	---	---	---	---	---	---	---	mean inclination angle (gamma) (degrees)
+meangradienttotal	float	opt	---	---	---	---	---	---	---	---	---	---	---	---	---	---	---	---	---	---	---	---	---	---	---	---	---	---	---	mean value of the total field gradient
+meangradientvert	float	opt	---	---	---	---	---	---	---	---	---	---	---	---	---	---	---	---	---	---	---	---	---	---	---	---	---	---	---	mean value of the vertical field gradient
+meangradienthorz	float	opt	---	---	---	---	---	---	---	---	---	---	---	---	---	---	---	---	---	---	---	---	---	---	---	---	---	---	---	mean value of the horizontal field gradient
+gradientunit	string	opt	---	---	---	---	---	---	---	---	---	---	---	---	---	---	---	---	---	---	---	---	---	---	---	---	---	---	---	gradient unit (e.g. 'g/m')
+meanvertcurrentdensity	float	opt	---	---	---	---	---	---	---	---	---	---	---	---	---	---	---	---	---	---	---	---	---	---	---	---	---	---	---	mean vertical current density
+currentdensityunit	string	opt	---	---	---	---	---	---	---	---	---	---	---	---	---	---	---	---	---	---	---	---	---	---	---	---	---	---	---	current density unit (e.g. 'ma/m^2')
+unsignedvertcurrent	float	opt	---	---	---	---	---	---	---	---	---	---	---	---	---	---	---	---	---	---	---	---	---	---	---	---	---	---	---	total unsigned vertical current
+currentunit	string	opt	---	---	---	---	---	---	---	---	---	---	---	---	---	---	---	---	---	---	---	---	---	---	---	---	---	---	---	current unit (e.g. 'a')
+meantwistalpha	float	opt	---	---	---	---	---	---	---	---	---	---	---	---	---	---	---	---	---	---	---	---	---	---	---	---	---	---	---	mean twist parameter (alpha)
+twistunit	string	opt	---	---	---	---	---	---	---	---	---	---	---	---	---	---	---	---	---	---	---	---	---	---	---	---	---	---	---	twist unit (e.g. '1/mm')
+meancurrenthelicity	float	opt	---	---	---	---	---	---	---	---	---	---	---	---	---	---	---	---	---	---	---	---	---	---	---	---	---	---	---	mean current helicity
+unsignedcurrenthelicity	float	opt	---	---	---	---	---	---	---	---	---	---	---	---	---	---	---	---	---	---	---	---	---	---	---	---	---	---	---	total unsigned current helicity
+absnetcurrenthelicity	float	opt	---	---	---	---	---	---	---	---	---	---	---	---	---	---	---	---	---	---	---	---	---	---	---	---	---	---	---	absolute value of the net current helicity
+currenthelicityunit	string	opt	---	---	---	---	---	---	---	---	---	---	---	---	---	---	---	---	---	---	---	---	---	---	---	---	---	---	---	current helicity unit (e.g. '(g^2)/m')
+savncpp	float	opt	---	---	---	---	---	---	---	---	---	---	---	---	---	---	---	---	---	---	---	---	---	---	---	---	---	---	---	sum of the absolute value of the net currents per polarity (savncpp)
+meanphotoenergydensity	float	opt	---	---	---	---	---	---	---	---	---	---	---	---	---	---	---	---	---	---	---	---	---	---	---	---	---	---	---	mean photospheric excess magnetic energy density
+meanenergydensityunit	string	opt	---	---	---	---	---	---	---	---	---	---	---	---	---	---	---	---	---	---	---	---	---	---	---	---	---	---	---	energy density unit (e.g. 'erg/(cm^3)')
+totalphotoenergydensity	float	opt	---	---	---	---	---	---	---	---	---	---	---	---	---	---	---	---	---	---	---	---	---	---	---	---	---	---	---	total photospheric magnetic energy density (totpot in sharp)
+totalenergydensityunit	string	opt	---	---	---	---	---	---	---	---	---	---	---	---	---	---	---	---	---	---	---	---	---	---	---	---	---	---	---	energy/length unit (e.g. 'erg/cm')
+totalphotoenergy	float	opt	---	---	---	---	---	---	---	---	---	---	---	---	---	---	---	---	---	---	---	---	---	---	---	---	---	---	---	total photospheric magnetic energy (totpot in sharp times pixel width)
+totalphotoenergyunit	string	opt	---	---	---	---	---	---	---	---	---	---	---	---	---	---	---	---	---	---	---	---	---	---	---	---	---	---	---	energy unit (e.g. 'erg')
+meanshearangle	float	opt	---	---	---	---	---	---	---	---	---	---	---	---	---	---	---	---	---	---	---	---	---	---	---	---	---	---	---	mean shear angle for b_total (degrees)
+highshearareapercent	float	opt	---	---	---	---	---	---	---	---	---	---	---	---	---	---	---	---	---	---	---	---	---	---	---	---	---	---	---	area with shear angle greater than 45 as a percent of total area
+highsheararea	float	opt	---	---	---	---	---	---	---	---	---	---	---	---	---	---	---	---	---	---	---	---	---	---	---	---	---	---	---	area with shear angle greater than 45 as a percent of total area
+highshearareaunit	string	opt	---	---	---	---	---	---	---	---	---	---	---	---	---	---	---	---	---	---	---	---	---	---	---	---	---	---	---	area unit (e.g. 'm^2')
+log_r_value	float	opt	---	---	---	---	---	---	---	---	---	---	---	---	---	---	---	---	---	---	---	---	---	---	---	---	---	---	---	log (unsigned flux r) (prelog value in gauss*mdi-pixels - schrijver 2007)
+gwill	float	opt	---	---	---	---	---	---	---	---	---	---	---	---	---	---	---	---	---	---	---	---	---	---	---	---	---	---	---	gradient-weighted inversion-line length (mason & hoeksema 2010)
+gwillunit	string	opt	---	---	---	---	---	---	---	---	---	---	---	---	---	---	---	---	---	---	---	---	---	---	---	---	---	---	---	gwill (length) unit (e.g. 'mm')
+ar_axislength	float	opt	---	---	---	---	---	---	---	---	---	---	---	---	---	---	---	---	---	---	---	---	---	---	---	---	---	---	---	axis length (bipole separation distance)
+ar_lengthunit	string	opt	---	---	---	---	---	---	---	---	---	---	---	---	---	---	---	---	---	---	---	---	---	---	---	---	---	---	---	units for ar_axislength and ar_neutrallength
+ar_sumpossignedflux	float	opt	---	---	---	---	---	---	---	---	---	---	---	---	---	---	---	---	---	---	---	---	---	---	---	---	---	---	---	total positive signed flux
+ar_sumnegsignedflux	float	opt	---	---	---	---	---	---	---	---	---	---	---	---	---	---	---	---	---	---	---	---	---	---	---	---	---	---	---	total negative signed flux (negative number)
+ar_neutrallength	float	opt	---	---	---	---	---	---	---	---	---	---	---	---	---	---	---	---	---	---	---	---	---	---	---	---	---	---	---	the total length of polarity separation line segments within the ar
+ar_pilcurvature	float	opt	---	---	---	---	---	---	---	---	---	---	---	---	---	---	---	---	---	---	---	---	---	---	---	---	---	---	---	dimensionless curvature of main pil (pil length / direct distance between endpoints)
+search_frm_name	string	opt	opt	opt	opt	opt	opt	opt	opt	opt	opt	opt	opt	opt	opt	opt	opt	opt	opt	opt	opt	opt	opt	opt	opt	opt	opt	opt	opt	condensed frm name list for searching
+search_observatory	string	opt	opt	opt	opt	opt	opt	opt	opt	opt	opt	opt	opt	opt	opt	opt	opt	opt	opt	opt	opt	opt	opt	opt	opt	opt	opt	opt	opt	condensed observatory list for searching
+search_channelid	string	opt	opt	opt	opt	opt	opt	opt	opt	opt	opt	opt	opt	opt	opt	opt	opt	opt	opt	opt	opt	opt	opt	opt	opt	opt	opt	opt	opt	condensed channel list for searching
+search_instrument	string	opt	opt	opt	opt	opt	opt	opt	opt	opt	opt	opt	opt	opt	opt	opt	opt	opt	opt	opt	opt	opt	opt	opt	opt	opt	opt	opt	opt	condensed instrument list for searching

@@ -1,4 +1,4 @@
-import core.GlobalAttributeHolder;
+import core.EventAttributeManager;
 import org.apache.commons.lang3.time.DateUtils;
 import services.SolarDatabaseAPI;
 import utils.StatusLogger;
@@ -22,8 +22,8 @@ public class QuerySolarDB {
     //mvn clean compile assembly:single
 
     ///home/ahmet/tools/jdk1.8.0_73/bin/java -jar query-solar-database-1.0-SNAPSHOT-jar-with-dependencies.jar "/home/ahmet/workspace/solardb-pull/json-files/" "month" "2016-07-07T02:00:00" "2016-07-13T02:00:00" "not"
-    //static String[] arg = new String[] {"/Users/ahmetkucuk/Documents/SolarDB", "1", START_DATE, END_DATE};
-    public static void main(String[] args) throws Exception {
+    static String[] args = new String[] {"/Users/ahmetkucuk/Documents/SolarDB", "all", "2016-07-10T02:00:00", "2016-07-13T02:00:00", "createSchema"};
+    public static void main(String[] arg) throws Exception {
 
 
         if(args.length < 3) {
@@ -40,7 +40,7 @@ public class QuerySolarDB {
         boolean shouldCreateSchema = args[4].equalsIgnoreCase("createSchema");
 
         System.out.println("Loading global attributes from resource files.");
-        GlobalAttributeHolder.init();
+        EventAttributeManager.init();
         System.out.println("Finished loading.");
 
         SolarDatabaseAPI api = new SolarDatabaseAPI();
@@ -102,7 +102,6 @@ public class QuerySolarDB {
 
     public static void retrieveAll(SolarDatabaseAPI api, String startDate, String endDate, int page) {
 
-//        api.addAdditionalFunctions();
         System.out.println("Old -> Start: " + startDate + " End: " + endDate);
         api.pullEvents(startDate, endDate, page);
 

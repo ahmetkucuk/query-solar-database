@@ -25,27 +25,24 @@ public class InsertStatementGenerator {
         insertQueries = new ArrayList<>();
 
         
-        for(DBTable dbTable:DBTable.values()) { //4 tables insert statements
-        	Set<String> attributes = GlobalAttributeHolder.getInstance().getDbTableByAttributes().get(dbTable);
-            List<String> values = new LinkedList<>();
-            values.addAll(attributes.stream().map(attribute -> getActualPostgreMapping(event, attribute)).collect(Collectors.toList()));
-            insertQueries.add(String.format(Constants.QUERY.INSERT_INTO, dbTable.toString(), String.join(",", attributes), String.join(",", values)));
-        }
-        
         //this is for actual insert to generic event tables
         List<String> values = new LinkedList<>();
-        Set<String> attributes = GlobalAttributeHolder.getInstance().getEventTypeByAttributes().get(event.getEventType());
-        values.addAll(attributes.stream().map(attribute -> getActualPostgreMapping(event, attribute)).collect(Collectors.toList()));
+        Set<String> attributes = EventAttributeManager.getInstance().getEventTypeByAttributes().get(event.getEventType());
+
+        Set<String> allAttributes = new HashSet<>(attributes);
+        allAttributes.addAll(EventAttributeManager.geometryAttributes);
+
+        values.addAll(allAttributes.stream().map(attribute -> getActualPostgreMapping(event, attribute)).collect(Collectors.toList()));
         
-        insertQueries.add(String.format(Constants.QUERY.INSERT_INTO, event.getEventType().toString(), String.join(",", attributes), String.join(",", values)));
+        insertQueries.add(String.format(Constants.QUERY.INSERT_INTO, event.getEventType().toString(), String.join(",", allAttributes), String.join(",", values)));
         
     }
 
     public String getActualPostgreMapping(Event event, String attribute) {
 
-        Map<String, String> attributeDataTypeMap = GlobalAttributeHolder.getInstance().getAttributeDataTypeMap();
+        Map<String, String> attributeDataTypeMap = EventAttributeManager.getInstance().getAttributeDataTypeMap();
 
-        if(GlobalAttributeHolder.getInstance().getGeometryAttribute().contains(attribute.toLowerCase())) {
+        if(EventAttributeManager.geometryAttributes.contains(attribute.toLowerCase())) {
             String attributeValue = event.get(attribute);
             if(attributeValue == null || attributeValue.isEmpty()) {
                 return null;
