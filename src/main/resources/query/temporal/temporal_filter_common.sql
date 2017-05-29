@@ -15,8 +15,13 @@ DECLARE
 
 BEGIN
 --Usage example:
---select temporal_filter_all(ARRAY['ar_spt', 'ch_spt']::TEXT[],
+--select temporal_filter_all(ARRAY['ar', 'ch']::TEXT[],
 --	'GreaterThan', '2014-12-01 21:36:23', '2014-12-03 01:36:23', 'event_starttime');
+
+--For testing:
+--select kb_archivid, event_starttime from temporal_filter_common(ARRAY['ar', 'ch']::TEXT[],
+--	'Precedes', '2014-12-01 21:36:23', '2014-12-03 01:36:23', 'event_starttime');
+
 
 --Allowed temporal predicates are following:
 --'Equals', 'LessThan', 'GreaterThan', 'Contains', 'ContainedBy',
