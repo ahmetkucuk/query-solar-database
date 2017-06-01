@@ -18,7 +18,8 @@ RETURNS TABLE(ID TEXT,
 		Coordinate TEXT, 
 		EventType TEXT, 
 		CoordUnit TEXT, 
-		Bbox TEXT) AS
+		Bbox TEXT,
+	     	orderby TIMESTAMP) AS
 $BODY$
 DECLARE 
     tname TEXT;
