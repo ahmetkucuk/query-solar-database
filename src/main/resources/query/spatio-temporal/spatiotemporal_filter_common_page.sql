@@ -13,15 +13,15 @@ CREATE OR REPLACE FUNCTION spatiotemporal_filter_common_page(tnames text[],
 				    limit_count real,
 				    offset_count real
 				    )
-RETURNS TABLE(kb_archivid TEXT, 
-		event_starttime TIMESTAMP, 
-		event_endtime TIMESTAMP, 
-		hpc_boundcc TEXT, 
-		hpc_coord TEXT, 
-		event_type TEXT, 
-		event_coordunit TEXT, 
-		hpc_bbox TEXT, 
-		orderby TIMESTAMP) AS
+RETURNS TABLE(ID TEXT, 
+	      StartTime TIMESTAMP , 
+	      EndTime TIMESTAMP , 
+	      CC TEXT, 
+	      Coordinate TEXT, 
+	      EventType TEXT, 
+	      CoordUnit TEXT, 
+	      Bbox TEXT, 
+	      orderby TIMESTAMP) AS
 $BODY$
 DECLARE 
     st_query TEXT;
