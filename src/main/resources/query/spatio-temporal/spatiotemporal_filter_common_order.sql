@@ -43,7 +43,7 @@ BEGIN
 
 
 
-col_names = 'kb_archivid, event_starttime, event_endtime, ST_AsText(hpc_boundcc), ST_AsText(hpc_coord), event_type, event_coordunit, ST_AsText(hpc_bbox), ' || order_by_col;
+col_names = 'kb_archivid, event_starttime, event_endtime, ST_AsText(hpc_boundcc), ST_AsText(hpc_coord), event_type, event_coordunit, ST_AsText(hpc_bbox), ' || order_by_col || 'as orderby';
 
 
 st_query = 'SELECT ' || col_names || ' FROM ' ||tname || ' ' || ' WHERE ';
