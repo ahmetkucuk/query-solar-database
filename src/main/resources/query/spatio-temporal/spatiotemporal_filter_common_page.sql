@@ -60,13 +60,13 @@ array_text = substring(array_text from 0 for char_length(array_text)) || ']::TEX
 
 
 
-RAISE NOTICE '%', tnames;
+--RAISE NOTICE '%', tnames;
 st_query = 'select * from spatiotemporal_filter_common( ' ;
 st_query = st_query || array_text ||', ''' || t_pred ||''', ''' || s_pred || ''', '''|| tstart;
 st_query = st_query ||''', '''|| tend|| ''', ' || xmin|| ', '|| ymin ||', ' || xmax || ', ' ;
 st_query = st_query ||ymax || ', ''' ||order_by_col ||''') ORDER BY ' || order_by_col ;
 st_query = st_query || ' LIMIT ' || limit_count || ' OFFSET ' || offset_count;
-RAISE NOTICE 'Query: %', st_query;
+--RAISE NOTICE 'Query: %', st_query;
 RETURN QUERY EXECUTE st_query;
 	    
 END;
