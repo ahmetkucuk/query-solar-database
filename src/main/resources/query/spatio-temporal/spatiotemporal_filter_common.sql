@@ -11,15 +11,15 @@ CREATE OR REPLACE FUNCTION spatiotemporal_filter_common(tnames text[],
 				    ymax real,
 				    order_by_col text
 				    )
-RETURNS TABLE(kb_archivid TEXT, 
-		event_starttime TIMESTAMP, 
-		event_endtime TIMESTAMP, 
-		hpc_boundcc TEXT, 
-		hpc_coord TEXT, 
-		event_type TEXT, 
-		event_coordunit TEXT, 
-		hpc_bbox TEXT, 
-		orderby TIMESTAMP) AS
+RETURNS TABLE(ID TEXT, 
+	      StartTime TIMESTAMP , 
+	      EndTime TIMESTAMP , 
+	      CC TEXT, 
+	      Coordinate TEXT, 
+	      EventType TEXT, 
+	      CoordUnit TEXT, 
+	      Bbox TEXT, 
+	      orderby TIMESTAMP) AS
 $BODY$
 DECLARE 
     tname TEXT;
