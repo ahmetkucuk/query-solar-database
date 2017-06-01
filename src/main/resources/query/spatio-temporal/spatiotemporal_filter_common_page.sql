@@ -64,7 +64,7 @@ RAISE NOTICE '%', tnames;
 st_query = 'select * from spatiotemporal_filter_common( ' ;
 st_query = st_query || array_text ||', ''' || t_pred ||''', ''' || s_pred || ''', '''|| tstart;
 st_query = st_query ||''', '''|| tend|| ''', ' || xmin|| ', '|| ymin ||', ' || xmax || ', ' ;
-st_query = st_query ||ymax || ', ''' ||order_by_col ||''') ORDER BY ' || order_by_col ;
+st_query = st_query ||ymax || ', ''' ||order_by_col ||''') ORDER BY orderby';
 st_query = st_query || ' LIMIT ' || limit_count || ' OFFSET ' || offset_count;
 RAISE NOTICE 'Query: %', st_query;
 RETURN QUERY EXECUTE st_query;
