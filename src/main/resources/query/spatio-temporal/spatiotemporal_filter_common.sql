@@ -11,14 +11,15 @@ CREATE OR REPLACE FUNCTION spatiotemporal_filter_common(tnames text[],
 				    ymax real,
 				    order_by_col text
 				    )
-RETURNS TABLE(ID TEXT, 
-		StartTime TIMESTAMP, 
-		EndTime TIMESTAMP, 
-		CC TEXT, 
-		Coordinate TEXT, 
-		EventType TEXT, 
-		CoordUnit TEXT, 
-		Bbox TEXT) AS
+RETURNS TABLE(kb_archivid TEXT, 
+		event_starttime TIMESTAMP, 
+		event_endtime TIMESTAMP, 
+		hpc_boundcc TEXT, 
+		hpc_coord TEXT, 
+		event_type TEXT, 
+		event_coordunit TEXT, 
+		hpc_bbox TEXT, 
+		orderby TIMESTAMP) AS
 $BODY$
 DECLARE 
     tname TEXT;
@@ -47,8 +48,8 @@ BEGIN
 FOREACH tname IN ARRAY tnames
 LOOP 
    st_query = 'select * from spatiotemporal_filter_common_order( ''' || tname ||''', ''' || t_pred ||''', ''' || s_pred || ''', '''|| tstart||''', '''|| tend|| ''', ' || xmin|| ', '|| ymin ||', ' || xmax || ', ' ||ymax || ', ''' ||order_by_col ||''')';
-   --RAISE NOTICE '%', tname;
-   --RAISE NOTICE '%', st_query;
+   RAISE NOTICE '%', tname;
+   RAISE NOTICE '%', st_query;
    RETURN QUERY EXECUTE st_query; --returns multiple times from different tables   
 END LOOP;
 	    
