@@ -11,7 +11,7 @@ BEGIN
 
 	x = x + (hours/24) * (14.44 - 3.0 * pow(sin(degrees(y)), 2.0));
 
-    RETURN ST_GeomFromText('POINT('||x||' '||y||')');
+    RETURN ST_GeomFromEWKT('SRID=4326;POINT('||x||' '||y||')');
 END;
 $BODY$
 LANGUAGE plpgsql;
