@@ -13,15 +13,15 @@ CREATE OR REPLACE FUNCTION spatiotemporal_filter_common_page(tnames text[],
 				    limit_count real,
 				    offset_count real
 				    )
-RETURNS TABLE(kb_archivid TEXT, 
-		event_starttime TIMESTAMP, 
-		event_endtime TIMESTAMP, 
-		hpc_boundcc TEXT, 
-		hpc_coord TEXT, 
-		event_type TEXT, 
-		event_coordunit TEXT, 
-		hpc_bbox TEXT, 
-		orderby TIMESTAMP) AS
+RETURNS TABLE(ID TEXT, 
+	      StartTime TIMESTAMP , 
+	      EndTime TIMESTAMP , 
+	      CC TEXT, 
+	      Coordinate TEXT, 
+	      EventType TEXT, 
+	      CoordUnit TEXT, 
+	      Bbox TEXT, 
+	      orderby TIMESTAMP) AS
 $BODY$
 DECLARE 
     st_query TEXT;
@@ -64,7 +64,7 @@ RAISE NOTICE '%', tnames;
 st_query = 'select * from spatiotemporal_filter_common( ' ;
 st_query = st_query || array_text ||', ''' || t_pred ||''', ''' || s_pred || ''', '''|| tstart;
 st_query = st_query ||''', '''|| tend|| ''', ' || xmin|| ', '|| ymin ||', ' || xmax || ', ' ;
-st_query = st_query ||ymax || ', ''' ||order_by_col ||''') ORDER BY ' || order_by_col ;
+st_query = st_query ||ymax || ', ''' ||order_by_col ||''') ORDER BY orderby';
 st_query = st_query || ' LIMIT ' || limit_count || ' OFFSET ' || offset_count;
 RAISE NOTICE 'Query: %', st_query;
 RETURN QUERY EXECUTE st_query;
