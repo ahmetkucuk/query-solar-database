@@ -1,5 +1,5 @@
 DROP FUNCTION IF EXISTS rotate_hgs_polygon(geometry, real);
-CREATE OR REPLACE FUNCTION rotate_hgs_polygon(input_polygon geometry, days real)
+CREATE OR REPLACE FUNCTION rotate_hgs_polygon(input_polygon geometry, hours real)
 RETURNS geometry AS
 $BODY$
 DECLARE
