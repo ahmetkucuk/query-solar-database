@@ -103,7 +103,7 @@ END IF;
 
 IF temp_valid = false and spat_valid = false THEN
     RETURN QUERY EXECUTE
-        'SELECT kb_archivid from ar_spt where 1=0';
+        'SELECT kb_archivid from ar where 1=0';
 END IF;
 
 RETURN QUERY EXECUTE st_query;
