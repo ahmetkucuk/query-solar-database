@@ -66,7 +66,7 @@ END CASE;
 
 IF temp_valid = false THEN
     RETURN QUERY EXECUTE
-        'SELECT kb_archivid from ar_spt where 1=0';
+        'SELECT kb_archivid from ar where 1=0';
 END IF;
 
 RETURN QUERY EXECUTE t_query;
