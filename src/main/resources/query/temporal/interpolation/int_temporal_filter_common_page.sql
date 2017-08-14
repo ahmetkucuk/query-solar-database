@@ -9,7 +9,7 @@ CREATE OR REPLACE FUNCTION int_temporal_filter_common_page(tnames text[],
 				    offset_count real
 				    )
 RETURNS TABLE(KBarchivID TEXT, startTime TIMESTAMP, endTime TIMESTAMP,
-TrackID NUMERIC, interpolated BOOLEAN, geom TEXT) AS
+TrackID NUMERIC, interpolated BOOLEAN, geom TEXT, eventType TEXT) AS
 $BODY$
 DECLARE
     t_query TEXT;
@@ -31,7 +31,7 @@ array_text = substring(array_text from 0 for char_length(array_text)) || ']::TEX
 
 
 RAISE NOTICE '%', tnames;
-t_query = 'select KBarchivID, startTime, endTime, TrackID, interpolated, ST_asText(geom) from int_temporal_filter_common( ' ;
+t_query = 'select KBarchivID, startTime, endTime, TrackID, interpolated, ST_asText(geom), eventType from int_temporal_filter_common( ' ;
 t_query = t_query || array_text ||', ' || quote_literal(t_pred) ||', ';
 t_query = t_query || quote_literal(tstart) || ', ' || quote_literal(tend);
 t_query = t_query ||') ORDER BY ' || order_by_col;

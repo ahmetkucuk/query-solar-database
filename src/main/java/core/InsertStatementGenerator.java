@@ -51,7 +51,16 @@ public class InsertStatementGenerator {
         }
 
 
-        if(!attributeDataTypeMap.containsKey(attribute) || attributeDataTypeMap.get(attribute).equalsIgnoreCase("string") || attributeDataTypeMap.get(attribute).equalsIgnoreCase("timestamp")) {
+        if(attribute.equalsIgnoreCase("event_starttime")) {
+            return "'" + (event.get(attribute) != null ? event.get(attribute).replaceAll("'", " ") : "") + "'";
+        } else if(attribute.equalsIgnoreCase("event_endtime")) {
+            if(event.get("event_endtime").equalsIgnoreCase(event.get("event_starttime"))) {
+                return "TIMESTAMP '" + (event.get(attribute) != null ? event.get(attribute).replaceAll("'", " ") : "") + "' + INTERVAL '1 second'";
+            }
+            return "'" + (event.get(attribute) != null ? event.get(attribute).replaceAll("'", " ") : "") + "'";
+        }
+
+        if(!attributeDataTypeMap.containsKey(attribute) || attributeDataTypeMap.get(attribute).equalsIgnoreCase("string")) {
             return "'" + (event.get(attribute) != null ? event.get(attribute).replaceAll("'", " ") : "") + "'";
         }
 

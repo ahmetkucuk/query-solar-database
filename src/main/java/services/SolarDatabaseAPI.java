@@ -32,6 +32,7 @@ public class SolarDatabaseAPI {
             downloadAndInsert(eventJsonDownloader);
         } catch (Exception e) {
             System.out.println("Couldn't download. Adding Queue. Start: " + startDate + " End: " + endDate);
+            e.printStackTrace();
             eventJsonDownloader.reset();
             downloadQueue.add(eventJsonDownloader);
         }
