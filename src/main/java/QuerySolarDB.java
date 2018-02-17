@@ -8,6 +8,7 @@ import java.text.ParseException;
 import java.util.Date;
 import java.util.Timer;
 import java.util.TimerTask;
+import edu.gsu.dmlab.isd.mq.TaskQueue;
 
 
 /**
@@ -16,6 +17,7 @@ import java.util.TimerTask;
 public class QuerySolarDB {
 
     private static final int DAILY_UPDATE_INTERVAL = 1000*60*60*24;
+    final static TaskQueue queue =  new TaskQueue("abc");
 
     //scp target/query-solar-database-1.0-SNAPSHOT-jar-with-dependencies.jar ahmet@dmlab.cs.gsu.edu:/home/ahmet/workspace/solardb-pull
     //nohup /home/ahmet/tools/jdk1.8.0_73/bin/java -jar query-solar-database-1.0-SNAPSHOT-jar-with-dependencies.jar "/home/ahmet/workspace/solardb-pull/json-files/" "month" "2016-07-07T02:00:00" "2016-07-13T02:00:00" > output_flares.txt 2>&1
