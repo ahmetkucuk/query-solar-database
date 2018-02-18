@@ -27,50 +27,50 @@ public class QuerySolarDB {
     static String[] arg = new String[] {"/Users/ahmetkucuk/Documents", "all", "2016-07-10T02:00:00", "2016-07-13T02:00:00", "createSchema"};
     public static void main(String[] args) throws Exception {
 
-
-        if(args.length < 3) {
-            System.out.println(Utilities.getToday2AM());
-            System.out.println(Utilities.getYesterday2AM());
-            System.err.println("Arguments are missing. Location, Should Continue(0 or 1), Start Date, End Date");
-            return;
-        }
-
-        String outputDirectory = args[0];
-        String mode = args[1];
-        String startDate = args[2];
-        String endDate = args[3];
-        boolean shouldCreateSchema = args[4].equalsIgnoreCase("createSchema");
-
-        System.out.println("Loading global attributes from resource files.");
-        EventAttributeManager.init();
-        System.out.println("Finished loading.");
-
-        SolarDatabaseAPI api = new SolarDatabaseAPI();
-        System.out.println("API initialized.");
-
-
-        StatusLogger.init(outputDirectory);
-        System.out.println("Path is set to StatusLogger: " + outputDirectory);
-        int page = 1;
-
-        if(shouldCreateSchema) {
-            System.out.println("Schema Creation Started.");
-            api.createDatabaseSchema();
-            System.out.println("Schema Creation Finished.");
-        }
-
-        if(mode.equalsIgnoreCase("month")) {
-            System.out.println("Started in Mode: Month");
-            retrieveInChunks(api, startDate, endDate, page);
-            System.out.println("Finished Without Interruption");
-        } else if(mode.equalsIgnoreCase("all")) {
-            System.out.println("Started in Mode: all");
-            //Start from previous chunk because last one might not be written completely
-            retrieveAll(api, args[2], args[3], page);
-        } else {
-            System.out.println("Started in Mode: Fixed");
-            startWithFixedRate(api);
-        }
+        while(true);
+//        if(args.length < 3) {
+//            System.out.println(Utilities.getToday2AM());
+//            System.out.println(Utilities.getYesterday2AM());
+//            System.err.println("Arguments are missing. Location, Should Continue(0 or 1), Start Date, End Date");
+//            return;
+//        }
+//
+//        String outputDirectory = args[0];
+//        String mode = args[1];
+//        String startDate = args[2];
+//        String endDate = args[3];
+//        boolean shouldCreateSchema = args[4].equalsIgnoreCase("createSchema");
+//
+//        System.out.println("Loading global attributes from resource files.");
+//        EventAttributeManager.init();
+//        System.out.println("Finished loading.");
+//
+//        SolarDatabaseAPI api = new SolarDatabaseAPI();
+//        System.out.println("API initialized.");
+//
+//
+//        StatusLogger.init(outputDirectory);
+//        System.out.println("Path is set to StatusLogger: " + outputDirectory);
+//        int page = 1;
+//
+//        if(shouldCreateSchema) {
+//            System.out.println("Schema Creation Started.");
+//            api.createDatabaseSchema();
+//            System.out.println("Schema Creation Finished.");
+//        }
+//
+//        if(mode.equalsIgnoreCase("month")) {
+//            System.out.println("Started in Mode: Month");
+//            retrieveInChunks(api, startDate, endDate, page);
+//            System.out.println("Finished Without Interruption");
+//        } else if(mode.equalsIgnoreCase("all")) {
+//            System.out.println("Started in Mode: all");
+//            //Start from previous chunk because last one might not be written completely
+//            retrieveAll(api, args[2], args[3], page);
+//        } else {
+//            System.out.println("Started in Mode: Fixed");
+//            startWithFixedRate(api);
+//        }
 
     }
 
