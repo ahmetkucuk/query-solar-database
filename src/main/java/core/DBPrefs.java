@@ -1,5 +1,7 @@
 package core;
 
+import org.apache.commons.dbcp2.BasicDataSource;
+
 /**
  * Created by ahmetkucuk on 28/12/15.
  */
@@ -32,6 +34,23 @@ public class DBPrefs {
 //    		}
 //
 //    	} //else keep it as ahmetkucuk and no password
+    }
+
+    public static BasicDataSource getDataSource() {
+        BasicDataSource dbPoolSourc = new BasicDataSource();
+		dbPoolSourc.setSoftMinEvictableIdleTimeMillis(6500);
+		dbPoolSourc.setDefaultAutoCommit(true);
+		dbPoolSourc.setPoolPreparedStatements(false);
+        dbPoolSourc.setDefaultQueryTimeout(60);
+        dbPoolSourc.setMinIdle(1);
+        dbPoolSourc.setMaxIdle(10);
+        dbPoolSourc.setMaxTotal(100);
+        dbPoolSourc.setUsername("ahmetkucuk");
+        dbPoolSourc.setPassword("");
+        dbPoolSourc.setValidationQuery("SELECT 1;");
+        dbPoolSourc.setDriverClassName("org.postgresql.Driver");
+        dbPoolSourc.setUrl("jdbc:postgresql://localhost/isd");
+        return dbPoolSourc;
     }
     
 
