@@ -23,7 +23,7 @@ public class QuerySolarDB {
 
     private static final int DAILY_UPDATE_INTERVAL = 1000*60*60*24;
     final static TaskQueue queue =  new TaskQueue("abc");
-    final static PostgresJobRecordConnection monitorConnection = new PostgresJobRecordConnection(DBPrefs.getDataSource());
+//    final static PostgresJobRecordConnection monitorConnection = new PostgresJobRecordConnection(DBPrefs.getDataSource());
 
     //scp target/query-solar-database-1.0-SNAPSHOT-jar-with-dependencies.jar ahmet@dmlab.cs.gsu.edu:/home/ahmet/workspace/solardb-pull
     //nohup /home/ahmet/tools/jdk1.8.0_73/bin/java -jar query-solar-database-1.0-SNAPSHOT-jar-with-dependencies.jar "/home/ahmet/workspace/solardb-pull/json-files/" "month" "2016-07-07T02:00:00" "2016-07-13T02:00:00" > output_flares.txt 2>&1
@@ -32,25 +32,25 @@ public class QuerySolarDB {
     //nohup /home/ahmet/tools/jdk1.8.0_73/bin/java -jar query-solar-database/target/query-solar-database-1.0-SNAPSHOT-jar-with-dependencies.jar "/home/ahmet/workspace/solardb-pull/json-files/" "month" "2010-07-07T02:00:00" "2017-04-30T02:00:00" "no" > output_all.txt 2>&1 &
     static String[] arg = new String[] {"/Users/ahmetkucuk/Documents", "all", "2016-07-10T02:00:00", "2016-07-13T02:00:00", "createSchema"};
     public static void main(String[] args) throws Exception {
-        System.out.println("HEK PULLER STARTED!");
+        System.out.println("HEK PULLER HAS BEEN STARTED");
+        TaskManager.getInstance().startWithFixedRate();
 
-        monitorConnection.createJobRecordTable();
+//        monitorConnection.createJobRecordTable();
         // Define a TaskConsumer to receive tasks
         TaskConsumer<HEKPullerTask> consumer = new TaskConsumer<HEKPullerTask>(
                 queue.getChannel(), HEKPullerTask.class) {
             public void handleTask(HEKPullerTask task) {
                 //Task Arrived, change job status: Processing
-                monitorConnection.setJobStatus(task.getJobID(), JobStatus.PROCESSING, null);
+                TaskManager.mockConnection.setJobStatus(task.getJobID(), JobStatus.PROCESSING, null);
 
                 // Pull Events in here
                 System.out.println("Handling Task: " + task);
 
                 //Task completed, change job status: Completed
                 // If tasks fail change status to failed and add exception
-                monitorConnection.setJobStatus(task.getJobID(), JobStatus.COMPLETED, null);
+                TaskManager.mockConnection.setJobStatus(task.getJobID(), JobStatus.COMPLETED, null);
             }
         };
-        queue.registerConsumer(consumer);
     }
 
     public static void startWithFixedRate(final SolarDatabaseAPI api) {
