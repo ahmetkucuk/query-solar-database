@@ -1,15 +1,12 @@
 package core;
 
 import utils.Utilities;
-
 import java.sql.*;
 
 /**
  * Created by ahmetkucuk on 22/11/15.
  */
 public class DBConnection {
-
-    private static final DBConnection instance = new DBConnection();
 
     private Connection connection;
 
@@ -21,15 +18,7 @@ public class DBConnection {
         try
         {
             System.out.println("Connecting to DB");
-            DriverManager.deregisterDriver(new org.postgresql.Driver());
-            // the postgresql driver string
-
-            // the postgresql url
-            String url = "jdbc:postgresql://" + DBPrefs.DB_HOST + "/" + DBPrefs.DB_NAME;
-
-            // get the postgresql database connection
-            connection = DriverManager.getConnection(url,DBPrefs.DB_USERNAME, DBPrefs.DB_USER_PASSWORD);
-
+            connection = DBPrefs.getDataSource().getConnection();
         }
         catch (SQLException e)
         {
@@ -50,11 +39,6 @@ public class DBConnection {
     public static DBConnection getNewConnection() {
         DBConnection connection = new DBConnection();
         connection.connect();
-        return connection;
-    }
-
-
-    public Connection getConnection() {
         return connection;
     }
 
