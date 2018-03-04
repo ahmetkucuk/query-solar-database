@@ -58,7 +58,7 @@ public class DBPrefs {
         dbPoolSourc.setPassword(env.get("POSTGRES_PASSWORD"));
         dbPoolSourc.setValidationQuery("SELECT 1;");
         dbPoolSourc.setDriverClassName("org.postgresql.Driver");
-        dbPoolSourc.setUrl("jdbc:postgresql://localhost/" + env.get("POSTGRES_DB"));
+        dbPoolSourc.setUrl("jdbc:postgresql://" + env.get("POSTGRE_SQL_DB_HOST") + "/" + env.get("POSTGRES_DB"));
         return dbPoolSourc;
     }
     
