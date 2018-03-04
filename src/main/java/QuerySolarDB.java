@@ -51,6 +51,7 @@ public class QuerySolarDB {
                 TaskManager.mockConnection.setJobStatus(task.getJobID(), JobStatus.COMPLETED, null);
             }
         };
+        queue.registerConsumer(consumer);
     }
 
     public static void startWithFixedRate(final SolarDatabaseAPI api) {
