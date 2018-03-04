@@ -22,7 +22,7 @@ import edu.gsu.dmlab.isd.mq.TaskQueue;
 public class QuerySolarDB {
 
     private static final int DAILY_UPDATE_INTERVAL = 1000*60*60*24;
-    final static TaskQueue queue =  new TaskQueue("abc");
+    final static TaskQueue hekPullerQueue =  new TaskQueue("HEK_PULLER");
 
     //scp target/query-solar-database-1.0-SNAPSHOT-jar-with-dependencies.jar ahmet@dmlab.cs.gsu.edu:/home/ahmet/workspace/solardb-pull
     //nohup /home/ahmet/tools/jdk1.8.0_73/bin/java -jar query-solar-database-1.0-SNAPSHOT-jar-with-dependencies.jar "/home/ahmet/workspace/solardb-pull/json-files/" "month" "2016-07-07T02:00:00" "2016-07-13T02:00:00" > output_flares.txt 2>&1
@@ -36,8 +36,12 @@ public class QuerySolarDB {
 
         TaskManager.getInstance().startWithFixedRate();
         TaskManager.monitorConnection.createJobRecordTable();
+
+        SolarDatabaseAPI api = new SolarDatabaseAPI();
+        api.createDatabaseSchema();
+
         TaskConsumer<HEKPullerTask> consumer = new TaskConsumer<HEKPullerTask>(
-                queue.getChannel(), HEKPullerTask.class) {
+                hekPullerQueue.getChannel(), HEKPullerTask.class) {
             public void handleTask(HEKPullerTask task) {
                 //Task Arrived, change job status: Processing
                 TaskManager.monitorConnection.setJobStatus(task.getJobID(), JobStatus.PROCESSING, null);
@@ -45,12 +49,15 @@ public class QuerySolarDB {
                 // Pull Events in here
                 System.out.println("Handling Task: " + task);
 
+                api.pullEvents(Utilities.getStringFromDate(task.startTime.toDate()),
+                        Utilities.getStringFromDate(task.endTime.toDate()), 0);
+
                 //Task completed, change job status: Completed
                 // If tasks fail change status to failed and add exception
                 TaskManager.monitorConnection.setJobStatus(task.getJobID(), JobStatus.COMPLETED, null);
             }
         };
-        queue.registerConsumer(consumer);
+        hekPullerQueue.registerConsumer(consumer);
     }
 
     public static void testJobRecorSQL() {
