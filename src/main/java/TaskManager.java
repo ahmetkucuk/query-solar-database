@@ -1,7 +1,4 @@
 import core.DBPrefs;
-import edu.gsu.dmlab.isd.monitor.IJobRecordConnection;
-import edu.gsu.dmlab.isd.monitor.JobRecord;
-import edu.gsu.dmlab.isd.monitor.JobStatus;
 import edu.gsu.dmlab.isd.monitor.PostgresJobRecordConnection;
 import edu.gsu.dmlab.isd.mq.HEKPullerTask;
 import edu.gsu.dmlab.isd.mq.TaskQueue;
@@ -26,14 +23,11 @@ public class TaskManager {
 
     final static PostgresJobRecordConnection monitorConnection = new PostgresJobRecordConnection(DBPrefs.getDataSource());
 
-    private TaskManager() {
-
-    }
+    private TaskManager() {}
 
     public static TaskManager getInstance() {
         return instance;
     }
-
 
     public void startWithFixedRate() {
 

@@ -2,6 +2,7 @@ package core;
 
 import org.apache.commons.dbcp2.BasicDataSource;
 
+import java.util.HashMap;
 import java.util.Map;
 
 /**
@@ -46,6 +47,7 @@ public class DBPrefs {
                     envName,
                     env.get(envName));
         }
+
         BasicDataSource dbPoolSourc = new BasicDataSource();
 		dbPoolSourc.setSoftMinEvictableIdleTimeMillis(6500);
 		dbPoolSourc.setDefaultAutoCommit(true);

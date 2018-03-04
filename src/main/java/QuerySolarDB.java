@@ -1,16 +1,18 @@
+import core.DBPrefs;
 import core.EventAttributeManager;
 import edu.gsu.dmlab.isd.monitor.JobStatus;
+import edu.gsu.dmlab.isd.monitor.PostgresJobRecordConnection;
 import edu.gsu.dmlab.isd.mq.HEKPullerTask;
 import edu.gsu.dmlab.isd.mq.TaskConsumer;
 import org.apache.commons.lang3.time.DateUtils;
+import org.joda.time.DateTime;
 import services.SolarDatabaseAPI;
 import utils.StatusLogger;
 import utils.Utilities;
 
 import java.text.ParseException;
-import java.util.Date;
-import java.util.Timer;
-import java.util.TimerTask;
+import java.util.*;
+
 import edu.gsu.dmlab.isd.mq.TaskQueue;
 
 
@@ -22,7 +24,6 @@ public class QuerySolarDB {
     private static final int DAILY_UPDATE_INTERVAL = 1000*60*60*24;
     final static TaskQueue queue =  new TaskQueue("abc");
 
-
     //scp target/query-solar-database-1.0-SNAPSHOT-jar-with-dependencies.jar ahmet@dmlab.cs.gsu.edu:/home/ahmet/workspace/solardb-pull
     //nohup /home/ahmet/tools/jdk1.8.0_73/bin/java -jar query-solar-database-1.0-SNAPSHOT-jar-with-dependencies.jar "/home/ahmet/workspace/solardb-pull/json-files/" "month" "2016-07-07T02:00:00" "2016-07-13T02:00:00" > output_flares.txt 2>&1
     //mvn clean compile assembly:single
@@ -32,10 +33,9 @@ public class QuerySolarDB {
 
     public static void main(String[] args) throws Exception {
         System.out.println("HEK PULLER HAS BEEN STARTED");
-        TaskManager.getInstance().startWithFixedRate();
 
-//        monitorConnection.createJobRecordTable();
-        // Define a TaskConsumer to receive tasks
+        TaskManager.getInstance().startWithFixedRate();
+        TaskManager.monitorConnection.createJobRecordTable();
         TaskConsumer<HEKPullerTask> consumer = new TaskConsumer<HEKPullerTask>(
                 queue.getChannel(), HEKPullerTask.class) {
             public void handleTask(HEKPullerTask task) {
@@ -51,6 +51,24 @@ public class QuerySolarDB {
             }
         };
         queue.registerConsumer(consumer);
+    }
+
+    public static void testJobRecorSQL() {
+
+
+        Map<String, String> env = new HashMap<>();
+        env.put("POSTGRES_USER", "postgres");
+        env.put("POSTGRES_PASSWORD", "");
+        env.put("POSTGRES_DB", "postgres");
+        env.put("POSTGRE_SQL_DB_HOST", "localhost");
+        PostgresJobRecordConnection monitorConnection = new PostgresJobRecordConnection(DBPrefs.getDataSource());
+
+        monitorConnection.createJobRecordTable();
+        HEKPullerTask task = new HEKPullerTask(new DateTime(), new DateTime());
+        task.createJobRecord(monitorConnection);
+        System.out.println(monitorConnection.getRecord(task.getJobID()));
+        monitorConnection.setJobStatus(task.getJobID(), JobStatus.COMPLETED, "Exception");
+        System.out.println(monitorConnection.getRecord(task.getJobID()));
     }
 
     public static void startWithFixedRate(final SolarDatabaseAPI api) {
