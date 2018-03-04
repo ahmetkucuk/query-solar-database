@@ -41,6 +41,11 @@ public class DBPrefs {
     public static BasicDataSource getDataSource() {
 
         Map<String, String> env = System.getenv();
+        for (String envName : env.keySet()) {
+            System.out.format("%s=%s%n",
+                    envName,
+                    env.get(envName));
+        }
         BasicDataSource dbPoolSourc = new BasicDataSource();
 		dbPoolSourc.setSoftMinEvictableIdleTimeMillis(6500);
 		dbPoolSourc.setDefaultAutoCommit(true);
