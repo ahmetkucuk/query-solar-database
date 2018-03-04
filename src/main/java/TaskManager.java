@@ -1,11 +1,9 @@
-import core.TableCreator;
 import edu.gsu.dmlab.isd.monitor.IJobRecordConnection;
 import edu.gsu.dmlab.isd.monitor.JobRecord;
 import edu.gsu.dmlab.isd.monitor.JobStatus;
 import edu.gsu.dmlab.isd.mq.HEKPullerTask;
 import edu.gsu.dmlab.isd.mq.TaskQueue;
 import org.joda.time.DateTime;
-import services.SolarDatabaseAPI;
 import java.util.concurrent.Executors;
 import java.util.concurrent.ScheduledExecutorService;
 import java.util.concurrent.ScheduledFuture;
@@ -21,7 +19,7 @@ public class TaskManager {
     private final ScheduledExecutorService scheduler =
             Executors.newScheduledThreadPool(1);
 
-    final static TaskQueue queue =  new TaskQueue("abc");
+    final static TaskQueue queue =  new TaskQueue("abc", "rabbitmq");
     private ScheduledFuture<?> taskCreatorHandle;
 
     // This will be replaced by actual DBConnection
