@@ -2,6 +2,8 @@ package core;
 
 import org.apache.commons.dbcp2.BasicDataSource;
 
+import java.util.Map;
+
 /**
  * Created by ahmetkucuk on 28/12/15.
  */
@@ -37,6 +39,8 @@ public class DBPrefs {
     }
 
     public static BasicDataSource getDataSource() {
+
+        Map<String, String> env = System.getenv();
         BasicDataSource dbPoolSourc = new BasicDataSource();
 		dbPoolSourc.setSoftMinEvictableIdleTimeMillis(6500);
 		dbPoolSourc.setDefaultAutoCommit(true);
@@ -45,11 +49,11 @@ public class DBPrefs {
         dbPoolSourc.setMinIdle(1);
         dbPoolSourc.setMaxIdle(10);
         dbPoolSourc.setMaxTotal(100);
-        dbPoolSourc.setUsername("ahmetkucuk");
-        dbPoolSourc.setPassword("");
+        dbPoolSourc.setUsername(env.get("POSTGRES_USER"));
+        dbPoolSourc.setPassword(env.get("POSTGRES_PASSWORD"));
         dbPoolSourc.setValidationQuery("SELECT 1;");
         dbPoolSourc.setDriverClassName("org.postgresql.Driver");
-        dbPoolSourc.setUrl("jdbc:postgresql://localhost/isd");
+        dbPoolSourc.setUrl("jdbc:postgresql://localhost/" + env.get("POSTGRES_DB"));
         return dbPoolSourc;
     }
     

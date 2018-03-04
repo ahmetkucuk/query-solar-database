@@ -1,6 +1,8 @@
+import core.DBPrefs;
 import edu.gsu.dmlab.isd.monitor.IJobRecordConnection;
 import edu.gsu.dmlab.isd.monitor.JobRecord;
 import edu.gsu.dmlab.isd.monitor.JobStatus;
+import edu.gsu.dmlab.isd.monitor.PostgresJobRecordConnection;
 import edu.gsu.dmlab.isd.mq.HEKPullerTask;
 import edu.gsu.dmlab.isd.mq.TaskQueue;
 import org.joda.time.DateTime;
@@ -22,30 +24,7 @@ public class TaskManager {
     final static TaskQueue queue =  new TaskQueue("abc", "rabbitmq");
     private ScheduledFuture<?> taskCreatorHandle;
 
-    // This will be replaced by actual DBConnection
-    public static final IJobRecordConnection mockConnection = new IJobRecordConnection() {
-
-        @Override
-        public boolean createJobRecordTable() { return false; }
-
-        @Override
-        public JobRecord getRecord(long id) { return null; }
-
-        @Override
-        public long insertRecord(JobRecord record) {
-            System.out.println("Job is inserted to db table");
-            return 10;
-        }
-
-        @Override
-        public boolean setJobStatus(long id, JobStatus status, String exception) {
-            System.out.println("Job " + id + " : status updated to: " + status);
-            if (exception != null) {
-                System.out.println("Job " + id + " FAILED with exception: " + exception);
-            }
-            return true;
-        }
-    };
+    final static PostgresJobRecordConnection monitorConnection = new PostgresJobRecordConnection(DBPrefs.getDataSource());
 
     private TaskManager() {
 
@@ -62,7 +41,7 @@ public class TaskManager {
             public void run() {
                 HEKPullerTask task = new HEKPullerTask(new DateTime(), new DateTime());
 
-                if (task.createJobRecord(mockConnection)) {
+                if (task.createJobRecord(monitorConnection)) {
                     System.out.println("Job creation is successful");
                 }
 
