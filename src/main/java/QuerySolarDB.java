@@ -37,6 +37,7 @@ public class QuerySolarDB {
         TaskManager.getInstance().startWithFixedRate();
         TaskManager.monitorConnection.createJobRecordTable();
 
+        EventAttributeManager.init();
         SolarDatabaseAPI api = new SolarDatabaseAPI();
         api.createDatabaseSchema();
 

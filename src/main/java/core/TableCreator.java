@@ -29,7 +29,8 @@ public class TableCreator {
 
     public void createTables() {
 
-    	
+        connection.executeCommand("CREATE EXTENSION postgis;");
+
         for(EventType e: EventType.values()) {
             for(String query:createTableQuery(e)) {
                 connection.executeCommand(query);

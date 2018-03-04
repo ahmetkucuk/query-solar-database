@@ -25,7 +25,7 @@ public class TestCreateDatabase {
 //        QuerySolarDB.retrieveInChunks(mockApi, "2000-07-07T02:00:00", "2010-07-13T02:00:00", 1);
         EventAttributeManager.init();
         DBConnection mockConnection = Mockito.mock(DBConnection.class);
-        Mockito.doNothing().when(mockConnection).connect();
+        Mockito.doNothing().when(mockConnection);
         Mockito.doNothing().when(mockConnection).closeConnection();
         Mockito.doReturn(true).when(mockConnection).executeCommand(Mockito.anyString());
         TableCreator tableCreator = new TableCreator(mockConnection);

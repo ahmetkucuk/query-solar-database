@@ -11,10 +11,6 @@ public class DBConnection {
     private Connection connection;
 
     private DBConnection() {
-
-    }
-
-    public void connect() {
         try
         {
             System.out.println("Connecting to DB");
@@ -38,7 +34,6 @@ public class DBConnection {
 
     public static DBConnection getNewConnection() {
         DBConnection connection = new DBConnection();
-        connection.connect();
         return connection;
     }
 
