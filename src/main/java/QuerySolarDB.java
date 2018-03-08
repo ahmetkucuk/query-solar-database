@@ -3,7 +3,7 @@ import core.EventAttributeManager;
 import edu.gsu.dmlab.isd.monitor.JobStatus;
 import edu.gsu.dmlab.isd.monitor.PostgresJobRecordConnection;
 import edu.gsu.dmlab.isd.mq.HEKPullerTask;
-import edu.gsu.dmlab.isd.mq.TaskConsumer;
+import edu.gsu.dmlab.isd.mq.TaskHandler;
 import org.apache.commons.lang3.time.DateUtils;
 import org.joda.time.DateTime;
 import services.SolarDatabaseAPI;
@@ -41,8 +41,7 @@ public class QuerySolarDB {
         SolarDatabaseAPI api = new SolarDatabaseAPI();
         api.createDatabaseSchema();
 
-        TaskConsumer<HEKPullerTask> consumer = new TaskConsumer<HEKPullerTask>(
-                hekPullerQueue.getChannel(), HEKPullerTask.class) {
+        TaskHandler<HEKPullerTask> handler = new TaskHandler<HEKPullerTask>(HEKPullerTask.class) {
             public void handleTask(HEKPullerTask task) {
                 //Task Arrived, change job status: Processing
                 TaskManager.monitorConnection.setJobStatus(task.getJobID(), JobStatus.PROCESSING, null);
@@ -58,7 +57,11 @@ public class QuerySolarDB {
                 TaskManager.monitorConnection.setJobStatus(task.getJobID(), JobStatus.COMPLETED, null);
             }
         };
-        hekPullerQueue.registerConsumer(consumer);
+        hekPullerQueue.registerConsumer(handler);
+        while(true) {
+            System.out.println("Waiting for tasks");
+            Thread.sleep(5000);
+        }
     }
 
     public static void testJobRecorSQL() {
