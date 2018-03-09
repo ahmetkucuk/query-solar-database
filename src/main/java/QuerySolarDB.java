@@ -26,7 +26,10 @@ import edu.gsu.dmlab.isd.mq.TaskQueue;
 public class QuerySolarDB {
 
     private static final int DAILY_UPDATE_INTERVAL = 1000*60*60*24;
-    final static TaskQueue hekPullerQueue =  new TaskQueue("HEK_PULLER", "rabbitmq");
+    final static String RABBIT_MQ_HOST = "rabbitmq";
+    final static int RABBIT_MQ_PORT = 5672;
+    final static String RABBIT_MQ_QUEUE_NAME = "HEK_PULLER";
+    final static TaskQueue hekPullerQueue =  new TaskQueue(RABBIT_MQ_QUEUE_NAME, RABBIT_MQ_HOST, RABBIT_MQ_PORT);
 
     //scp target/query-solar-database-1.0-SNAPSHOT-jar-with-dependencies.jar ahmet@dmlab.cs.gsu.edu:/home/ahmet/workspace/solardb-pull
     //nohup /home/ahmet/tools/jdk1.8.0_73/bin/java -jar query-solar-database-1.0-SNAPSHOT-jar-with-dependencies.jar "/home/ahmet/workspace/solardb-pull/json-files/" "month" "2016-07-07T02:00:00" "2016-07-13T02:00:00" > output_flares.txt 2>&1
@@ -40,6 +43,7 @@ public class QuerySolarDB {
     public static void main(String[] args) throws Exception {
         System.out.println("HEK PULLER HAS BEEN STARTED");
         DBPrefs.waitUntilConnected();
+        DBPrefs.waitUntilRabbitMqReady(RABBIT_MQ_HOST, RABBIT_MQ_PORT);
         Files.createDirectories(Paths.get(LOGGER_PATH));
         StatusLogger.init(LOGGER_PATH);
         TaskManager.init(DBPrefs.getDataSource());

@@ -1,13 +1,18 @@
 package core;
 
+import com.rabbitmq.client.AMQP;
+import com.rabbitmq.client.Channel;
+import com.rabbitmq.client.ConnectionFactory;
 import org.apache.commons.dbcp2.BasicDataSource;
 
 import javax.sql.DataSource;
+import java.io.IOException;
 import java.sql.Connection;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.concurrent.TimeoutException;
 
 /**
  * Created by ahmetkucuk on 28/12/15.
@@ -51,6 +56,13 @@ public class DBPrefs {
         return env;
     }
 
+    public static void pause() {
+        try {
+            Thread.sleep(2000);
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
+    }
 
     public static void waitUntilConnected() {
 
@@ -75,11 +87,7 @@ public class DBPrefs {
             } catch (SQLException var9) {
                 var9.printStackTrace();
             }
-            try {
-                Thread.sleep(1000);
-            } catch (InterruptedException e) {
-                e.printStackTrace();
-            }
+            pause();
             System.out.println("Waiting for DB Connection");
         }
         try {
@@ -88,7 +96,28 @@ public class DBPrefs {
             e.printStackTrace();
         }
     }
-    
+
+    public static void waitUntilRabbitMqReady(String host, int port) {
+        System.out.println("Sending Task");
+        ConnectionFactory factory = new ConnectionFactory();
+        factory.setHost(host);
+        factory.setPort(port);
+
+        boolean connected = false;
+        while(!connected) {
+            try {
+                com.rabbitmq.client.Connection e = factory.newConnection();
+                e.close();
+                connected = true;
+            } catch (TimeoutException | IOException var5) {
+                var5.printStackTrace();
+            }
+
+            pause();
+            System.out.println("Waiting for Rabbit MQ Connection");
+        }
+
+    }
 
 }
 
