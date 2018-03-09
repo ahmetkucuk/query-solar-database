@@ -1,8 +1,6 @@
 package core;
 
 import org.apache.commons.dbcp2.BasicDataSource;
-import org.apache.commons.lang3.SystemUtils;
-import org.apache.commons.math3.geometry.spherical.oned.S1Point;
 
 import javax.sql.DataSource;
 import java.sql.Connection;
