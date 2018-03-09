@@ -1,24 +1,21 @@
 import core.DBPrefs;
 import core.EventAttributeManager;
+import core.TaskManager;
 import edu.gsu.dmlab.isd.monitor.JobStatus;
 import edu.gsu.dmlab.isd.monitor.PostgresJobRecordConnection;
 import edu.gsu.dmlab.isd.mq.HEKPullerTask;
 import edu.gsu.dmlab.isd.mq.TaskHandler;
+import monitor.MonitorApp;
 import org.apache.commons.lang3.time.DateUtils;
 import org.joda.time.DateTime;
 import services.SolarDatabaseAPI;
 import utils.StatusLogger;
 import utils.Utilities;
 
-import java.sql.Connection;
-import java.sql.SQLException;
-import java.sql.Statement;
 import java.text.ParseException;
 import java.util.*;
 
 import edu.gsu.dmlab.isd.mq.TaskQueue;
-
-import javax.sql.DataSource;
 
 
 /**
@@ -39,8 +36,10 @@ public class QuerySolarDB {
     public static void main(String[] args) throws Exception {
         System.out.println("HEK PULLER HAS BEEN STARTED");
         DBPrefs.waitUntilConnected();
-        TaskManager.getInstance().startWithFixedRate();
-        TaskManager.monitorConnection.createJobRecordTable();
+        TaskManager.init(DBPrefs.getDataSource());
+        TaskManager.instance().startWithFixedRate();
+        TaskManager.jobConnection().createJobRecordTable();
+        MonitorApp.startServer();
 
         EventAttributeManager.init();
         SolarDatabaseAPI api = new SolarDatabaseAPI();
@@ -49,7 +48,7 @@ public class QuerySolarDB {
         TaskHandler<HEKPullerTask> handler = new TaskHandler<HEKPullerTask>(HEKPullerTask.class) {
             public void handleTask(HEKPullerTask task) {
                 //Task Arrived, change job status: Processing
-                TaskManager.monitorConnection.setJobStatus(task.getJobID(), JobStatus.PROCESSING, null);
+                TaskManager.jobConnection().setJobStatus(task.getJobID(), JobStatus.PROCESSING, null);
 
                 // Pull Events in here
                 System.out.println("Handling Task: " + task);
@@ -59,7 +58,7 @@ public class QuerySolarDB {
 
                 //Task completed, change job status: Completed
                 // If tasks fail change status to failed and add exception
-                TaskManager.monitorConnection.setJobStatus(task.getJobID(), JobStatus.COMPLETED, null);
+                TaskManager.jobConnection().setJobStatus(task.getJobID(), JobStatus.COMPLETED, null);
             }
         };
         hekPullerQueue.registerConsumer(handler);

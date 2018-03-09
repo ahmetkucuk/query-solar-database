@@ -1,10 +1,12 @@
-import core.DBPrefs;
+package core;
+
 import edu.gsu.dmlab.isd.monitor.PostgresJobRecordConnection;
 import edu.gsu.dmlab.isd.mq.HEKPullerTask;
 import edu.gsu.dmlab.isd.mq.TaskQueue;
 import org.joda.time.DateTime;
 import utils.Utilities;
 
+import javax.sql.DataSource;
 import java.util.concurrent.Executors;
 import java.util.concurrent.ScheduledExecutorService;
 import java.util.concurrent.ScheduledFuture;
@@ -16,7 +18,7 @@ import java.util.concurrent.TimeUnit;
 public class TaskManager {
 
     private static final int TASK_CREATION_INTERVAL = 30;
-    private static final TaskManager instance = new TaskManager();
+    private static TaskManager instance;
     private final ScheduledExecutorService scheduler =
             Executors.newScheduledThreadPool(1);
 
@@ -24,12 +26,29 @@ public class TaskManager {
     final static TaskQueue imagePullerQueue =  new TaskQueue("IMAGE_PULLER", "rabbitmq");
     private ScheduledFuture<?> taskCreatorHandle;
 
-    final static PostgresJobRecordConnection monitorConnection = new PostgresJobRecordConnection(DBPrefs.getDataSource());
+    private PostgresJobRecordConnection monitorConnection;
 
-    private TaskManager() {}
+    private TaskManager(DataSource dataSource) {
+        monitorConnection = new PostgresJobRecordConnection(DBPrefs.getDataSource());
+    }
 
-    public static TaskManager getInstance() {
+    public static void init(DataSource dataSource) {
+        instance = new TaskManager(dataSource);
+    }
+
+    public static TaskManager instance() {
+        if (instance == null) {
+            System.err.println("Init should be called before calling instance in TaskManager");
+        }
         return instance;
+    }
+
+    public static PostgresJobRecordConnection jobConnection() {
+        return instance.getJobConnection();
+    }
+
+    public PostgresJobRecordConnection getJobConnection() {
+        return monitorConnection;
     }
 
     public void startWithFixedRate() {
