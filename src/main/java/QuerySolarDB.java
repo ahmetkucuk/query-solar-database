@@ -12,6 +12,8 @@ import services.SolarDatabaseAPI;
 import utils.StatusLogger;
 import utils.Utilities;
 
+import java.nio.file.Files;
+import java.nio.file.Paths;
 import java.text.ParseException;
 import java.util.*;
 
@@ -33,9 +35,13 @@ public class QuerySolarDB {
     //nohup /home/ahmet/tools/jdk1.8.0_73/bin/java -jar query-solar-database/target/query-solar-database-1.0-SNAPSHOT-jar-with-dependencies.jar "/home/ahmet/workspace/solardb-pull/json-files/" "month" "2010-07-07T02:00:00" "2017-04-30T02:00:00" "no" > output_all.txt 2>&1 &
     static String[] arg = new String[] {"/Users/ahmetkucuk/Documents", "all", "2016-07-10T02:00:00", "2016-07-13T02:00:00", "createSchema"};
 
+    final static String LOGGER_PATH = "/isd_log/status_logger/";
+
     public static void main(String[] args) throws Exception {
         System.out.println("HEK PULLER HAS BEEN STARTED");
         DBPrefs.waitUntilConnected();
+        Files.createDirectories(Paths.get(LOGGER_PATH));
+        StatusLogger.init(LOGGER_PATH);
         TaskManager.init(DBPrefs.getDataSource());
         TaskManager.instance().startWithFixedRate();
         TaskManager.jobConnection().createJobRecordTable();
