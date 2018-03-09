@@ -4,6 +4,10 @@ import org.apache.commons.dbcp2.BasicDataSource;
 import org.apache.commons.lang3.SystemUtils;
 import org.apache.commons.math3.geometry.spherical.oned.S1Point;
 
+import javax.sql.DataSource;
+import java.sql.Connection;
+import java.sql.SQLException;
+import java.sql.Statement;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -47,6 +51,44 @@ public class DBPrefs {
         env.put("POSTGRES_DB", "postgres");
         env.put("POSTGRE_SQL_DB_HOST", "localhost");
         return env;
+    }
+
+
+    public static void waitUntilConnected() {
+
+        boolean connected = false;
+        Connection ex = null;
+        while(!connected) {
+            try {
+                DataSource dsourc = getDataSource();
+                try {
+                    ex = dsourc.getConnection();
+                    ex.setAutoCommit(true);
+                    Statement ex1 = ex.createStatement();
+                    connected = ex1.execute("SELECT 1;");
+                } catch (SQLException var7) {
+                    System.out.println("Failed to Connect. Will retry");
+                } finally {
+                    if(ex != null) {
+                        ex.close();
+                    }
+
+                }
+            } catch (SQLException var9) {
+                var9.printStackTrace();
+            }
+            try {
+                Thread.sleep(1000);
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            }
+            System.out.println("Waiting for DB Connection");
+        }
+        try {
+            ex.close();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
     }
     
 

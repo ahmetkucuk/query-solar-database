@@ -10,10 +10,15 @@ import services.SolarDatabaseAPI;
 import utils.StatusLogger;
 import utils.Utilities;
 
+import java.sql.Connection;
+import java.sql.SQLException;
+import java.sql.Statement;
 import java.text.ParseException;
 import java.util.*;
 
 import edu.gsu.dmlab.isd.mq.TaskQueue;
+
+import javax.sql.DataSource;
 
 
 /**
@@ -33,7 +38,7 @@ public class QuerySolarDB {
 
     public static void main(String[] args) throws Exception {
         System.out.println("HEK PULLER HAS BEEN STARTED");
-
+        DBPrefs.waitUntilConnected();
         TaskManager.getInstance().startWithFixedRate();
         TaskManager.monitorConnection.createJobRecordTable();
 
