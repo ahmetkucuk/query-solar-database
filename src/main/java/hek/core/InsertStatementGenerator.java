@@ -1,9 +1,7 @@
-package core;
+package hek.core;
 
-import com.google.gson.JsonObject;
-import models.DBTable;
-import models.Event;
-import utils.Constants;
+import hek.models.Event;
+import hek.utils.Constants;
 
 import java.util.*;
 import java.util.stream.Collectors;

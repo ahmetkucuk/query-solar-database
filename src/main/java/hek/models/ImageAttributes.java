@@ -1,4 +1,4 @@
-package models;
+package hek.models;
 
 import java.util.Date;
 

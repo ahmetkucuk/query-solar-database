@@ -1,7 +1,7 @@
-package utils;
+package hek.utils;
 
-import models.DBTable;
-import models.EventType;
+import hek.models.DBTable;
+import hek.models.EventType;
 
 import java.io.*;
 import java.util.*;

@@ -1,6 +1,6 @@
-package utils;
+package hek.utils;
 
-import models.ImageAttributes;
+import hek.models.ImageAttributes;
 
 import java.io.*;
 import java.text.ParseException;

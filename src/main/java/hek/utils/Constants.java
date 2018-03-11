@@ -1,4 +1,4 @@
-package utils;
+package hek.utils;
 
 /**
  * Created by ahmetkucuk on 27/09/15.

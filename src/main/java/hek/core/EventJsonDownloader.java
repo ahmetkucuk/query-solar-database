@@ -1,16 +1,15 @@
-package core;
+package hek.core;
 
 import com.google.gson.JsonArray;
 import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
-import utils.StatusLogger;
+import hek.utils.StatusLogger;
 
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.net.MalformedURLException;
-import java.net.SocketException;
 import java.net.URL;
 
 /**

@@ -1,14 +1,13 @@
 
-import core.DBConnection;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.mockito.Mockito;
 import org.powermock.core.classloader.annotations.PrepareForTest;
 import org.powermock.modules.junit4.PowerMockRunner;
-import services.SolarDatabaseAPI;
+import hek.services.SolarDatabaseAPI;
+import task.QuerySolarDB;
 
 import java.text.ParseException;
-import java.util.PriorityQueue;
 
 import static org.powermock.api.mockito.PowerMockito.mockStatic;
 import static org.powermock.api.mockito.PowerMockito.verifyStatic;
@@ -22,7 +21,7 @@ public class TestQuerySolarDB {
 
     @Test
     public void testRetrieveInChunks() throws ParseException {
-        //PowerMockito.when(QuerySolarDB.retrieveAll(null, null, 1)).thenReturn();
+        //PowerMockito.when(task.QuerySolarDB.retrieveAll(null, null, 1)).thenReturn();
         SolarDatabaseAPI mockApi = Mockito.mock(SolarDatabaseAPI.class);
         Mockito.doNothing().when(mockApi).pullEvents(Mockito.anyString(), Mockito.anyString(), Mockito.anyInt());
         QuerySolarDB.retrieveInChunks(mockApi, "2000-07-07T02:00:00", "2010-07-13T02:00:00", 1);

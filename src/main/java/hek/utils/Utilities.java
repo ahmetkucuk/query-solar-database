@@ -1,17 +1,15 @@
-package utils;
+package hek.utils;
 
-import com.google.common.collect.Sets;
 import com.google.gson.JsonArray;
 import com.google.gson.JsonElement;
 import com.google.gson.JsonParser;
-import models.DBTable;
-import models.Event;
 import org.apache.commons.lang3.time.DateUtils;
 
 import java.io.*;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.*;
+import hek.models.Event;
 
 /**
  * Created by ahmetkucuk on 01/10/15.

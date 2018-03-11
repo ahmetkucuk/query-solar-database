@@ -1,7 +1,5 @@
-package core;
+package common.db;
 
-import com.rabbitmq.client.AMQP;
-import com.rabbitmq.client.Channel;
 import com.rabbitmq.client.ConnectionFactory;
 import org.apache.commons.dbcp2.BasicDataSource;
 
@@ -23,6 +21,9 @@ public class DBPrefs {
 //    public static final String DB_NAME = "isd";
 //    public static String DB_USERNAME = "postgres";
 //    public static String DB_USER_PASSWORD = "r3mot3p8sswo4d";
+
+    final static String DEFAULT_RABBIT_MQ_HOST = "rabbitmq";
+    final static int DEFAULT_RABBIT_MQ_PORT = 5672;
 
     public static final int DB_PORT = 5432;
 
@@ -136,6 +137,11 @@ public class DBPrefs {
         dbPoolSourc.setDriverClassName("com.mysql.jdbc.Driver");
         dbPoolSourc.setUrl("jdbc:mysql://" + env.get("POSTGRE_SQL_DB_HOST") + "/" + env.get("POSTGRES_DB"));
         return dbPoolSourc;
+    }
+
+    public static void waitDefaultDBConnections() {
+        DBPrefs.waitUntilConnected();
+        DBPrefs.waitUntilRabbitMqReady(DEFAULT_RABBIT_MQ_HOST, DEFAULT_RABBIT_MQ_PORT);
     }
 
 }

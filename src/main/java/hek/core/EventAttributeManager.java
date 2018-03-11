@@ -1,9 +1,9 @@
-package core;
+package hek.core;
 
-import models.EventType;
-import utils.EventAttributeSeparator;
-import utils.FileManager;
-import utils.Utilities;
+import hek.models.EventType;
+import hek.utils.EventAttributeSeparator;
+import hek.utils.FileManager;
+import hek.utils.Utilities;
 
 import java.util.HashSet;
 import java.util.Map;

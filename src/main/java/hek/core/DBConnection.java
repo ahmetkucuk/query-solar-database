@@ -1,6 +1,6 @@
-package core;
+package hek.core;
 
-import utils.Utilities;
+import hek.utils.Utilities;
 import java.sql.*;
 
 /**

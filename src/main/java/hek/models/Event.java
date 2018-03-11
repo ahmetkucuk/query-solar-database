@@ -1,4 +1,4 @@
-package models;
+package hek.models;
 
 import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;

@@ -1,5 +1,5 @@
 version: "3"
-services:
+hek.services:
     rabbitmq:
         ports:
             - "5672:5672"
@@ -25,6 +25,28 @@ services:
             MYSQL_DATABASE: isd
             MYSQL_USER: isd
             MYSQL_PASSWORD: isd
+    taskscheduler:
+        build: taskscheduler/.
+        volumes:
+            - .:/code
+        links:
+            - rabbitmq
+            - postgresql
+        ports:
+            - "1278:1278"
+        depends_on:
+            - "rabbitmq"
+            - "postgresql"
+        environment:
+            POSTGRE_SQL_DB_HOST: postgresql:5432
+            POSTGRES_USER: isd
+            POSTGRES_PASSWORD: isd
+            POSTGRES_DB: isd
+        entrypoint:
+            - java
+            - -cp
+            - /query-solar-database/target/query-solar-database-1.0-SNAPSHOT-jar-with-dependencies.jar
+            - task.TaskSchedulerRunner
     hekpuller:
         build: hekpuller/.
         volumes:
@@ -42,3 +64,30 @@ services:
             POSTGRES_USER: isd
             POSTGRES_PASSWORD: isd
             POSTGRES_DB: isd
+        entrypoint:
+            - java
+            - -cp
+            - /query-solar-database/target/query-solar-database-1.0-SNAPSHOT-jar-with-dependencies.jar
+            - hek.HekPullerRunner
+    imagepuller:
+        build: imagepuller/.
+        volumes:
+            - .:/code
+        links:
+            - rabbitmq
+            - postgresql
+        ports:
+            - "1278:1278"
+        depends_on:
+            - "rabbitmq"
+            - "postgresql"
+        environment:
+            POSTGRE_SQL_DB_HOST: postgresql:5432
+            POSTGRES_USER: isd
+            POSTGRES_PASSWORD: isd
+            POSTGRES_DB: isd
+        entrypoint:
+            - java
+            - -cp
+            - /query-solar-database/target/query-solar-database-1.0-SNAPSHOT-jar-with-dependencies.jar
+            - image.ImagePullerRunner

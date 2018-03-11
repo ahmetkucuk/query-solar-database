@@ -1,8 +1,7 @@
-package core;
+package hek.core;
 
-import models.DBTable;
-import models.EventType;
-import utils.Constants;
+import hek.models.EventType;
+import hek.utils.Constants;
 
 import java.util.*;
 
@@ -53,8 +52,8 @@ public class TableCreator {
     private List<String> createTriggerStatements() {
     	List<String> triggers = new ArrayList<String>();
     	for(EventType et: EventType.values()){
-    		triggers.add( String.format(utils.Constants.TRIGGER.CREATE_ST_TABLE, et, et, et, et, et, et) );
-    		triggers.add( String.format(utils.Constants.TRIGGER.CREATE_TRIGGER, et, et, et, et, et, et, et) );
+    		triggers.add( String.format(hek.utils.Constants.TRIGGER.CREATE_ST_TABLE, et, et, et, et, et, et) );
+    		triggers.add( String.format(hek.utils.Constants.TRIGGER.CREATE_TRIGGER, et, et, et, et, et, et, et) );
     	}
 		return triggers;
 	}

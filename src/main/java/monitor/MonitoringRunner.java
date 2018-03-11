@@ -1,6 +1,6 @@
 package monitor;
 
-import core.TaskManager;
+import task.core.TaskManager;
 import edu.gsu.dmlab.isd.monitor.JobRecord;
 import edu.gsu.dmlab.isd.mq.Utils;
 import fi.iki.elonen.NanoHTTPD;
@@ -12,9 +12,9 @@ import java.util.List;
 /**
  * Created by ahmetkucuk on 3/8/18.
  */
-public class MonitorApp extends NanoHTTPD{
+public class MonitoringRunner extends NanoHTTPD{
 
-    public MonitorApp() throws IOException {
+    public MonitoringRunner() throws IOException {
         super(1278);
         start(NanoHTTPD.SOCKET_READ_TIMEOUT, false);
         System.out.println("\nRunning! Point your browsers to http://localhost:1278/ \n");
@@ -22,7 +22,7 @@ public class MonitorApp extends NanoHTTPD{
 
     public static void startServer() {
         try {
-            new MonitorApp();
+            new MonitoringRunner();
         } catch (IOException ioe) {
             System.err.println("Couldn't start server:\n" + ioe);
         }

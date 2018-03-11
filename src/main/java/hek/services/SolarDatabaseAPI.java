@@ -1,13 +1,13 @@
-package services;
+package hek.services;
 
 import com.google.gson.JsonArray;
 import com.google.gson.JsonElement;
-import core.TableCreator;
-import core.DBConnection;
-import core.EventJsonDownloader;
-import core.InsertStatementGenerator;
-import models.Event;
-import models.EventType;
+import hek.core.TableCreator;
+import hek.core.DBConnection;
+import hek.core.EventJsonDownloader;
+import hek.core.InsertStatementGenerator;
+import hek.models.Event;
+import hek.models.EventType;
 import org.apache.commons.lang3.StringUtils;
 
 import java.util.*;
