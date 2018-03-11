@@ -119,5 +119,24 @@ public class DBPrefs {
 
     }
 
+    public static BasicDataSource getImageDataSource() {
+
+        Map<String, String> env = System.getenv();
+
+        BasicDataSource dbPoolSourc = new BasicDataSource();
+        dbPoolSourc.setSoftMinEvictableIdleTimeMillis(6500);
+        dbPoolSourc.setDefaultAutoCommit(true);
+        dbPoolSourc.setPoolPreparedStatements(false);
+        dbPoolSourc.setDefaultQueryTimeout(60);
+        dbPoolSourc.setMinIdle(2);
+        dbPoolSourc.setMaxIdle(10);
+        dbPoolSourc.setMaxTotal(100);
+        dbPoolSourc.setUsername(env.get("MYSQL_USER"));
+        dbPoolSourc.setPassword(env.get("MYSQL_PASSWORD"));
+        dbPoolSourc.setDriverClassName("com.mysql.jdbc.Driver");
+        dbPoolSourc.setUrl("jdbc:mysql://" + env.get("POSTGRE_SQL_DB_HOST") + "/" + env.get("POSTGRES_DB"));
+        return dbPoolSourc;
+    }
+
 }
 
