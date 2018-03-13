@@ -1,5 +1,6 @@
 package monitor;
 
+import common.db.JobRecordConnectionProvider;
 import task.core.TaskManager;
 import edu.gsu.dmlab.isd.monitor.JobRecord;
 import edu.gsu.dmlab.isd.mq.Utils;
@@ -31,7 +32,7 @@ public class MonitoringRunner extends NanoHTTPD{
     @Override
     public Response serve(IHTTPSession session) {
         DateTime fromDate = DateTime.now().minusDays(10);
-        List<JobRecord> records = TaskManager.jobConnection().getJobRecordsFromDate(fromDate);
+        List<JobRecord> records = JobRecordConnectionProvider.connection().getJobRecordsFromDate(fromDate);
         String json = Utils.getJodoAwareGson().toJson(records);
         return newFixedLengthResponse(NanoHTTPD.Response.Status.OK, "application/json", json);
     }

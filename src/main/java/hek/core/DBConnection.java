@@ -1,5 +1,6 @@
 package hek.core;
 
+import common.db.DBPrefs;
 import hek.utils.Utilities;
 import java.sql.*;
 
