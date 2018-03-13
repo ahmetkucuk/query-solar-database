@@ -70,6 +70,30 @@
 			<version>1.9.5</version>
 		</dependency>
 
+		<dependency>
+			<groupId>joda-time</groupId>
+			<artifactId>joda-time</artifactId>
+			<version>2.9.9</version>
+		</dependency>
+
+		<dependency>
+			<groupId>org.apache.commons</groupId>
+			<artifactId>commons-dbcp2</artifactId>
+			<version>2.1.1</version>
+		</dependency>
+
+		<dependency>
+			<groupId>edu.gsu.dmlab</groupId>
+			<artifactId>lib</artifactId>
+			<version>0.0.1</version>
+		</dependency>
+
+		<dependency>
+			<groupId>org.nanohttpd</groupId> <!-- <groupId>com.nanohttpd</groupId> for 2.1.0 and earlier -->
+			<artifactId>nanohttpd</artifactId>
+			<version>2.2.0</version>
+		</dependency>
+
 	</dependencies>
 
 	<build>
@@ -83,14 +107,14 @@
 				<plugin>
 					<groupId>org.apache.maven.plugins</groupId>
 					<artifactId>maven-assembly-plugin</artifactId>
-					<version>2.2-beta-4</version>
+					<version>3.1.0</version>
 					<configuration>
 						<descriptorRefs>
 							<descriptorRef>jar-with-dependencies</descriptorRef>
 						</descriptorRefs>
 						<archive>
 							<manifest>
-								<mainClass>QuerySolarDB</mainClass>
+								<mainClass>task.QuerySolarDB</mainClass>
 							</manifest>
 						</archive>
 					</configuration>
@@ -109,7 +133,7 @@
 					<configuration>
 						<archive>
 							<manifest>
-								<mainClass>QuerySolarDB</mainClass>
+								<mainClass>task.TaskSchedulerRunner</mainClass>
 							</manifest>
 						</archive>
 					</configuration>

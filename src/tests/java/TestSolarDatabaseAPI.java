@@ -1,13 +1,8 @@
-import core.DBConnection;
+import hek.core.DBConnection;
 import org.junit.Test;
 import org.junit.runner.RunWith;
-import org.mockito.Mockito;
-import org.powermock.api.mockito.PowerMockito;
 import org.powermock.core.classloader.annotations.PrepareForTest;
 import org.powermock.modules.junit4.PowerMockRunner;
-import services.SolarDatabaseAPI;
-
-import java.sql.SQLException;
 
 /**
  * Created by ahmetkucuk on 5/23/17.
