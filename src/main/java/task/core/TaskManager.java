@@ -3,6 +3,7 @@ package task.core;
 import common.db.JobRecordConnectionProvider;
 import edu.gsu.dmlab.isd.monitor.IJobRecordConnection;
 import edu.gsu.dmlab.isd.mq.HEKPullerTask;
+import edu.gsu.dmlab.isd.mq.ImagePullerTask;
 import edu.gsu.dmlab.isd.mq.TaskQueue;
 import org.joda.time.DateTime;
 import hek.utils.Utilities;
@@ -56,6 +57,10 @@ public class TaskManager {
                 // hek puller before starting to track. Or, when hek puller finish pulling
                 // it can send a tracking task request.
                 hekPullerQueue.sendTask(task);
+
+                DateTime yesterday = new DateTime(Utilities.getYesterday2AM());
+                ImagePullerTask imagePullerTask = new ImagePullerTask(yesterday.minusMinutes(10), yesterday);
+                imagePullerQueue.sendTask(imagePullerTask);
             }
         };
         taskCreatorHandle = scheduler.scheduleAtFixedRate(taskCreator, 0, TASK_CREATION_INTERVAL, TimeUnit.SECONDS);
