@@ -1,5 +1,5 @@
 version: "3"
-hek.services:
+services:
     rabbitmq:
         ports:
             - "5672:5672"
@@ -26,7 +26,7 @@ hek.services:
             MYSQL_USER: isd
             MYSQL_PASSWORD: isd
     taskscheduler:
-        build: taskscheduler/.
+        image: dmlablib
         volumes:
             - .:/code
         links:
@@ -48,14 +48,12 @@ hek.services:
             - /query-solar-database/target/query-solar-database-1.0-SNAPSHOT-jar-with-dependencies.jar
             - task.TaskSchedulerRunner
     hekpuller:
-        build: hekpuller/.
+        image: dmlablib
         volumes:
             - .:/code
         links:
             - rabbitmq
             - postgresql
-        ports:
-            - "1278:1278"
         depends_on:
             - "rabbitmq"
             - "postgresql"
@@ -70,14 +68,12 @@ hek.services:
             - /query-solar-database/target/query-solar-database-1.0-SNAPSHOT-jar-with-dependencies.jar
             - hek.HekPullerRunner
     imagepuller:
-        build: imagepuller/.
+        image: dmlablib
         volumes:
             - .:/code
         links:
             - rabbitmq
             - postgresql
-        ports:
-            - "1278:1278"
         depends_on:
             - "rabbitmq"
             - "postgresql"

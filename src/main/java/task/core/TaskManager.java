@@ -35,7 +35,7 @@ public class TaskManager {
 
     public static TaskManager instance() {
         if (instance == null) {
-            System.err.println("Init should be called before calling instance in TaskManager");
+            instance = new TaskManager();
         }
         return instance;
     }

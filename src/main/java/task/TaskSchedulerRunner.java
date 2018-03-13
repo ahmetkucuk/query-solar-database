@@ -13,7 +13,6 @@ public class TaskSchedulerRunner {
     public static void main(String[] args) {
         System.out.println("Task Scheduler Runner Started!");
         DBPrefs.waitDefaultDBConnections();
-        TaskManager.init(DBPrefs.getDataSource());
         TaskManager.instance().startWithFixedRate();
         JobRecordConnectionProvider.connection().createJobRecordTable();
         MonitoringRunner.startServer();
