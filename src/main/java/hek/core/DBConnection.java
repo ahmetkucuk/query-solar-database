@@ -66,6 +66,23 @@ public class DBConnection {
         return result;
     }
 
+    public boolean exists(String tableName){
+        Statement st = null;
+        try {
+            st = connection.createStatement();
+            String query = "SELECT to_regclass('%s');";
+            ResultSet rs = st.executeQuery(String.format(query, tableName);
+            rs.next();
+            String result = rs.getString(1);
+            rs.close();
+            st.close();
+            return result.equalsIgnoreCase(query);
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return false;
+    }
+
     public boolean executeFromFile(String file) {
 
         String query = Utilities.getFileContent(file);

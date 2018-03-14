@@ -73,7 +73,11 @@ public class SolarDatabaseAPI {
     public void createDatabaseSchema() {
 
         DBConnection connection = DBConnection.getNewConnection();
-        new TableCreator(connection).createTables();
+        if(!connection.exists("ar")) {
+            new TableCreator(connection).createTables();
+        } else {
+            System.out.println("Ar Table exists, skipping table creation");
+        }
     }
 
 //    public void addAdditionalFunctions() {

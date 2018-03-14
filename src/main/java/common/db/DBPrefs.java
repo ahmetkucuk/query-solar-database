@@ -86,7 +86,7 @@ public class DBPrefs {
 
                 }
             } catch (SQLException var9) {
-                var9.printStackTrace();
+                System.out.println("SQLException 1");
             }
             pause();
             System.out.println("Waiting for DB Connection");
@@ -94,7 +94,7 @@ public class DBPrefs {
         try {
             ex.close();
         } catch (SQLException e) {
-            e.printStackTrace();
+            System.out.println("SQLException 2");
         }
     }
 
