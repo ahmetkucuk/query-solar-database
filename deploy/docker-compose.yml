@@ -80,7 +80,7 @@ services:
             - "rabbitmq"
             - "postgresql"
         environment:
-            MYSQL_DB_HOST: mysql:3306
+            MYSQL_DB_HOST: mysql
             MYSQL_ROOT_PASSWORD: isd
             MYSQL_DATABASE: isd
             MYSQL_USER: isd
