@@ -32,5 +32,4 @@ RUN cd dmlablib/ && \
     cd .. && \ 
 	git clone https://github.com/ahmetkucuk/query-solar-database.git && \ 
 	cd query-solar-database/ && \
-	git checkout test && \
 	mvn clean compile assembly:single

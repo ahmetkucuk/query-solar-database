@@ -3,9 +3,10 @@ services:
     rabbitmq:
         ports:
             - "5672:5672"
+            - "15672:15672"
         volumes:
                 - .:/code
-        image: rabbitmq:3
+        image: rabbitmq:3-management
     postgresql:
         image: mdillon/postgis
         restart: on-failure
@@ -79,13 +80,18 @@ services:
         depends_on:
             - "rabbitmq"
             - "postgresql"
+            - "mysql"
         environment:
-            MYSQL_DB_HOST: mysql
+            MYSQL_DB_HOST: mysql:3306
             MYSQL_ROOT_PASSWORD: isd
             MYSQL_DATABASE: isd
             MYSQL_USER: isd
             MYSQL_PASSWORD: isd
             MYSQL_DB: isd
+            POSTGRES_DB_HOST: postgresql:5432
+            POSTGRES_USER: isd
+            POSTGRES_PASSWORD: isd
+            POSTGRES_DB: isd
         entrypoint:
             - java
             - -cp
