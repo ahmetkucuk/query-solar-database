@@ -44,7 +44,7 @@ public class DBPrefs {
         dbPoolSourc.setPassword(env.get("POSTGRES_PASSWORD"));
         dbPoolSourc.setValidationQuery("SELECT 1;");
         dbPoolSourc.setDriverClassName("org.postgresql.Driver");
-        dbPoolSourc.setUrl("jdbc:postgresql://" + env.get("POSTGRE_SQL_DB_HOST") + "/" + env.get("POSTGRES_DB"));
+        dbPoolSourc.setUrl("jdbc:postgresql://" + env.get("POSTGRES_DB_HOST") + "/" + env.get("POSTGRES_DB"));
         return dbPoolSourc;
     }
 
@@ -53,7 +53,7 @@ public class DBPrefs {
         env.put("POSTGRES_USER", "postgres");
         env.put("POSTGRES_PASSWORD", "");
         env.put("POSTGRES_DB", "postgres");
-        env.put("POSTGRE_SQL_DB_HOST", "localhost");
+        env.put("POSTGRES_DB_HOST", "localhost");
         return env;
     }
 
@@ -79,6 +79,7 @@ public class DBPrefs {
                     connected = ex1.execute("SELECT 1;");
                 } catch (SQLException var7) {
                     System.out.println("Failed to Connect. Will retry");
+                    var7.printStackTrace();
                 } finally {
                     if(ex != null) {
                         ex.close();
@@ -135,7 +136,7 @@ public class DBPrefs {
         dbPoolSourc.setUsername(env.get("MYSQL_USER"));
         dbPoolSourc.setPassword(env.get("MYSQL_PASSWORD"));
         dbPoolSourc.setDriverClassName("com.mysql.jdbc.Driver");
-        dbPoolSourc.setUrl("jdbc:mysql://" + env.get("POSTGRE_SQL_DB_HOST") + "/" + env.get("POSTGRES_DB"));
+        dbPoolSourc.setUrl("jdbc:mysql://" + env.get("MYSQL_DB_HOST") + "/" + env.get("MYSQL_DB"));
         return dbPoolSourc;
     }
 

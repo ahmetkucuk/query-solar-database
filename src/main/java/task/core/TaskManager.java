@@ -45,8 +45,8 @@ public class TaskManager {
 
         final Runnable taskCreator = new Runnable() {
             public void run() {
-                HEKPullerTask task = new HEKPullerTask(new DateTime(Utilities.getToday2AM()),
-                        new DateTime(Utilities.getYesterday2AM()));
+                HEKPullerTask task = new HEKPullerTask(new DateTime(Utilities.getYesterday2AM()),
+                        new DateTime(Utilities.getToday2AM()));
 
                 if (task.createJobRecord(monitorConnection)) {
                     System.out.println("Job creation is successful");
