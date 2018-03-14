@@ -18,6 +18,8 @@ services:
             POSTGRES_USER: isd
             POSTGRES_PASSWORD: isd
             POSTGRES_DB: isd
+        logging:
+            driver: none
     mysql:
         image: mysql
         restart: always

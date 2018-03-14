@@ -79,7 +79,6 @@ public class DBPrefs {
                     connected = ex1.execute("SELECT 1;");
                 } catch (SQLException var7) {
                     System.out.println("Failed to Connect. Will retry");
-                    var7.printStackTrace();
                 } finally {
                     if(ex != null) {
                         ex.close();
@@ -87,7 +86,7 @@ public class DBPrefs {
 
                 }
             } catch (SQLException var9) {
-                var9.printStackTrace();
+                System.out.println("Connection error 1");
             }
             pause();
             System.out.println("Waiting for DB Connection");
@@ -95,7 +94,7 @@ public class DBPrefs {
         try {
             ex.close();
         } catch (SQLException e) {
-            e.printStackTrace();
+            System.out.println("Connection error 2");
         }
     }
 
