@@ -94,6 +94,12 @@
 			<version>2.2.0</version>
 		</dependency>
 
+		<dependency> <!-- Added by me due to error: "Cannot load JDBC driver class ..." -->
+			<groupId>mysql</groupId>
+			<artifactId>mysql-connector-java</artifactId>
+			<version>5.1.6</version>
+		</dependency>
+
 	</dependencies>
 
 	<build>
