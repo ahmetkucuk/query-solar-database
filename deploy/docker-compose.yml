@@ -20,6 +20,8 @@ services:
     mysql:
         image: mysql
         restart: always
+        ports:
+            - "3306:3306"
         environment:
             MYSQL_ROOT_PASSWORD: isd
             MYSQL_DATABASE: isd
@@ -38,7 +40,7 @@ services:
             - "rabbitmq"
             - "postgresql"
         environment:
-            POSTGRE_SQL_DB_HOST: postgresql:5432
+            POSTGRES_DB_HOST: postgresql:5432
             POSTGRES_USER: isd
             POSTGRES_PASSWORD: isd
             POSTGRES_DB: isd
@@ -58,7 +60,7 @@ services:
             - "rabbitmq"
             - "postgresql"
         environment:
-            POSTGRE_SQL_DB_HOST: postgresql:5432
+            POSTGRES_DB_HOST: postgresql:5432
             POSTGRES_USER: isd
             POSTGRES_PASSWORD: isd
             POSTGRES_DB: isd
@@ -78,10 +80,12 @@ services:
             - "rabbitmq"
             - "postgresql"
         environment:
-            POSTGRE_SQL_DB_HOST: postgresql:5432
-            POSTGRES_USER: isd
-            POSTGRES_PASSWORD: isd
-            POSTGRES_DB: isd
+            MYSQL_DB_HOST: mysql:3306
+            MYSQL_ROOT_PASSWORD: isd
+            MYSQL_DATABASE: isd
+            MYSQL_USER: isd
+            MYSQL_PASSWORD: isd
+            MYSQL_DB: isd
         entrypoint:
             - java
             - -cp
