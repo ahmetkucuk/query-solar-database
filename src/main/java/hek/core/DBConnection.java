@@ -71,7 +71,7 @@ public class DBConnection {
         try {
             st = connection.createStatement();
             String query = "SELECT to_regclass('%s');";
-            ResultSet rs = st.executeQuery(String.format(query, tableName);
+            ResultSet rs = st.executeQuery(String.format(query, tableName));
             rs.next();
             String result = rs.getString(1);
             rs.close();
