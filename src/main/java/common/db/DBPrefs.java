@@ -79,6 +79,7 @@ public class DBPrefs {
                     connected = ex1.execute("SELECT 1;");
                 } catch (SQLException var7) {
                     System.out.println("Failed to Connect. Will retry");
+                    var7.printStackTrace();
                 } finally {
                     if(ex != null) {
                         ex.close();
