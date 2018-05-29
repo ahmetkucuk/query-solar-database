@@ -27,10 +27,6 @@ public enum EventType {
         return super.toString();
     }
 
-    public static List<EventType> getARSGFLCH() {
-        return Arrays.asList(AR, SG, FL, CH);
-    }
-
     /**
      * returns even types as List in Arrays class.
      * @return List of solar events
