@@ -5,11 +5,13 @@ import java.util.List;
 
 /**
  * Created by ahmetkucuk on 01/10/15.
+ * @author ahmetkucuk
  * @author jookimmy
  */
 public enum EventType {
     /**
-     * Acronyms representing all the different types of solar events.
+     * Acronyms representing all the different types of solar events. 
+     * Use "http://www.lmsal.com/hek/VOEvent_Spec.html" for specifics.
      */
     AR, CE, CD, CH, CW, FI, FE, FA, FL, LP, OS, SS, EF, CJ, PG, OT, NR, SG, SP, CR, CC, ER, TOB, HY, BU, EE, PB, PT;
 
@@ -32,8 +34,8 @@ public enum EventType {
     }
 
     /**
-     * returns even types as List in Arrays class.
-     * @return List of solar events
+     * This returns List of Solar Event Types (not events)
+     * @return list of Solar Event Types
      */
     public static List<EventType> getAsList() {
         return Arrays.asList(AR, CE, CD, CH, CW, FI, FE, FA, FL, LP, OS, SS, EF, CJ, PG, OT, NR, SG, SP, CR, CC, ER, TOB, HY);
