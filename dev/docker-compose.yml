@@ -1,0 +1,104 @@
+version: "3"
+services:
+    rabbitmq:
+        ports:
+            - "5672:5672"
+            - "15672:15672"
+        volumes:
+                - ../:/code
+        image: rabbitmq:3-management
+    postgresql:
+        image: mdillon/postgis
+        restart: on-failure
+        volumes:
+            - ./:/code/postgresql/data
+        ports:
+            - "5432:5432"
+        environment:
+            POSTGRES_USER: isd
+            POSTGRES_PASSWORD: isd
+            POSTGRES_DB: isd
+        logging:
+            driver: none
+    mysql:
+        image: mysql
+        restart: always
+        ports:
+            - "3306:3306"
+        environment:
+            MYSQL_ROOT_PASSWORD: isd
+            MYSQL_DATABASE: isd
+            MYSQL_USER: isd
+            MYSQL_PASSWORD: isd
+    taskscheduler:
+        image: dmlablib
+        volumes:
+            - ./:/code
+        links:
+            - rabbitmq
+            - postgresql
+        ports:
+            - "1278:1278"
+        depends_on:
+            - "rabbitmq"
+            - "postgresql"
+        environment:
+            POSTGRES_DB_HOST: postgresql:5432
+            POSTGRES_USER: isd
+            POSTGRES_PASSWORD: isd
+            POSTGRES_DB: isd
+        entrypoint:
+            - mvn
+            - -f
+            - ./code/src/pom.xml
+            - exec:java
+            - -Dexec.mainClass="task.TaskSchedulerRunner"
+    hekpuller:
+        image: dmlablib
+        volumes:
+            - ../:/code
+        links:
+            - rabbitmq
+            - postgresql
+        depends_on:
+            - "rabbitmq"
+            - "postgresql"
+        environment:
+            POSTGRES_DB_HOST: postgresql:5432
+            POSTGRES_USER: isd
+            POSTGRES_PASSWORD: isd
+            POSTGRES_DB: isd
+        entrypoint:
+            - mvn
+            - -f
+            - ./code/src/pom.xml
+            - exec:java
+            - -Dexec.mainClass="hek.HekPullerRunner"
+    imagepuller:
+        image: dmlablib
+        volumes:
+            - ../../:/code
+        links:
+            - rabbitmq
+            - postgresql
+        depends_on:
+            - "rabbitmq"
+            - "postgresql"
+            - "mysql"
+        environment:
+            MYSQL_DB_HOST: mysql:3306
+            MYSQL_ROOT_PASSWORD: isd
+            MYSQL_DATABASE: isd
+            MYSQL_USER: isd
+            MYSQL_PASSWORD: isd
+            MYSQL_DB: isd
+            POSTGRES_DB_HOST: postgresql:5432
+            POSTGRES_USER: isd
+            POSTGRES_PASSWORD: isd
+            POSTGRES_DB: isd
+        entrypoint:
+            - mvn
+            - -f
+            - ./code/src/pom.xml
+            - exec:java
+            - -Dexec.mainClass="image.ImagePullerRunner"
