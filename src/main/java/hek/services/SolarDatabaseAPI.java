@@ -60,7 +60,7 @@ public class SolarDatabaseAPI {
         while ((array = eventJsonDownloader.next()) != null) {
             for (JsonElement j : array) {
                 Event e = new Event(j.getAsJsonObject());
-                String kb = e.get("kb_archivid");
+                String kb = e.getAttr("kb_archivid");
                 if (!insertedEvents.contains(kb)) {
                     new InsertStatementGenerator(e).getInsertQueries().forEach(q -> connection.executeCommand(q));
                     insertedEvents.add(kb);
