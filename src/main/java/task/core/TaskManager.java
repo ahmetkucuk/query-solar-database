@@ -15,7 +15,7 @@ import java.util.concurrent.TimeUnit;
 
 /**
  * Class that sends tasks to HEK puller and Image puller, and adds
- * a JobRecord object in the Monitoring DB
+ * a JobRecord object in the Monitoring DB every 30 seconds.
  * @author - ahmetkucuk
  * @author - kqian5
  */
