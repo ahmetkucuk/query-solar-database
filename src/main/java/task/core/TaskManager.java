@@ -14,10 +14,15 @@ import java.util.concurrent.ScheduledFuture;
 import java.util.concurrent.TimeUnit;
 
 /**
- * Created by ahmetkucuk on 2/19/18.
+ * Class that sends tasks to HEK puller and Image puller, and adds
+ * a JobRecord object in the Monitoring DB
+ * @author - ahmetkucuk
+ * @author - kqian5
  */
 public class TaskManager {
 
+	//TODO - create a method that stops startWithFixedRate() method
+	
     private static final int TASK_CREATION_INTERVAL = 30;
     private static TaskManager instance;
     private final ScheduledExecutorService scheduler =
@@ -30,10 +35,18 @@ public class TaskManager {
 
     private IJobRecordConnection monitorConnection;
 
+    /**
+     * Constructor for a TaskManager object that initializes 
+     * a connection to the Monitoring DB
+     */
     private TaskManager() {
         monitorConnection = JobRecordConnectionProvider.connection();
     }
 
+    /**
+     * Method that returns an instance of a TaskManager
+     * @return - an instance of a TaskManager object
+     */
     public static TaskManager instance() {
         if (instance == null) {
             instance = new TaskManager();
@@ -41,8 +54,13 @@ public class TaskManager {
         return instance;
     }
 
+    /**
+     * Method that creates a new HEK puller task, image puller task, 
+     * and job record in Monitoring DB every 30 seconds. These tasks
+     * are created in the background through different threads.
+     * 
+     */
     public void startWithFixedRate() {
-
         final Runnable taskCreator = new Runnable() {
             public void run() {
                 HEKPullerTask task = new HEKPullerTask(new DateTime(Utilities.getYesterday2AM()),
@@ -65,4 +83,4 @@ public class TaskManager {
         };
         taskCreatorHandle = scheduler.scheduleAtFixedRate(taskCreator, 0, TASK_CREATION_INTERVAL, TimeUnit.SECONDS);
     }
-}
+}	
