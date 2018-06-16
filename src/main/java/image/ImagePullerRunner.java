@@ -25,19 +25,44 @@ import java.sql.SQLException;
 
 /**
  * Created by ahmetkucuk on 3/10/18.
+ *
  */
 public class ImagePullerRunner {
 
+
+    /**
+     * Variable to assign name of Host to use for TaskQueue function.
+     */
     final static String RABBIT_MQ_HOST = "rabbitmq";
+
+    /**
+     * Port number assignment to final variable to use for TaskQueue function.
+     */
     final static int RABBIT_MQ_PORT = 5672;
+
+    /**
+     * Name of module/task to access when using the TaskQueue function.
+     */
     final static String RABBIT_MQ_QUEUE_NAME = "IMAGE_PULLER";
+
+    /**
+     * Making the call of TaskQueue using parameters defined above.
+     */
     final static TaskQueue imagePullerQueue =  new TaskQueue(RABBIT_MQ_QUEUE_NAME, RABBIT_MQ_HOST, RABBIT_MQ_PORT);
 
+    /**
+     * Main class to use the Image Puller Module.
+     * @param args - standard array of string arguments that can be passed to application
+     * @throws IOException - input/output exception
+     * @throws InterruptedException - when thread is interrupted either during or before activity
+     */
     public static void main(String[] args) throws IOException, InterruptedException {
         System.out.println("Image Puller Runner Started!");
 
+        //Establishes database connections
         DBPrefs.waitDefaultDBConnections();
 
+        //Creates a new instance of "TaskHandling" ImagePuller tasks as handler
         TaskHandler<ImagePullerTask> handler = new TaskHandler<ImagePullerTask>(ImagePullerTask.class) {
             public void handleTask(ImagePullerTask task) {
                 //Task Arrived, change job status: Processing
@@ -54,8 +79,10 @@ public class ImagePullerRunner {
         };
         imagePullerQueue.registerConsumer(handler);
 
+        //Currently set to run constantly
         while(true) {
             System.out.println("Waiting for tasks");
+            //Timer set to 5 second intervals
             Thread.sleep(5000);
         }
     }
