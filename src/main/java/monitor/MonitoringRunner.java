@@ -45,8 +45,8 @@ public class MonitoringRunner extends NanoHTTPD{
 
     /**
      * Method that looks up a list of JobRecord objects in the DB
-     * for a specific date and formats an appropriate response in
-     * json
+     * for a specific date(10 days prior to request time) and 
+     * formats an appropriate response in json
      */
     @Override
     public Response serve(IHTTPSession session) {
