@@ -25,7 +25,8 @@ import java.sql.SQLException;
 
 /**
  * Created by ahmetkucuk on 3/10/18.
- *
+ * @author ahmetkucuk
+ * @author jookimmy
  */
 public class ImagePullerRunner {
 
@@ -87,25 +88,44 @@ public class ImagePullerRunner {
         }
     }
 
+    /**
+     * Method using the DI helper to download images from input task.
+     * @param task - the task given to the IPR
+     */
     public static void downloadImages(ImagePullerTask task) {
         try {
+            //uses the helper to complete task.
             downloadImagesHelper(task);
+
+          //Exceptions to catch
         } catch (IOException | SQLException | SAXException e) {
             e.printStackTrace();
         }
     }
 
+    /**
+     * The function used in the downloadImages method above.
+     * @param task - task given to the IPR
+     * @throws IOException - thrown when there is an input/output exception in the task
+     * @throws SAXException - XML parsing exception
+     * @throws SQLException - an exception that provides information on a database access error or other errors.
+     */
     public static void downloadImagesHelper(ImagePullerTask task) throws IOException, SAXException, SQLException {
+        //initialized class object buffered image
         BufferedImage bi = null;
 
+        //Data source acquired using DBPrefs class.
         DataSource ds = DBPrefs.getImageDataSource();
+
         IImageDBCreator dbCreator = new ImageDBCreator(DBPrefs.getImageDataSource());
 
+        //Using previously initialized instances of data source, and database creators to use Helioviewer puller.
         HelioviewerPullingImageDBConnection hwConnection = new HelioviewerPullingImageDBConnection(
                 ds,
                 dbCreator,
                 null, 2);
 
+        //Setting interval of startTime and endTime
         Interval interval = new Interval(task.startTime, task.endTime);
 
         // Get the first image within the interval from DMLAB database
