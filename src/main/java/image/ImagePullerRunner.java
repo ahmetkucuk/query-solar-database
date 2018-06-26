@@ -52,6 +52,11 @@ public class ImagePullerRunner {
     final static TaskQueue imagePullerQueue =  new TaskQueue(RABBIT_MQ_QUEUE_NAME, RABBIT_MQ_HOST, RABBIT_MQ_PORT);
 
     /**
+     * Thread sleep time variable in milliseconds.
+     */
+    final static long SleepTime = 5000;
+
+    /**
      * Main class to use the Image Puller Module.
      * @param args - standard array of string arguments that can be passed to application
      * @throws IOException - input/output exception
@@ -84,7 +89,7 @@ public class ImagePullerRunner {
         while(true) {
             System.out.println("Waiting for tasks");
             //Timer set to 5 second intervals
-            Thread.sleep(5000);
+            Thread.sleep(SleepTime);
         }
     }
 
