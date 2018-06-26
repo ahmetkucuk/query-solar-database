@@ -114,9 +114,10 @@ public class ImagePullerRunner {
         //initialized class object buffered image
         BufferedImage bi = null;
 
-        //Data source acquired using DBPrefs class.
+        //Data source acquired using DBPrefs class
         DataSource ds = DBPrefs.getImageDataSource();
 
+        //Interface instance of ImageDBCreator
         IImageDBCreator dbCreator = new ImageDBCreator(DBPrefs.getImageDataSource());
 
         //Using previously initialized instances of data source, and database creators to use Helioviewer puller.
