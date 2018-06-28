@@ -54,7 +54,7 @@ public class ImagePullerRunner {
     /**
      * Thread sleep time variable in milliseconds.
      */
-    final static long sleepTime = 5000;
+    final static long SLEEP_TIME = 5000;
 
     /**
      * Main class to use the Image Puller Module.
@@ -89,7 +89,7 @@ public class ImagePullerRunner {
         while(true) {
             System.out.println("Waiting for tasks");
             //Timer set to 5 second intervals
-            Thread.sleep(sleepTime);
+            Thread.sleep(SLEEP_TIME);
         }
     }
 
