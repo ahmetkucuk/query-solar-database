@@ -41,30 +41,30 @@ public class InsertStatementGenerator {
         Map<String, String> attributeDataTypeMap = EventAttributeManager.getInstance().getAttributeDataTypeMap();
 
         if(EventAttributeManager.geometryAttributes.contains(attribute.toLowerCase())) {
-            String attributeValue = event.get(attribute);
+            String attributeValue = event.getAttr(attribute);
             if(attributeValue == null || attributeValue.isEmpty()) {
                 return null;
             }
-            return String.format(Constants.QUERY.GEOMETRY_FORM, event.get(attribute));
+            return String.format(Constants.QUERY.GEOMETRY_FORM, event.getAttr(attribute));
         }
 
 
         if(attribute.equalsIgnoreCase("event_starttime")) {
-            return "'" + (event.get(attribute) != null ? event.get(attribute).replaceAll("'", " ") : "") + "'";
+            return "'" + (event.getAttr(attribute) != null ? event.getAttr(attribute).replaceAll("'", " ") : "") + "'";
         } else if(attribute.equalsIgnoreCase("event_endtime")) {
-            if(event.get("event_endtime").equalsIgnoreCase(event.get("event_starttime"))) {
-                return "TIMESTAMP '" + (event.get(attribute) != null ? event.get(attribute).replaceAll("'", " ") : "") + "' + INTERVAL '1 second'";
+            if(event.getAttr("event_endtime").equalsIgnoreCase(event.getAttr("event_starttime"))) {
+                return "TIMESTAMP '" + (event.getAttr(attribute) != null ? event.getAttr(attribute).replaceAll("'", " ") : "") + "' + INTERVAL '1 second'";
             }
-            return "'" + (event.get(attribute) != null ? event.get(attribute).replaceAll("'", " ") : "") + "'";
+            return "'" + (event.getAttr(attribute) != null ? event.getAttr(attribute).replaceAll("'", " ") : "") + "'";
         }
 
         if(!attributeDataTypeMap.containsKey(attribute) || attributeDataTypeMap.get(attribute).equalsIgnoreCase("string")) {
-            return "'" + (event.get(attribute) != null ? event.get(attribute).replaceAll("'", " ") : "") + "'";
+            return "'" + (event.getAttr(attribute) != null ? event.getAttr(attribute).replaceAll("'", " ") : "") + "'";
         }
 
-        String attributeValue = event.get(attribute);
-        if(attributeValue == null || event.get(attribute).length() == 0) return "0";
-        return event.get(attribute);
+        String attributeValue = event.getAttr(attribute);
+        if(attributeValue == null || event.getAttr(attribute).length() == 0) return "0";
+        return event.getAttr(attribute);
     }
 
     public List<String> getInsertQueries() {
